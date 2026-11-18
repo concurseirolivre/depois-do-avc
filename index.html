@@ -477,6 +477,14 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
 .story-nav .stepn { text-align: center; font-size: .85rem; color: var(--muted); font-variant-numeric: tabular-nums; }
 .story-nav .btn { min-height: 48px; padding: 0 14px; }
 .story-nav [data-nav="prev"]:disabled { visibility: hidden; }
+.story.in-game .story-nav { background: var(--surface-2); box-shadow: none; }
+.story.in-game .story-nav .stepn { font-weight: 700; color: var(--c); }
+.story-nav [data-nav="next"].btn-ghost { min-height: 44px; font-size: .9rem; color: var(--muted); }
+.story-nav [data-nav="next"].ready { animation: ready 0.8s ease-in-out 3; }
+@keyframes ready { 50% { transform: scale(1.07); box-shadow: 0 0 0 6px var(--c-soft); } }
+.det [data-nx], .talk [data-nx] { width: 100%; min-height: 56px; }
+.det-art img { display: block; width: 100%; height: auto; border-radius: 12px; background: #fff; }
+.mcard .s2 img { width: 92%; height: auto; max-height: 92%; object-fit: contain; border-radius: 8px; }
 
 /* Ilustrações de pessoas */
 .fig { display: block; width: 100%; }
@@ -1691,7 +1699,7 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
         g.classList.add("seen", h.ok ? "ok" : "no");
         seen.add(h.k); $("#roomCount").textContent = seen.size;
         $("#roomOut").innerHTML = `<span class="tag ${h.ok ? "ok" : "no"}">${h.ok ? "Pode usar" : "Não mexa"}</span><b>${h.t}</b>${h.d}`;
-        if (seen.size === ROOM.length) { award(15, "room"); toast("Você conheceu todo o quarto!"); }
+        if (seen.size === ROOM.length) { award(15, "room"); gameDone("[data-view='tema-2'] .scene"); toast("Você conheceu todo o quarto!"); }
       };
       g.addEventListener("click", act);
       g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); act(); } });
@@ -1759,7 +1767,7 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
         f.innerHTML = "<b>" + (ok ? "Acertou!" : d.a === "pode" ? "Neste caso, pode fazer." : "Melhor chamar a equipe.") + "</b>";
         f.appendChild(document.createTextNode(d.w));
         const nx = $("[data-nx]", box); nx.hidden = false;
-        nx.innerHTML = i < PC.length - 1 ? 'Próxima <svg class="i"><use href="#i-right"/></svg>' : "Ver resultado";
+        nx.innerHTML = i < PC.length - 1 ? 'Próxima situação <svg class="i"><use href="#i-right"/></svg>' : "Ver meu resultado";
         nx.onclick = () => { i++; i < PC.length ? show() : end(); };
       });
     }
@@ -1767,7 +1775,7 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
       box.innerHTML = `<div class="det-end"><span class="medal big c-brand"><svg class="i"><use href="#i-users"/></svg></span><h3>Você acertou ${hits} de ${PC.length}</h3>
         <p class="muted">${hits >= 7 ? "Excelente! Você sabe ajudar com segurança." : "Bom começo! Lembre: na dúvida, chame a equipe."}</p><button class="btn btn-ghost" data-go>Jogar de novo</button></div>`;
       $("[data-go]", box).onclick = () => { i = 0; hits = 0; show(); };
-      award(hits * 4, "pc");
+      award(hits * 4, "pc"); gameDone("#pc");
     }
     show();
 
@@ -1797,7 +1805,7 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
           const f = $(".feedback", tb); f.hidden = false; f.className = "feedback " + (ok ? "good" : "bad");
           f.innerHTML = "<b>" + (ok ? "Boa escolha!" : "Pode ser melhor.") + "</b>"; f.appendChild(document.createTextNode(why));
           const nx = $("[data-nx]", tb); nx.hidden = false;
-          nx.innerHTML = ti < TALK.length - 1 ? 'Próximo momento <svg class="i"><use href="#i-right"/></svg>' : "Ver resultado";
+          nx.innerHTML = ti < TALK.length - 1 ? 'Próximo momento <svg class="i"><use href="#i-right"/></svg>' : "Ver meu resultado";
           nx.onclick = () => { ti++; ti < TALK.length ? tshow() : tend(); };
         };
       });
@@ -1806,7 +1814,7 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
       tb.innerHTML = `<div class="det-end"><div style="width:120px">${pfig("smile")}</div><h3>Você acertou ${tr} de ${TALK.length}</h3>
         <p class="muted">Conversar com carinho e paciência faz parte do cuidado.</p><button class="btn btn-ghost" data-go>Jogar de novo</button></div>`;
       $("[data-go]", tb).onclick = () => { ti = 0; tr = 0; tshow(); };
-      award(tr * 4, "talk");
+      award(tr * 4, "talk"); gameDone("#talk");
     }
     tshow();
 
@@ -1923,6 +1931,14 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
   /* ---------- Histórias passo a passo ---------- */
   const NEXT = { "1": "tema-2", "2": "tema-3", "3": "tema-4", "4": "tema-5", "5": "jornada" };
   const stepHooks = [];
+  /* Jogos: marcam a tela como "em jogo" até terminar */
+  function gameStep(sel) { const st = $(sel) && $(sel).closest(".step"); if (st) st.dataset.game = "1"; }
+  function gameDone(sel) {
+    const st = $(sel) && $(sel).closest(".step"); if (!st || st.dataset.done) return;
+    st.dataset.done = "1";
+    const story = st.closest(".story"); if (story && story._nav && st.classList.contains("active")) story._nav();
+  }
+  ["#det", "#sort", "#mem", "#pc", "#talk", "[data-view='tema-2'] .scene"].forEach(gameStep);
   $$(".story").forEach(root => {
     const steps = $$(".step", root), segs = $(".segs", root), n = steps.length;
     const prev = $('[data-nav="prev"]', root), next = $('[data-nav="next"]', root), stepn = $(".stepn", root);
@@ -1934,12 +1950,19 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
       steps.forEach((s, j) => { s.classList.toggle("from-left", back && j === i); s.classList.toggle("active", j === i); });
       $$("button", segs).forEach((b, j) => b.classList.toggle("on", j <= i));
       prev.disabled = i === 0;
-      stepn.textContent = (i + 1) + " de " + n;
-      next.innerHTML = i === n - 1 ? 'Próximo tema <svg class="i"><use href="#i-right"/></svg>' : 'Continuar <svg class="i"><use href="#i-right"/></svg>';
-      cur = i; stopSpeak();
+      cur = i; nav();
+      stopSpeak();
       stepHooks.forEach(h => h(steps[i]));
       window.scrollTo({ top: 0 });
     }
+    function nav() {
+      const st = steps[cur], playing = st.dataset.game && !st.dataset.done;
+      root.classList.toggle("in-game", !!playing);
+      next.className = "btn " + (playing ? "btn-ghost" : "btn-main");
+      stepn.textContent = playing ? "Termine o jogo acima" : (cur + 1) + " de " + n;
+      next.innerHTML = playing ? "Pular jogo" : cur === n - 1 ? 'Próximo tema <svg class="i"><use href="#i-right"/></svg>' : 'Continuar <svg class="i"><use href="#i-right"/></svg>';
+    }
+    root._nav = () => { nav(); next.classList.add("ready"); setTimeout(() => next.classList.remove("ready"), 2400); };
     prev.onclick = () => go(cur - 1);
     next.onclick = () => cur < n - 1 ? go(cur + 1) : (location.hash = NEXT[root.dataset.story] || "inicio");
     go(0);
@@ -2054,7 +2077,7 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
   (function () {
     const box = $("#det"); if (!box) return;
     const DET = [
-      { f: { face: "droop", anim: 1, hair: "bald", old: 1 }, s: "Seu pai está almoçando e, de repente, a boca fica torta para um lado.", a: true, w: "Assimetria facial súbita é sinal de AVC. É o S de Sorriso." },
+      { img: "img/sorriso.gif", s: "Seu pai está almoçando e, de repente, a boca fica torta para um lado.", a: true, w: "Assimetria facial súbita é sinal de AVC. É o S de Sorriso." },
       { f: { face: "worried", arms: "drop", hair: "bun", old: 1, skin: "var(--skin3)", shirt: "var(--care)" }, s: "Sua mãe tenta levantar os dois braços, mas um deles cai sozinho.", a: true, w: "Perda de força de um lado do corpo é sinal de AVC. É o A de Abraço." },
       { f: { face: "neutral", bubble: 1, hair: "short", skin: "var(--skin4)", shirt: "var(--home)" }, s: "Seu irmão começa a falar palavras sem sentido e não entende o que você pergunta.", a: true, w: "Alteração súbita da fala ou da compreensão é sinal de AVC. É o M de Mensagem." },
       { f: { face: "worried", hand: "back", hair: "long", skin: "var(--skin1)", shirt: "var(--rehab)" }, s: "Sua tia tem dor nas costas há meses, que piora quando carrega peso.", a: false, w: "Dor antiga que piora com esforço não é um sinal típico de AVC. Mesmo assim, merece consulta." },
@@ -2067,7 +2090,7 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
     const stop = () => clearInterval(tm);
     function intro() {
       stop();
-      box.innerHTML = `<div class="det-end"><div style="width:120px">${figSvg({ face: "smile", hair: "short", shirt: "var(--alert)", skin: "var(--skin3)" })}</div>
+      box.innerHTML = `<div class="det-end"><div class="det-art" style="width:140px"><img src="img/sorriso.gif" alt="O avô sorri e, de repente, a boca fica torta"></div>
         <h3>8 situações · 12 segundos cada</h3><p class="muted">Quanto mais rápido acertar, mais pontos.</p>
         <button class="btn btn-main" data-go>Começar o jogo <svg class="i"><use href="#i-right"/></svg></button></div>`;
       $("[data-go]", box).onclick = () => { i = 0; hits = 0; score = 0; show(); };
@@ -2076,7 +2099,7 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
       const d = DET[i]; left = T;
       box.innerHTML = `<div class="det-top"><span>Situação ${i + 1} de ${DET.length}</span><span>${score} pts</span></div>
         <div class="tbar"><i></i></div>
-        <div class="det-card"><div class="det-art">${figSvg(d.f)}</div><p>${d.s}</p></div>
+        <div class="det-card"><div class="det-art">${d.img ? `<img src="${d.img}" alt="">` : figSvg(d.f)}</div><p>${d.s}</p></div>
         <div class="det-ans"><button class="btn btn-alert" data-v="1"><svg class="i"><use href="#i-phone"/></svg> É sinal de AVC</button><button class="btn btn-ghost" data-v="0">Não parece AVC</button></div>
         <div class="feedback" hidden></div><div><button class="btn btn-main" data-nx hidden></button></div>`;
       const bar = $(".tbar i", box);
@@ -2093,7 +2116,7 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
       f.innerHTML = "<b>" + (v === null ? "O tempo acabou! Na dúvida, ligue 192." : ok ? "Acertou! +" + got : "Não foi dessa vez.") + "</b>";
       f.appendChild(document.createTextNode(d.w));
       const nx = $("[data-nx]", box); nx.hidden = false;
-      nx.innerHTML = i < DET.length - 1 ? 'Próxima <svg class="i"><use href="#i-right"/></svg>' : "Ver resultado";
+      nx.innerHTML = i < DET.length - 1 ? 'Próxima situação <svg class="i"><use href="#i-right"/></svg>' : "Ver meu resultado";
       nx.onclick = () => { i++; i < DET.length ? show() : end(); };
     }
     function end() {
@@ -2101,7 +2124,7 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
         <h3>Você acertou ${hits} de ${DET.length}</h3><p class="score">${score}</p><p class="muted">${hits >= 7 ? "Excelente, detetive! Você reconhece os sinais de AVC." : "Bom começo! Jogue de novo para fixar os sinais."}</p>
         <button class="btn btn-ghost" data-go>Jogar de novo</button></div>`;
       $("[data-go]", box).onclick = () => { i = 0; hits = 0; score = 0; show(); };
-      award(Math.round(score / 2), "det");
+      award(Math.round(score / 2), "det"); gameDone("#det");
     }
     intro();
     stepHooks.push(() => { if (tm) { stop(); intro(); } });
@@ -2129,7 +2152,7 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
         const ok = b.dataset.v === ans; done++; if (ok) right++;
         li.classList.add(ok ? "right" : "wrong");
         const p = $(".why", li); p.hidden = false; p.textContent = (ok ? "Certo. " : (ans === "faca" ? "Na verdade, faça. " : "Na verdade, não faça. ")) + why;
-        if (done === IT.length) { const r = $("#sortRes"); r.hidden = false; r.textContent = "Você acertou " + right + " de " + IT.length + "!"; award(right * 3, "sort1"); }
+        if (done === IT.length) { const r = $("#sortRes"); r.hidden = false; r.textContent = "Você acertou " + right + " de " + IT.length + "!"; award(right * 3, "sort1"); gameDone("#sort"); }
       });
       ul.appendChild(li);
     });
@@ -2139,11 +2162,11 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
   (function () {
     const grid = $("#mem"); if (!grid) return;
     const ICON = {
-      pa: `<svg viewBox="0 0 54 54"><circle cx="27" cy="27" r="22" fill="none" stroke="var(--line)" stroke-width="6"/><path d="M8 34a20 20 0 0 1 22-27" fill="none" stroke="var(--alert)" stroke-width="6" stroke-linecap="round"/><path d="M27 27l10-10" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/></svg>`,
-      dm: `<svg viewBox="0 0 54 54"><path d="M27 6c8 12 15 20 15 28a15 15 0 0 1-30 0c0-8 7-16 15-28z" fill="var(--alert-soft)" stroke="var(--alert)" stroke-width="3"/><text x="27" y="40" text-anchor="middle" font-size="12" font-weight="700" fill="var(--alert)" font-family="Atkinson Hyperlegible, sans-serif">mg</text></svg>`,
-      col: `<svg viewBox="0 0 54 54"><path d="M4 27h46" stroke="var(--alert)" stroke-width="16" stroke-linecap="round" opacity=".25"/><path d="M4 27h46" stroke="var(--alert)" stroke-width="3"/><circle cx="20" cy="27" r="7" fill="var(--home)"/><circle cx="33" cy="27" r="5" fill="var(--home)"/></svg>`,
-      cig: `<svg viewBox="0 0 54 54"><rect x="6" y="23" width="36" height="9" rx="2" fill="var(--muted)" opacity=".6"/><rect x="40" y="23" width="8" height="9" fill="var(--alert)"/><path d="M44 18q4-6 0-12" stroke="var(--muted)" stroke-width="2.5" fill="none"/><path d="M8 8l38 38" stroke="var(--alert)" stroke-width="4" stroke-linecap="round"/></svg>`,
-      alc: `<svg viewBox="0 0 54 54"><path d="M14 8h26l-4 38H18z" fill="var(--brand-soft)" stroke="var(--brand)" stroke-width="3" stroke-linejoin="round"/><path d="M17 22h20l-2.5 22h-15z" fill="var(--home)" opacity=".7"/></svg>`,
+      pa: `<img src="img/mem-pa.webp" alt="">`,
+      dm: `<img src="img/mem-dm.webp" alt="">`,
+      col: `<img src="img/mem-col.webp" alt="">`,
+      cig: `<img src="img/mem-cig.webp" alt="">`,
+      alc: `<img src="img/mem-alc.webp" alt="">`,
       sed: `<svg viewBox="0 0 54 54"><rect x="6" y="22" width="42" height="18" rx="6" fill="var(--rehab-soft)" stroke="var(--rehab)" stroke-width="3"/><rect x="4" y="18" width="8" height="24" rx="4" fill="var(--rehab)"/><rect x="42" y="18" width="8" height="24" rx="4" fill="var(--rehab)"/><path d="M12 46v4M42 46v4" stroke="var(--rehab)" stroke-width="3"/></svg>`
     };
     const PAIRS = [
@@ -2181,7 +2204,7 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
         a.classList.add("ok"); d.classList.add("ok"); open = []; pairs++;
         $("#memPairs").textContent = pairs;
         const pr = PAIRS.find(p => p[0] === a.dataset.k); $("#memOut p").innerHTML = "<b>" + pr[1] + ":</b> " + pr[2];
-        if (pairs === PAIRS.length) { $("#memOut p").innerHTML = "<b>Parabéns!</b> Você achou todos os pares em " + moves + " jogadas. Lembre: nem todas as pessoas têm todos os fatores."; award(30, "mem1"); }
+        if (pairs === PAIRS.length) { $("#memOut p").innerHTML = "<b>Parabéns!</b> Você achou todos os pares em " + moves + " jogadas. Lembre: nem todas as pessoas têm todos os fatores."; award(30, "mem1"); gameDone("#mem"); }
       } else {
         lock = true;
         setTimeout(() => { a.classList.remove("open"); d.classList.remove("open"); a.setAttribute("aria-label", "Carta virada"); d.setAttribute("aria-label", "Carta virada"); open = []; lock = false; }, 1000);
