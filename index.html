@@ -396,6 +396,165 @@ blockquote { margin: 0; padding: 14px 16px; border-radius: 12px; background: var
 
 footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: .85rem; display: grid; gap: 6px; padding-top: 6px; }
 
+
+/* ================= v2: navegação envolvente ================= */
+:root { --skin1: #F3CBA5; --skin2: #D9A273; --skin3: #A86B45; --skin4: #6E4429; --hair-gray: #C9CED6; --hair-dark: #3B2A20; --hair-brown: #7A4B2A; --face-ink: #2B1D16; }
+
+.pts { display: inline-flex; align-items: center; gap: 4px; height: 44px; padding: 0 12px; border-radius: 12px; background: var(--rehab-soft); color: var(--rehab); font-weight: 700; font-variant-numeric: tabular-nums; text-decoration: none; }
+.pts.bump { animation: bump .5s ease; }
+@keyframes bump { 40% { transform: scale(1.18); } }
+@media (max-width: 460px) { #fontDown { display: none; } }
+
+/* Mascote */
+.neno { width: 54px; height: 54px; flex: none; color: var(--rehab); animation: bob 3s ease-in-out infinite; }
+@keyframes bob { 50% { transform: translateY(-4px) rotate(-3deg); } }
+.neno-say { display: flex; gap: 10px; align-items: flex-end; }
+.neno-say p { position: relative; background: var(--surface-2); border: 1px solid var(--line); border-radius: 16px 16px 16px 4px; padding: 10px 14px; font-size: .98rem; min-width: 0; }
+
+/* Herói */
+.hero2 { background: var(--surface); border: 1px solid var(--line); border-radius: 26px; overflow: hidden; box-shadow: var(--shadow); }
+.hero-art svg, .art svg { display: block; width: 100%; height: auto; }
+.hero-art img, .art img { display: block; width: 100%; max-width: 100%; aspect-ratio: 360 / 220; object-fit: cover; }
+.hero-body { padding: 18px 20px 22px; display: grid; gap: 14px; }
+.hero2 h1 { font-size: 1.95rem; }
+.hero2 h1 span { color: var(--alert); }
+.who { display: grid; gap: 6px; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 12px; display: grid; gap: 2px; justify-items: start; box-shadow: var(--shadow); }
+.stat svg.i { color: var(--c); width: 22px; height: 22px; }
+.stat b { font-family: var(--font-display); font-size: 1.6rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.stat span { font-size: .78rem; color: var(--muted); line-height: 1.2; }
+
+/* Mapa */
+.map { position: relative; }
+.map svg.road { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.stop { position: absolute; transform: translateX(-50%); display: grid; justify-items: center; gap: 6px; text-decoration: none; color: var(--ink); width: 46%; text-align: center; }
+.stop .dot { width: 72px; height: 72px; border-radius: 50%; background: var(--surface); border: 4px solid var(--c); color: var(--c); display: grid; place-items: center; position: relative; box-shadow: var(--shadow); transition: transform .2s; }
+.stop:hover .dot { transform: scale(1.06); }
+.stop .dot svg.i { width: 32px; height: 32px; }
+.stop .lbl { font-family: var(--font-display); font-weight: 700; font-size: 1rem; line-height: 1.15; }
+.stop .sub { font-size: .78rem; color: var(--muted); }
+.stop.done .dot { background: var(--c); color: var(--on-color); }
+.stop .star { position: absolute; top: -8px; right: -8px; width: 28px; height: 28px; border-radius: 50%; background: var(--sun); color: var(--face-ink); display: none; place-items: center; border: 2px solid var(--surface); }
+.stop .star svg.i { width: 16px; height: 16px; fill: currentColor; }
+.stop.done .star { display: grid; }
+.stop.here .dot::after { content: ""; position: absolute; inset: -10px; border-radius: 50%; border: 3px solid var(--c); animation: ping 1.8s ease-out infinite; }
+@keyframes ping { from { transform: scale(.85); opacity: .9; } to { transform: scale(1.25); opacity: 0; } }
+.here-tag { font-size: .72rem; font-weight: 700; background: var(--c); color: var(--on-color); padding: 2px 8px; border-radius: 99px; }
+
+/* Medalhas */
+.medals { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+@media (max-width: 520px) { .medals { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.mdl { display: grid; justify-items: center; text-align: center; gap: 6px; font-size: .8rem; line-height: 1.2; }
+.medal { width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; background: var(--line); color: var(--muted); border: 3px dashed var(--muted); }
+.medal svg.i { width: 28px; height: 28px; }
+.mdl.won .medal, .medal.big { background: var(--c); color: var(--on-color); border: 3px solid var(--sun); box-shadow: 0 0 0 4px var(--c-soft); }
+.mdl:not(.won) span { color: var(--muted); }
+.medal.big { width: 84px; height: 84px; flex: none; }
+.medal.big svg.i { width: 42px; height: 42px; }
+.medal-hero { display: flex; gap: 16px; align-items: center; }
+
+/* História (passo a passo) */
+.story { display: grid; gap: 18px; }
+.story-top { display: flex; align-items: center; gap: 10px; position: sticky; top: calc(60px + env(safe-area-inset-top, 0px)); z-index: 5; background: var(--bg); padding-block: 8px; }
+.segs { flex: 1; display: flex; gap: 4px; min-width: 0; }
+.segs button { flex: 1; height: 8px; border-radius: 99px; background: var(--line); border: 0; padding: 0; cursor: pointer; }
+.segs button.on { background: var(--c); }
+.story-top .speak .sp-l { display: inline; }
+@media (max-width: 460px) { .story-top .speak .sp-l { display: none; } .story-top .back { font-size: .9rem; } }
+.step { display: grid; gap: 16px; }
+.step:not(.active) { display: none; }
+.step.active { animation: slidein .45s cubic-bezier(.2,.7,.3,1); }
+.step.active.from-left { animation-name: slidein-l; }
+@keyframes slidein { from { transform: translateX(28px); opacity: .3; } }
+@keyframes slidein-l { from { transform: translateX(-28px); opacity: .3; } }
+.step h1 { font-size: 2rem; }
+.art { border-radius: 22px; overflow: hidden; border: 1px solid var(--line); }
+.story-nav { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; position: sticky; bottom: calc(76px + env(safe-area-inset-bottom, 0px)); z-index: 5; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 8px; box-shadow: var(--shadow); }
+.story-nav .stepn { text-align: center; font-size: .85rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.story-nav .btn { min-height: 48px; padding: 0 14px; }
+.story-nav [data-nav="prev"]:disabled { visibility: hidden; }
+
+/* Ilustrações de pessoas */
+.fig { display: block; width: 100%; }
+.fig svg { display: block; width: 100%; height: auto; max-width: 140px; margin: 0 auto; }
+.samu .face.front .fig svg { max-width: 92px; }
+.samu .flip, .samu .flip-in { min-height: 230px; }
+.mouth-a { animation: mouthA 3s ease-in-out infinite; }
+.mouth-b { animation: mouthB 3s ease-in-out infinite; }
+@keyframes mouthA { 0%, 35% { opacity: 1; } 50%, 85% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes mouthB { 0%, 35% { opacity: 0; } 50%, 85% { opacity: 1; } 100% { opacity: 0; } }
+.arm-fall { animation: armfall 3s ease-in-out infinite; transform-origin: 124px 128px; }
+@keyframes armfall { 0%, 30% { transform: rotate(0); } 60%, 90% { transform: rotate(62deg); } 100% { transform: rotate(0); } }
+.spin { animation: spin 2.4s linear infinite; transform-origin: 80px 22px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.ring-ph { animation: ringph .6s ease-in-out infinite alternate; transform-origin: 122px 70px; }
+@keyframes ringph { from { transform: rotate(-8deg); } to { transform: rotate(8deg); } }
+
+/* Player */
+.player { display: grid; gap: 10px; }
+.screen { position: relative; border-radius: 20px; overflow: hidden; border: 1px solid var(--line); }
+.stage { display: block; width: 100%; height: auto; }
+.bigplay { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 78px; height: 78px; border-radius: 50%; border: 0; background: var(--alert); color: var(--on-color); cursor: pointer; display: grid; place-items: center; box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+.bigplay svg { width: 36px; height: 36px; margin-left: 4px; }
+.player.playing .bigplay { display: none; }
+.caption { min-height: 3.2em; background: var(--ink); color: var(--bg); border-radius: 14px; padding: 10px 14px; font-size: 1.02rem; font-weight: 700; }
+.ctrls { display: grid; grid-template-columns: 48px 1fr auto auto; gap: 10px; align-items: center; }
+.pbtn { width: 48px; height: 48px; border-radius: 50%; border: 0; background: var(--alert); color: var(--on-color); cursor: pointer; display: grid; place-items: center; }
+.pbtn svg { width: 22px; height: 22px; }
+.ctrls input[type=range] { width: 100%; accent-color: var(--alert); min-width: 0; }
+.ptime { font-variant-numeric: tabular-nums; color: var(--muted); font-size: .9rem; }
+
+/* Detetive */
+.det { display: grid; gap: 12px; }
+.det-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-weight: 700; }
+.det-card { display: grid; grid-template-columns: 130px 1fr; gap: 14px; align-items: center; padding: 16px; border-radius: 20px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); }
+@media (max-width: 480px) { .det-card { grid-template-columns: 96px 1fr; } }
+.det-card p { font-family: var(--font-display); font-size: 1.22rem; font-weight: 700; line-height: 1.25; }
+.det-art { border-radius: 16px; background: var(--c-soft); padding: 6px 4px 0; overflow: hidden; }
+.tbar { height: 10px; border-radius: 99px; background: var(--line); overflow: hidden; }
+.tbar i { display: block; height: 100%; background: var(--alert); width: 100%; }
+.det-ans { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.det-ans .btn { min-height: 64px; white-space: normal; line-height: 1.2; }
+.det-end { text-align: center; display: grid; gap: 10px; justify-items: center; padding: 18px; border-radius: 20px; background: var(--surface); border: 1px solid var(--line); }
+
+/* Faça / não faça */
+.sort { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.sort li { display: grid; gap: 10px; padding: 14px; border-radius: 16px; background: var(--surface); border: 2px solid var(--line); }
+.sort li > b { font-family: var(--font-display); font-size: 1.12rem; }
+.sort .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.sort .opts button { min-height: 48px; border-radius: 12px; border: 2px solid var(--line); background: var(--surface-2); font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.sort .opts button[data-v="faca"] { color: var(--care); }
+.sort .opts button[data-v="nao"] { color: var(--alert); }
+.sort li.right { border-color: var(--care); background: var(--care-soft); }
+.sort li.wrong { border-color: var(--alert); background: var(--alert-soft); }
+.sort li .why { font-size: .92rem; }
+.sort li.right .opts, .sort li.wrong .opts { display: none; }
+.sort-res { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: var(--care); }
+
+/* Memória */
+.mem-head { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+.mem-head .btn { min-height: 40px; margin-left: auto; }
+.mem { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+@media (max-width: 520px) { .mem { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.mcard { aspect-ratio: 3 / 3.4; max-width: 100%; perspective: 700px; border: 0; padding: 0; background: none; cursor: pointer; }
+.mcard .in { display: block; position: relative; width: 100%; height: 100%; transition: transform .45s; transform-style: preserve-3d; }
+.mcard.open .in, .mcard.ok .in { transform: rotateY(180deg); }
+.mcard .s { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 14px; display: grid; place-items: center; padding: 6px; text-align: center; }
+.mcard .s1 { background: var(--alert); color: var(--on-color); border: 3px solid var(--alert); }
+.mcard .s1 svg { width: 46%; height: auto; opacity: .9; }
+.mcard .s2 { background: var(--surface); border: 2px solid var(--line); transform: rotateY(180deg); font-family: var(--font-display); font-weight: 700; font-size: .98rem; line-height: 1.1; }
+.mcard .s2 svg { width: 70%; height: auto; }
+.mcard.ok .s2 { border-color: var(--care); background: var(--care-soft); }
+
+@media (max-width: 460px) { .logo-text small { display: none; } }
+.float-h { animation: floath 3s ease-in-out infinite; }
+@keyframes floath { 50% { transform: translateY(-6px); } }
+.pulse-x { animation: pulsex 1.4s ease-in-out infinite; transform-origin: 300px 62px; }
+@keyframes pulsex { 50% { transform: scale(1.12); } }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
@@ -434,6 +593,13 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
   <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01"/></symbol>
   <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></symbol>
+  <symbol id="neno" viewBox="0 0 64 64">
+    <path d="M32 18V7M19 28L8 20M45 28l11-8M22 46l-8 11M42 46l8 11" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <g fill="currentColor"><circle cx="32" cy="6" r="4"/><circle cx="7" cy="19" r="4"/><circle cx="57" cy="19" r="4"/><circle cx="13" cy="58" r="4"/><circle cx="51" cy="58" r="4"/><circle cx="32" cy="34" r="18"/></g>
+    <circle cx="25" cy="31" r="5" fill="#fff"/><circle cx="39" cy="31" r="5" fill="#fff"/><circle cx="26" cy="32" r="2.6" fill="#1d1d1d"/><circle cx="40" cy="32" r="2.6" fill="#1d1d1d"/>
+    <path d="M25 41q7 6 14 0" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <circle cx="19" cy="39" r="2.6" fill="#ff9db0" opacity=".85"/><circle cx="45" cy="39" r="2.6" fill="#ff9db0" opacity=".85"/>
+  </symbol>
 </svg>
 
 <header class="top">
@@ -442,6 +608,7 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
       <span class="logo-mark"><svg class="i"><use href="#i-brain"/></svg></span>
       <span class="logo-text">Cuidar Depois do AVC<small>Educação para pacientes e famílias · UAVE</small></span>
     </a>
+    <a class="pts" href="#inicio" id="pts" aria-label="Pontos de cuidado"><svg class="i"><use href="#i-star"/></svg><span id="ptsN">0</span></a>
     <div class="tools">
       <button class="tbtn" id="fontDown" aria-label="Diminuir letra">A−</button>
       <button class="tbtn" id="fontUp" aria-label="Aumentar letra">A+</button>
@@ -454,209 +621,210 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
 
 <!-- ================= INÍCIO ================= -->
 <section class="view" data-view="inicio">
-  <div class="hero">
-    <div class="hero-top">
-      <span class="eyebrow" style="--c:var(--alert)">AVE, AVC ou derrame: é a mesma doença</span>
-      <h1>Tempo é <span>cérebro</span>. E a família faz parte do cuidado.</h1>
-      <p class="lead muted">Aqui você aprende, no seu ritmo, a reconhecer um AVC, a ajudar com segurança no hospital, a entender a reabilitação e a cuidar em casa depois da alta.</p>
-    </div>
-    <div class="clock-strip">
-      <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true">
-        <circle cx="32" cy="32" r="28" fill="var(--alert-soft)" stroke="var(--alert)" stroke-width="4"/>
-        <path d="M32 14v18l11 7" stroke="var(--alert)" stroke-width="4" stroke-linecap="round" fill="none">
-          <animateTransform attributeName="transform" type="rotate" from="0 32 32" to="360 32 32" dur="12s" repeatCount="indefinite"/>
-        </path>
-      </svg>
-      <p><b>A cada minuto sem tratamento, mais células do cérebro são perdidas.</b> Reconhecer os sinais e ligar <b>192</b> rápido pode reduzir sequelas e salvar vidas.</p>
-    </div>
-    <div class="hero-cta c-brand">
-      <a class="btn btn-main" href="#tema-1">Começar pelo tema 1 <svg class="i"><use href="#i-right"/></svg></a>
-      <a class="btn btn-ghost" href="#quiz">Fazer o desafio final</a>
+  <div class="hero2">
+    <div class="hero-art" data-photo="inicio" data-scene="hero" role="img" aria-label="Ilustração de uma família: avô, filha e neta juntos"></div>
+    <div class="hero-body">
+      <div class="neno-say">
+        <svg class="neno" viewBox="0 0 64 64" aria-hidden="true"><use href="#neno"/></svg>
+        <p id="greet">Oi! Eu sou o <b>Neno</b>, um neurônio. Vou te acompanhar nessa jornada pelo cérebro e pelo cuidado.</p>
+      </div>
+      <h1>Tempo é <span>cérebro</span>.<br>E a família faz parte do cuidado.</h1>
+      <div class="who">
+        <span class="muted">Quem está usando?</span>
+        <div class="chips" id="who">
+          <button class="chip" data-who="paciente" aria-pressed="false">Sou paciente</button>
+          <button class="chip" data-who="familiar" aria-pressed="false">Sou familiar</button>
+          <button class="chip" data-who="academico" aria-pressed="false">Sou acadêmico</button>
+        </div>
+      </div>
+      <div class="hero-cta c-alert">
+        <a class="btn btn-main" id="goNext" href="#tema-1">Começar a jornada <svg class="i"><use href="#i-right"/></svg></a>
+      </div>
     </div>
   </div>
 
-  <div class="card progress-wrap">
-    <div class="qz-head"><h3>Seu caminho de aprendizado</h3><span class="muted" id="progLabel">0 de 5 temas</span></div>
-    <div class="bar"><i id="progBar"></i></div>
+  <div class="stats">
+    <div class="stat c-rehab"><svg class="i"><use href="#i-star"/></svg><b id="stPts">0</b><span>pontos de cuidado</span></div>
+    <div class="stat c-care"><svg class="i"><use href="#i-check"/></svg><b id="stTemas">0/5</b><span>temas concluídos</span></div>
+    <div class="stat c-home"><svg class="i"><use href="#i-shield"/></svg><b id="stMed">0</b><span>medalhas</span></div>
   </div>
 
-  <nav class="trail" aria-label="Os cinco temas">
-    <a class="tcard c-alert" href="#tema-1" data-t="1">
-      <span class="tnum"><b>1</b><svg class="i"><use href="#i-brain"/></svg></span>
-      <span><h3>Conhecendo o AVC</h3><p>Tipos, causas, sinais e o que fazer</p><span class="mn">S·A·M·U 192</span></span>
-      <span class="tdone"><svg class="i"><use href="#i-check"/></svg></span>
-    </a>
-    <a class="tcard c-brand" href="#tema-2" data-t="2">
-      <span class="tnum"><b>2</b><svg class="i"><use href="#i-hosp"/></svg></span>
-      <span><h3>Cuidados na internação</h3><p>Como ajudar com segurança durante a visita</p><span class="mn">MÃOS LIMPAS · PERGUNTE À EQUIPE</span></span>
-      <span class="tdone"><svg class="i"><use href="#i-check"/></svg></span>
-    </a>
-    <a class="tcard c-rehab" href="#tema-3" data-t="3">
-      <span class="tnum"><b>3</b><svg class="i"><use href="#i-walk"/></svg></span>
-      <span><h3>Sequelas e reabilitação</h3><p>O que pode mudar e por que reabilitar</p><span class="mn">F·F·F — FALA, FORÇA, FUNÇÃO</span></span>
-      <span class="tdone"><svg class="i"><use href="#i-check"/></svg></span>
-    </a>
-    <a class="tcard c-home" href="#tema-4" data-t="4">
-      <span class="tnum"><b>4</b><svg class="i"><use href="#i-home"/></svg></span>
-      <span><h3>Cuidados após a alta</h3><p>Remédios, alimentação e casa segura</p><span class="mn">CASA SEGURA</span></span>
-      <span class="tdone"><svg class="i"><use href="#i-check"/></svg></span>
-    </a>
-    <a class="tcard c-care" href="#tema-5" data-t="5">
-      <span class="tnum"><b>5</b><svg class="i"><use href="#i-shield"/></svg></span>
-      <span><h3>Prevenção de um novo AVC</h3><p>Controle dos fatores de risco</p><span class="mn">OS CINCO CONTROLES</span></span>
-      <span class="tdone"><svg class="i"><use href="#i-check"/></svg></span>
-    </a>
-  </nav>
+  <div class="card stack">
+    <div class="qz-head"><h2>Mapa da jornada</h2><span class="pill c-alert" style="--c:var(--alert)">7 paradas</span></div>
+    <p class="muted">Siga o caminho. Cada parada tem histórias, animações e joguinhos.</p>
+    <div class="map" id="map"></div>
+  </div>
+
+  <div class="card stack">
+    <h2>Suas medalhas</h2>
+    <div class="medals" id="medals"></div>
+  </div>
 
   <div class="grid2">
-    <a class="card tile c-care" href="#jornada">
-      <span class="ic"><svg class="i"><use href="#i-route"/></svg></span>
-      <span><h3>A jornada do cuidado</h3><p>Hospital, casa e unidade de saúde: o cuidado continua. Inclui a visita domiciliar.</p></span>
-    </a>
-    <a class="card tile c-rehab" href="#quiz">
-      <span class="ic"><svg class="i"><use href="#i-star"/></svg></span>
-      <span><h3>Desafio da família</h3><p>10 perguntas para testar o que aprendeu e ganhar seu certificado.</p></span>
-    </a>
     <a class="card tile c-brand" href="#academico">
       <span class="ic"><svg class="i"><use href="#i-book"/></svg></span>
       <span><h3>Área do acadêmico</h3><p>Roteiro da atividade, etapas, falas de abertura e postura ética.</p></span>
     </a>
-  </div>
-
-  <div class="callout info c-brand">
-    <svg class="i"><use href="#i-info"/></svg>
-    <p>Este aplicativo é educativo. <b>Cada paciente tem necessidades próprias</b>: as orientações específicas sempre devem ser confirmadas com a equipe que cuida dele.</p>
+    <div class="card tile c-brand">
+      <span class="ic"><svg class="i"><use href="#i-info"/></svg></span>
+      <span><h3>Importante</h3><p>Este app é educativo. As orientações de cada paciente sempre devem ser confirmadas com a equipe.</p></span>
+    </div>
   </div>
 </section>
 
 <!-- ================= TEMA 1 ================= -->
 <section class="view c-alert" data-view="tema-1" hidden>
-  <div class="thead">
-    <div class="row">
-      <a class="back" href="#inicio"><svg class="i"><use href="#i-left"/></svg> Temas</a>
-      <button class="speak" data-speak="tema-1" aria-pressed="false"><svg class="i"><use href="#i-sound"/></svg> Ouvir</button>
+  <div class="story" data-story="1">
+    <div class="story-top">
+      <a class="back" href="#inicio"><svg class="i"><use href="#i-left"/></svg> Mapa</a>
+      <div class="segs" aria-hidden="true"></div>
+      <button class="speak" aria-pressed="false" aria-label="Ouvir esta tela"><svg class="i"><use href="#i-sound"/></svg><span class="sp-l">Ouvir</span></button>
     </div>
-    <span class="eyebrow">Tema 1 de 5</span>
-    <h1>Conhecendo o AVC: tipos, causas, sinais e sintomas</h1>
-  </div>
 
-  <div class="question"><span class="q">?</span><p>Você saberia reconhecer se alguém da sua família estivesse tendo um AVC?</p></div>
+    <!-- 1. Abertura -->
+    <div class="step">
+      <span class="eyebrow">Tema 1 de 5 · Conhecendo o AVC</span>
+      <h1>Você saberia reconhecer um AVC?</h1>
+      <div class="art" data-photo="t1-abertura" data-scene="table" role="img" aria-label="Ilustração: um senhor à mesa com a boca torta e a filha preocupada ao lado"></div>
+      <div class="question"><span class="q">?</span><p data-read>Se alguém da sua família estivesse tendo um AVC agora, você perceberia?</p></div>
+      <div class="chips" id="t1Poll">
+        <button class="chip" aria-pressed="false" data-r="Ótimo! Vamos conferir se você acerta tudo nos joguinhos.">Sim, com certeza</button>
+        <button class="chip" aria-pressed="false" data-r="Muita gente fica na dúvida. Até o fim deste tema você vai saber.">Acho que sim</button>
+        <button class="chip" aria-pressed="false" data-r="Sem problema! É para isso que estamos aqui. Vamos juntos.">Não sei</button>
+      </div>
+      <div class="neno-say" id="t1PollOut" hidden><svg class="neno" viewBox="0 0 64 64" aria-hidden="true"><use href="#neno"/></svg><p></p></div>
+    </div>
 
-  <div class="card stack" data-read>
-    <h2>O que é o AVC</h2>
-    <p>O <b>Acidente Vascular Encefálico</b> (AVE), também chamado de <b>AVC</b> ou <b>derrame</b>, acontece quando a circulação de sangue no cérebro muda de repente. Uma parte do cérebro fica sem oxigênio e pode ser lesionada. <b>É uma emergência.</b></p>
-  </div>
-
-  <div class="card stack">
-    <div class="qz-head"><h2>Os dois tipos principais</h2>
-      <div class="seg" role="tablist" aria-label="Tipo de AVC">
-        <button role="tab" aria-selected="true" data-type="isq">Isquêmico</button>
-        <button role="tab" aria-selected="false" data-type="hem">Hemorrágico</button>
+    <!-- 2. Animação -->
+    <div class="step">
+      <span class="eyebrow">Assista</span>
+      <h2>Como acontece o AVC</h2>
+      <p data-read>O AVC, também chamado de AVE ou derrame, acontece quando a circulação de sangue no cérebro muda de repente. Existem dois tipos principais. Escolha um e aperte o play.</p>
+      <div class="player" id="player">
+        <div class="seg" role="tablist" aria-label="Tipo de AVC">
+          <button role="tab" aria-selected="true" data-ep="isq">Isquêmico (entupimento)</button>
+          <button role="tab" aria-selected="false" data-ep="hem">Hemorrágico (sangramento)</button>
+        </div>
+        <div class="screen">
+          <svg class="stage" viewBox="0 0 360 220" role="img" aria-label="Animação do sangue circulando no cérebro">
+            <rect width="360" height="220" fill="var(--surface-2)"/>
+            <g transform="translate(78,8) scale(.95)">
+              <path d="M60 120c-28-4-40-34-22-56 4-26 32-40 56-30 14-20 46-22 62-6 22-10 52 0 58 22 26 6 34 36 18 56 6 24-14 44-38 40-10 18-40 22-56 8-18 12-46 6-54-14-14 0-26-8-24-20z" fill="var(--rehab-soft)" stroke="var(--rehab)" stroke-width="4"/>
+              <path d="M90 60c10 10 6 24-4 30M130 46c-6 14 4 26 18 26M176 56c-4 16 6 26 22 26M100 118c14-6 28 0 32 14M170 120c8-12 26-14 36-4M70 96c10 0 18 6 20 16" fill="none" stroke="var(--rehab)" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+              <circle id="vGlow" cx="176" cy="78" r="30" fill="var(--care)" opacity=".3"/>
+              <circle id="vGray" cx="176" cy="78" r="30" fill="var(--muted)" opacity="0"/>
+              <path d="M20 200c40-20 70-60 90-90s40-32 66-32" fill="none" stroke="var(--alert)" stroke-width="14" stroke-linecap="round" opacity=".22"/>
+              <path id="vPath" d="M20 200c40-20 70-60 90-90s40-32 66-32" fill="none" stroke="var(--alert)" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+              <circle id="vBulge" r="0" fill="var(--alert)" opacity=".5"/>
+              <g id="vParts"></g>
+              <g id="vBleed" opacity="0"><path d="M0 -14c-16 -6 -26 10 -16 20 2 14 22 16 30 4 12 -2 14 -20 2 -24 -4 -8 -12 -6 -16 0z" fill="var(--alert)" opacity=".75"/></g>
+              <g id="vClot" opacity="0"><circle r="9" fill="var(--ink)"/><circle cx="-3" cy="-3" r="2.5" fill="var(--surface)" opacity=".6"/></g>
+            </g>
+            <g id="vSigns">
+              <g opacity="0"><rect x="10" y="14" width="74" height="28" rx="14" fill="var(--alert)"/><text x="47" y="33" text-anchor="middle" font-size="12" font-weight="700" fill="var(--on-color)" font-family="Atkinson Hyperlegible, sans-serif">Rosto</text></g>
+              <g opacity="0"><rect x="10" y="50" width="74" height="28" rx="14" fill="var(--alert)"/><text x="47" y="69" text-anchor="middle" font-size="12" font-weight="700" fill="var(--on-color)" font-family="Atkinson Hyperlegible, sans-serif">Braço</text></g>
+              <g opacity="0"><rect x="10" y="86" width="74" height="28" rx="14" fill="var(--alert)"/><text x="47" y="105" text-anchor="middle" font-size="12" font-weight="700" fill="var(--on-color)" font-family="Atkinson Hyperlegible, sans-serif">Fala</text></g>
+            </g>
+            <g id="vBadge" opacity="0"><rect x="282" y="164" width="68" height="44" rx="12" fill="var(--alert)"/><text x="316" y="194" text-anchor="middle" font-size="22" font-weight="800" fill="var(--on-color)" font-family="Baloo 2, sans-serif">192</text></g>
+          </svg>
+          <button class="bigplay" aria-label="Assistir animação"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l12 7-12 7z" fill="currentColor"/></svg></button>
+        </div>
+        <p class="caption" aria-live="polite">Aperte o play para assistir.</p>
+        <div class="ctrls">
+          <button class="pbtn" data-act="play" aria-label="Tocar ou pausar"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="pp" d="M8 5l12 7-12 7z" fill="currentColor"/></svg></button>
+          <input type="range" min="0" max="1000" value="0" id="pRange" aria-label="Posição da animação">
+          <span class="ptime">0:00</span>
+          <button class="tbtn" data-act="narr" aria-pressed="false" title="Narração em voz alta"><svg class="i"><use href="#i-sound"/></svg></button>
+        </div>
       </div>
     </div>
-    <div class="brain-box">
-      <svg viewBox="0 0 280 200" role="img" aria-label="Desenho de um cérebro com um vaso sanguíneo">
-        <path d="M60 120c-28-4-40-34-22-56 4-26 32-40 56-30 14-20 46-22 62-6 22-10 52 0 58 22 26 6 34 36 18 56 6 24-14 44-38 40-10 18-40 22-56 8-18 12-46 6-54-14-14 0-26-8-24-20z" fill="var(--rehab-soft)" stroke="var(--rehab)" stroke-width="4"/>
-        <path d="M90 60c10 10 6 24-4 30M130 46c-6 14 4 26 18 26M176 56c-4 16 6 26 22 26M100 118c14-6 28 0 32 14M170 120c8-12 26-14 36-4M70 96c10 0 18 6 20 16" fill="none" stroke="var(--rehab)" stroke-width="3" stroke-linecap="round" opacity=".55"/>
-        <!-- vaso -->
-        <path id="vessel" d="M20 190c40-20 70-50 90-80s30-30 60-30" fill="none" stroke="var(--alert)" stroke-width="12" stroke-linecap="round" opacity=".25"/>
-        <path class="flow" id="flowLine" d="M20 190c40-20 70-50 90-80s30-30 60-30" fill="none" stroke="var(--alert)" stroke-width="5" stroke-linecap="round"/>
-        <g class="clot" id="clot"><circle cx="140" cy="92" r="11" fill="var(--ink)"/><circle cx="136" cy="89" r="3" fill="var(--surface)" opacity=".5"/></g>
-        <g class="bleed" id="bleed" style="opacity:0; transform:scale(.3)"><path d="M150 100c-20-4-28 14-18 24 4 14 26 16 34 4 14-2 16-22 2-26-4-8-14-8-18-2z" fill="var(--alert)" opacity=".75"/></g>
-        <circle id="area" cx="190" cy="76" r="22" fill="var(--muted)" opacity=".28"/>
-      </svg>
-      <div class="stack" aria-live="polite">
-        <h3 id="typeTitle">AVC isquêmico</h3>
-        <p id="typeText">Um vaso que leva sangue ao cérebro fica <b>entupido</b> (por exemplo, por um coágulo). A região que ele alimentava fica sem oxigênio.</p>
-        <p class="muted" id="typeExtra">É o tipo mais comum. Em algumas situações, o hospital pode usar tratamentos para desfazer o entupimento, mas eles só funcionam nas primeiras horas.</p>
+
+    <!-- 3. SAMU -->
+    <div class="step">
+      <span class="eyebrow">Recurso para lembrar</span>
+      <h2>Lembre do SAMU para reconhecer o AVC</h2>
+      <p data-read>Sorriso, Abraço, Mensagem e Urgência. Toque em cada cartão para ver o que observar.</p>
+      <div class="samu">
+        <button class="flip" aria-label="S de Sorriso">
+          <span class="flip-in">
+            <span class="face front"><span class="letter">S</span><span class="fig" data-fig='{"face":"droop","hair":"bald","old":1,"anim":1,"skin":"var(--skin2)"}'></span><span class="w">Sorriso</span></span>
+            <span class="face back"><h4>Peça para sorrir</h4><p>A boca fica torta? Um lado do rosto caiu? <b>Assimetria facial</b> é sinal de alerta.</p></span>
+          </span>
+        </button>
+        <button class="flip" aria-label="A de Abraço">
+          <span class="flip-in">
+            <span class="face front"><span class="letter">A</span><span class="fig" data-fig='{"arms":"drop","hair":"bun","old":1,"skin":"var(--skin3)","shirt":"var(--care)","face":"worried"}'></span><span class="w">Abraço</span></span>
+            <span class="face back"><h4>Peça para abrir os braços</h4><p>Um braço cai ou não sobe? <b>Fraqueza ou perda de força</b>, principalmente de um lado do corpo.</p></span>
+          </span>
+        </button>
+        <button class="flip" aria-label="M de Mensagem">
+          <span class="flip-in">
+            <span class="face front"><span class="letter">M</span><span class="fig" data-fig='{"bubble":1,"hair":"short","skin":"var(--skin4)","shirt":"var(--home)","face":"neutral"}'></span><span class="w">Mensagem</span></span>
+            <span class="face back"><h4>Peça para repetir uma frase</h4><p>A fala sai enrolada, sem sentido, ou a pessoa <b>não entende</b> o que você diz?</p></span>
+          </span>
+        </button>
+        <button class="flip" aria-label="U de Urgência">
+          <span class="flip-in">
+            <span class="face front"><span class="letter">U</span><span class="fig" data-fig='{"phone":1,"hair":"long","skin":"var(--skin1)","shirt":"var(--rehab)","face":"worried"}'></span><span class="w">Urgência</span></span>
+            <span class="face back"><h4>Ligue 192 já</h4><p>Não espere melhorar. <b>Anote o horário</b> em que a pessoa foi vista bem pela última vez.</p></span>
+          </span>
+        </button>
+      </div>
+      <div class="callout info">
+        <svg class="i"><use href="#i-eye"/></svg>
+        <div data-read><strong>Outros sinais de alerta</strong><p>Perda súbita da visão, desequilíbrio ou tontura forte com dificuldade para andar, e dor de cabeça súbita e muito forte, diferente da habitual.</p></div>
       </div>
     </div>
-  </div>
 
-  <div class="card stack">
-    <span class="eyebrow">Recurso para lembrar</span>
-    <h2>Lembre do SAMU para reconhecer o AVC</h2>
-    <p class="muted">Toque em cada letra para virar o cartão.</p>
-    <div class="samu">
-      <button class="flip" aria-label="S de Sorriso">
-        <span class="flip-in">
-          <span class="face front"><span class="letter">S</span><span class="w">Sorriso</span>
-            <svg viewBox="0 0 74 64" aria-hidden="true"><circle cx="37" cy="32" r="28" fill="var(--home-soft)" stroke="var(--home)" stroke-width="3"/><circle cx="27" cy="26" r="3" fill="var(--ink)"/><circle cx="47" cy="27" r="3" fill="var(--ink)"/><path d="M24 40c6 6 14 6 20 4l6 6" stroke="var(--alert)" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
-            <small>toque para ver</small></span>
-          <span class="face back"><h4>Peça para sorrir</h4><p>A boca fica torta? Um lado do rosto caiu? <b>Assimetria facial</b> é sinal de alerta.</p></span>
-        </span>
-      </button>
-      <button class="flip" aria-label="A de Abraço">
-        <span class="flip-in">
-          <span class="face front"><span class="letter">A</span><span class="w">Abraço</span>
-            <svg viewBox="0 0 74 64" aria-hidden="true"><circle cx="37" cy="14" r="8" fill="var(--home-soft)" stroke="var(--home)" stroke-width="3"/><path d="M37 22v24M37 30L14 22M37 30l22 14" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" fill="none"/><path d="M58 44l-2 8" stroke="var(--alert)" stroke-width="3" stroke-linecap="round"/></svg>
-            <small>toque para ver</small></span>
-          <span class="face back"><h4>Peça para abrir os braços</h4><p>Um braço cai ou não sobe? <b>Fraqueza ou perda de força</b>, principalmente de um lado do corpo.</p></span>
-        </span>
-      </button>
-      <button class="flip" aria-label="M de Mensagem">
-        <span class="flip-in">
-          <span class="face front"><span class="letter">M</span><span class="w">Mensagem</span>
-            <svg viewBox="0 0 74 64" aria-hidden="true"><path d="M8 8h58v34H28l-14 12V42H8z" fill="var(--brand-soft)" stroke="var(--brand)" stroke-width="3" stroke-linejoin="round"/><path d="M18 20c4-4 6 4 10 0s6 4 10 0 6 4 10 0 6 4 8 0" stroke="var(--alert)" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
-            <small>toque para ver</small></span>
-          <span class="face back"><h4>Peça para repetir uma frase</h4><p>A fala sai enrolada, sem sentido, ou a pessoa <b>não entende</b> o que você diz?</p></span>
-        </span>
-      </button>
-      <button class="flip" aria-label="U de Urgência">
-        <span class="flip-in">
-          <span class="face front"><span class="letter">U</span><span class="w">Urgência</span>
-            <svg viewBox="0 0 74 64" aria-hidden="true"><rect x="10" y="12" width="54" height="40" rx="10" fill="var(--alert)"/><text x="37" y="40" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="800" font-size="22" fill="var(--on-color)">192</text></svg>
-            <small>toque para ver</small></span>
-          <span class="face back"><h4>Ligue 192 já</h4><p>Não espere melhorar. <b>Anote o horário</b> em que a pessoa foi vista bem pela última vez.</p></span>
-        </span>
-      </button>
+    <!-- 4. Jogo detetive -->
+    <div class="step">
+      <span class="eyebrow">Joguinho · Detetive do AVC</span>
+      <h2>É sinal de AVC ou não?</h2>
+      <p data-read>Leia cada situação e responda antes do tempo acabar. Tempo é cérebro!</p>
+      <div class="det" id="det"></div>
     </div>
-    <h3 style="margin-top:8px">Outros sinais que também são alerta</h3>
-    <ul class="clean" data-read>
-      <li><svg class="i"><use href="#i-eye"/></svg><span>Perda súbita da visão, de um ou dos dois olhos.</span></li>
-      <li><svg class="i"><use href="#i-walk"/></svg><span>Desequilíbrio, tontura intensa ou dificuldade para andar.</span></li>
-      <li><svg class="i"><use href="#i-alert"/></svg><span>Dor de cabeça súbita e muito forte, diferente da habitual.</span></li>
-    </ul>
-  </div>
 
-  <div class="callout alert">
-    <svg class="i"><use href="#i-phone"/></svg>
-    <div data-read>
-      <strong>Suspeita de AVC? Ligue 192 (SAMU) ou vá à emergência.</strong>
-      <p>Não espere os sintomas passarem. Não ofereça comida, água ou remédios. Anote a hora em que a pessoa foi vista bem pela última vez.</p>
+    <!-- 5. O que fazer -->
+    <div class="step">
+      <span class="eyebrow">Joguinho · O que fazer agora?</span>
+      <h2>Suspeitou de AVC. Faça ou não faça?</h2>
+      <p data-read>Para cada atitude, escolha se a família deve fazer ou não fazer.</p>
+      <ul class="sort" id="sort"></ul>
+      <p class="sort-res" id="sortRes" hidden></p>
+      <div class="card timer-tool">
+        <span class="eyebrow">Ferramenta</span>
+        <h3>Anotar: “quando foi vista bem pela última vez?”</h3>
+        <p class="muted">Essa informação ajuda a equipe a decidir o tratamento.</p>
+        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+          <button class="btn btn-alert" id="markTime"><svg class="i"><use href="#i-clock"/></svg> Registrar horário agora</button>
+          <span class="timer-out" id="timeOut" aria-live="polite">--:--</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Memória -->
+    <div class="step">
+      <span class="eyebrow">Joguinho · Memória dos fatores de risco</span>
+      <h2>Encontre os pares</h2>
+      <p data-read>Fatores como pressão alta, diabetes, colesterol alto, cigarro, álcool em excesso e sedentarismo aumentam o risco de AVC. Também contam obesidade, algumas doenças do coração e já ter tido um AVC. Vire as cartas e junte cada desenho com o seu nome.</p>
+      <div class="mem-head"><span>Jogadas: <b id="memMoves">0</b></span><span>Pares: <b id="memPairs">0</b>/6</span><button class="btn btn-ghost" id="memReset">Embaralhar</button></div>
+      <div class="mem" id="mem"></div>
+      <div class="neno-say" id="memOut"><svg class="neno" viewBox="0 0 64 64" aria-hidden="true"><use href="#neno"/></svg><p>Cada par que você achar, eu explico o porquê.</p></div>
+    </div>
+
+    <!-- 7. Final -->
+    <div class="step">
+      <div class="medal-hero"><span class="medal big c-alert"><svg class="i"><use href="#i-brain"/></svg></span><div><span class="eyebrow">Medalha do tema 1</span><h2>Detetive do AVC</h2><p class="muted">Responda o teste rápido para ganhar.</p></div></div>
+      <div class="key-msg"><span class="eyebrow">Mensagem principal</span><p data-read>Diante de suspeita de AVC, ligue 192. Tempo é cérebro!</p></div>
+      <div class="card" data-quiz="1"></div>
+    </div>
+
+    <div class="story-nav">
+      <button class="btn btn-ghost" data-nav="prev"><svg class="i"><use href="#i-left"/></svg> Voltar</button>
+      <span class="stepn"></span>
+      <button class="btn btn-main" data-nav="next">Continuar <svg class="i"><use href="#i-right"/></svg></button>
     </div>
   </div>
-
-  <div class="card timer-tool">
-    <span class="eyebrow">Ferramenta</span>
-    <h3>Anotar o horário: “quando foi vista bem pela última vez?”</h3>
-    <p class="muted">Essa informação ajuda a equipe a decidir o tratamento. Toque no botão para registrar a hora atual, ou anote num papel.</p>
-    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-      <button class="btn btn-alert" id="markTime"><svg class="i"><use href="#i-clock"/></svg> Registrar horário agora</button>
-      <span class="timer-out" id="timeOut" aria-live="polite">--:--</span>
-    </div>
-  </div>
-
-  <div class="card stack">
-    <h2>Fatores de risco</h2>
-    <p class="muted">Toque em cada um para entender. Nem todas as pessoas têm todos os fatores.</p>
-    <div class="chips" id="riskChips">
-      <button class="chip" data-r="Pressão alta danifica as paredes dos vasos com o tempo. É o principal fator de risco para AVC.">Pressão alta</button>
-      <button class="chip" data-r="O açúcar alto no sangue machuca os vasos e acelera o entupimento.">Diabetes</button>
-      <button class="chip" data-r="O excesso de gordura forma placas que estreitam os vasos.">Colesterol alto</button>
-      <button class="chip" data-r="O cigarro estreita os vasos e deixa o sangue mais propenso a formar coágulos.">Cigarro</button>
-      <button class="chip" data-r="O consumo excessivo de álcool aumenta a pressão e o risco de sangramento.">Álcool em excesso</button>
-      <button class="chip" data-r="Ficar parado a maior parte do tempo favorece pressão alta, diabetes e ganho de peso.">Sedentarismo</button>
-      <button class="chip" data-r="O excesso de peso sobrecarrega o coração e os vasos.">Obesidade</button>
-      <button class="chip" data-r="Alguns problemas do coração, como arritmias, podem formar coágulos que vão até o cérebro.">Doenças do coração</button>
-      <button class="chip" data-r="Quem já teve um AVC tem mais chance de ter outro. Por isso a prevenção é tão importante (veja o tema 5).">AVC anterior</button>
-    </div>
-    <p class="chip-out" id="riskOut" aria-live="polite">Escolha um fator acima.</p>
-  </div>
-
-  <div class="key-msg"><span class="eyebrow">Mensagem principal</span><p>Diante de suspeita de AVC, ligue 192. Tempo é cérebro!</p></div>
-  <div class="card" data-quiz="1"></div>
-  <div class="next-row"><a class="btn btn-ghost" href="#inicio"><svg class="i"><use href="#i-left"/></svg> Temas</a><a class="btn btn-main" href="#tema-2">Próximo: Internação <svg class="i"><use href="#i-right"/></svg></a></div>
 </section>
 
 <!-- ================= TEMA 2 ================= -->
@@ -1202,10 +1370,17 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
       if (btn.getAttribute("aria-pressed") === "true") { stopSpeak(); return; }
       stopSpeak();
       const view = btn.closest(".view");
-      const parts = [view.querySelector("h1").textContent];
-      const q = view.querySelector(".question p"); if (q) parts.push(q.textContent);
-      view.querySelectorAll("[data-read]").forEach(el => parts.push(el.innerText));
-      const km = view.querySelector(".key-msg p"); if (km) parts.push("Mensagem principal. " + km.textContent);
+      const stepEl = view.querySelector(".step.active");
+      let parts;
+      if (stepEl) {
+        parts = [(stepEl.querySelector("h1, h2") || {}).textContent || ""];
+        stepEl.querySelectorAll("[data-read]").forEach(el => parts.push(el.innerText));
+      } else {
+        parts = [view.querySelector("h1").textContent];
+        const q = view.querySelector(".question p"); if (q) parts.push(q.textContent);
+        view.querySelectorAll("[data-read]").forEach(el => parts.push(el.innerText));
+        const km = view.querySelector(".key-msg p"); if (km) parts.push("Mensagem principal. " + km.textContent);
+      }
       const u = new SpeechSynthesisUtterance(parts.join(". ").replace(/\s+/g, " "));
       u.lang = "pt-BR"; u.rate = 0.92;
       const voice = synth.getVoices().find(v => /pt[-_]BR/i.test(v.lang));
@@ -1432,12 +1607,6 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
   ];
 
   const progress = new Set(store.get("done", []));
-  function drawProgress() {
-    $$(".tcard").forEach(c => c.classList.toggle("done", progress.has(c.dataset.t)));
-    $("#progLabel").textContent = progress.size + " de 5 temas";
-    $("#progBar").style.width = (progress.size / 5 * 100) + "%";
-  }
-  drawProgress();
 
   function buildQuiz(box, qs, onEnd, title) {
     let i = 0, score = 0;
@@ -1472,14 +1641,15 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
   $$("[data-quiz]").forEach(box => {
     const t = box.dataset.quiz;
     buildQuiz(box, QZ[t], (s, n, b, again) => {
-      progress.add(t); store.set("done", Array.from(progress)); drawProgress();
+      progress.add(t); store.set("done", Array.from(progress)); drawProgress(); award(20, "tema" + t);
       b.innerHTML = '<div class="qz"><span class="eyebrow">Teste rápido</span><p class="qz-q">Tema concluído! Você acertou ' + s + " de " + n + '.</p><div class="next-row"><button class="btn btn-ghost">Refazer</button></div></div>';
       b.querySelector("button").onclick = again;
-      toast("Tema " + t + " concluído");
+      setTimeout(() => toast("Medalha conquistada! Tema " + t + " concluído"), 1200);
     }, "Teste rápido");
   });
 
   buildQuiz($("#finalQuiz"), FINAL, (s, n, b, again) => {
+    store.set("quizDone", true); award(s * 5, "final");
     const name = store.get("name", "");
     b.innerHTML =
       '<div class="stack"><div class="qz-head"><div><span class="eyebrow">Resultado</span><p class="score">' + s + "/" + n + '</p></div>' +
@@ -1493,7 +1663,424 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
     $("#qAgain", b).onclick = again;
   }, "Desafio da família");
 
+
+  /* ================= v2: ilustrações, mapa, pontos e joguinhos ================= */
+
+  /* Fotos: coloque aqui o caminho de uma foto para substituir a ilustração daquela tela.
+     Ex.: inicio: "fotos/familia.jpg". Use apenas fotos autorizadas, sem identificar pacientes. */
+  const PHOTOS = { inicio: "", "t1-abertura": "" };
+
+  const INK = "var(--face-ink)";
+  function figSvg(o, attrs) {
+    o = o || {};
+    const skin = o.skin || "var(--skin2)", shirt = o.shirt || "var(--brand)";
+    const hc = o.old ? "var(--hair-gray)" : (o.hairC || "var(--hair-dark)");
+    const face = o.face || "smile";
+    let b = "";
+    if (o.hair === "long") b += `<path d="M44 58 Q38 112 52 120 L108 120 Q122 112 116 58 Z" fill="${hc}"/>`;
+    b += `<path d="M20 172 Q22 118 80 112 Q138 118 140 172 Z" fill="${shirt}"/>`;
+    b += `<path d="M70 92 h20 v22 q-10 8 -20 0z" fill="${skin}"/>`;
+    if (o.arms) {
+      b += `<g><path d="M38 128 L10 96" stroke="${shirt}" stroke-width="16" stroke-linecap="round"/><circle cx="9" cy="94" r="9" fill="${skin}"/></g>`;
+      b += `<g class="${o.arms === "drop" ? "arm-fall" : ""}"><path d="M122 128 L150 96" stroke="${shirt}" stroke-width="16" stroke-linecap="round"/><circle cx="151" cy="94" r="9" fill="${skin}"/></g>`;
+    }
+    b += `<circle cx="46" cy="64" r="7" fill="${skin}"/><circle cx="114" cy="64" r="7" fill="${skin}"/><circle cx="80" cy="62" r="34" fill="${skin}"/>`;
+    const H = {
+      short: `<path d="M46 58 Q44 26 80 25 Q116 26 114 58 Q108 40 80 40 Q54 40 46 58Z" fill="${hc}"/>`,
+      bun: `<circle cx="80" cy="24" r="12" fill="${hc}"/><path d="M46 60 Q44 28 80 28 Q116 28 114 60 Q104 42 80 42 Q56 42 46 60Z" fill="${hc}"/>`,
+      long: `<path d="M46 64 Q40 26 80 26 Q120 26 114 64 Q108 38 80 38 Q52 38 46 64Z" fill="${hc}"/>`,
+      bald: `<path d="M46 68 Q42 46 54 38 L57 54Z M114 68 Q118 46 106 38 L103 54Z" fill="${hc}"/>`,
+      curly: `<g fill="${hc}"><circle cx="56" cy="40" r="11"/><circle cx="70" cy="30" r="12"/><circle cx="88" cy="29" r="12"/><circle cx="104" cy="40" r="11"/><circle cx="48" cy="54" r="8"/><circle cx="112" cy="54" r="8"/></g>`
+    };
+    b += H[o.hair || "short"] || "";
+    if (face === "pain") {
+      b += `<path d="M62 61 h11 M87 61 h11 M60 48 L74 54 M100 48 L86 54" stroke="${INK}" stroke-width="3.5" stroke-linecap="round"/>`;
+    } else if (face === "dizzy") {
+      b += `<g stroke="${INK}" stroke-width="2.5" fill="none" stroke-linecap="round"><path d="M68 60 m-6 0 a6 6 0 1 0 6 -6 a3.5 3.5 0 1 0 3 4"/><path d="M92 60 m-6 0 a6 6 0 1 0 6 -6 a3.5 3.5 0 1 0 3 4"/></g>`;
+      b += `<g class="spin"><circle cx="56" cy="20" r="4" fill="var(--sun)"/><circle cx="104" cy="20" r="4" fill="var(--sun)"/><circle cx="80" cy="6" r="4" fill="var(--sun)"/></g>`;
+    } else {
+      b += `<circle cx="68" cy="60" r="4" fill="${INK}"/><circle cx="92" cy="60" r="4" fill="${INK}"/>`;
+      if (face === "droop") b += `<path d="M85 55 Q92 61 99 58" stroke="${INK}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+      if (face === "worried") b += `<path d="M61 50 Q67 45 74 48 M86 48 Q93 45 99 50" stroke="${INK}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+    }
+    if (o.old) b += `<g stroke="${INK}" stroke-width="2" fill="none" opacity=".6"><circle cx="68" cy="60" r="9.5"/><circle cx="92" cy="60" r="9.5"/><path d="M77.5 60h5"/></g>`;
+    const M = {
+      smile: "M68 76 Q80 88 92 76", neutral: "M70 79 H90", worried: "M70 82 Q80 75 90 82",
+      pain: "M70 83 Q80 74 90 83", dizzy: "M70 80 Q75 76 80 80 T90 80", droop: "M68 76 Q76 82 84 80 Q90 80 94 88"
+    };
+    const mp = (d, cls) => `<path class="${cls || ""}" d="${d}" stroke="${INK}" stroke-width="3.5" fill="none" stroke-linecap="round"/>`;
+    if (face === "droop" && o.anim) b += mp(M.smile, "mouth-a") + mp(M.droop, "mouth-b");
+    else b += mp(M[face] || M.smile);
+    if (face === "smile") b += `<circle cx="58" cy="74" r="4" fill="var(--alert)" opacity=".18"/><circle cx="102" cy="74" r="4" fill="var(--alert)" opacity=".18"/>`;
+    if (o.hand === "head") b += `<path d="M134 172 Q134 118 110 50" stroke="${shirt}" stroke-width="16" stroke-linecap="round"/><circle cx="106" cy="40" r="10" fill="${skin}"/>`;
+    if (o.hand === "eye") b += `<path d="M134 172 Q132 112 100 70" stroke="${shirt}" stroke-width="16" stroke-linecap="round"/><ellipse cx="93" cy="60" rx="13" ry="11" fill="${skin}"/>`;
+    if (o.hand === "back") b += `<path d="M136 118 l12 -8 M138 130 l14 0 M136 142 l12 8" stroke="var(--alert)" stroke-width="3" stroke-linecap="round"/>`;
+    if (o.bubble) b += `<g><path d="M112 4 h46 v30 h-26 l-10 10 v-10 h-10z" fill="var(--surface)" stroke="var(--brand)" stroke-width="2.5" stroke-linejoin="round"/><path d="M118 19 q4 -6 8 0 t8 0 t8 0 t8 0" stroke="var(--alert)" stroke-width="2.5" fill="none" stroke-linecap="round"/></g>`;
+    if (o.phone) b += `<path d="M136 172 Q136 120 124 88" stroke="${shirt}" stroke-width="16" stroke-linecap="round"/><g class="ring-ph"><rect x="112" y="50" width="16" height="32" rx="4" fill="var(--ink)"/><circle cx="122" cy="80" r="9" fill="${skin}"/></g><path d="M136 46 q7 7 0 14 M143 41 q12 12 0 24" stroke="var(--alert)" stroke-width="2.5" fill="none" stroke-linecap="round"/>`;
+    return `<svg viewBox="0 0 160 172" ${attrs || 'aria-hidden="true"'}>${b}</svg>`;
+  }
+  const at = (x, y, w) => `x="${x}" y="${y}" width="${w}" height="${(w * 172 / 160).toFixed(1)}"`;
+
+  const SCENES = {
+    hero: () => `<svg viewBox="0 0 360 220" aria-hidden="true">
+      <rect width="360" height="220" fill="var(--brand-soft)"/>
+      <circle cx="306" cy="44" r="24" fill="var(--sun)" opacity=".85"/>
+      <rect x="22" y="22" width="76" height="62" rx="8" fill="var(--surface)" opacity=".75"/><path d="M60 22v62M22 53h76" stroke="var(--brand-soft)" stroke-width="4"/>
+      <path d="M0 184 H360 V220 H0Z" fill="var(--care-soft)"/>
+      <g class="float-h"><path d="M196 52c-8-14-30-8-26 8 2 9 14 16 26 24 12-8 24-15 26-24 4-16-18-22-26-8z" fill="var(--alert)"/></g>
+      ${figSvg({ hair: "long", skin: "var(--skin3)", shirt: "var(--care)", face: "smile", hairC: "var(--hair-brown)" }, `viewBox="0 0 160 172" ` + at(6, 92, 118))}
+      ${figSvg({ hair: "bald", old: 1, skin: "var(--skin2)", shirt: "var(--brand)", face: "smile" }, `viewBox="0 0 160 172" ` + at(104, 70, 140))}
+      ${figSvg({ hair: "curly", skin: "var(--skin4)", shirt: "var(--home)", face: "smile" }, `viewBox="0 0 160 172" ` + at(250, 124, 90))}
+      <use href="#neno" x="300" y="96" width="46" height="46" style="color:var(--rehab)"/>
+    </svg>`,
+    table: () => `<svg viewBox="0 0 360 220" aria-hidden="true">
+      <rect width="360" height="220" fill="var(--home-soft)"/>
+      <rect x="250" y="20" width="84" height="64" rx="8" fill="var(--surface)" opacity=".7"/>
+      ${figSvg({ hair: "bald", old: 1, skin: "var(--skin2)", shirt: "var(--brand)", face: "droop", anim: 1 }, `viewBox="0 0 160 172" ` + at(30, 52, 150))}
+      ${figSvg({ hair: "bun", skin: "var(--skin3)", shirt: "var(--rehab)", face: "worried" }, `viewBox="0 0 160 172" ` + at(196, 70, 136))}
+      <rect x="0" y="186" width="360" height="34" fill="var(--home)" opacity=".55"/>
+      <path d="M150 170h26v16h-26z" fill="var(--surface)"/><path d="M176 174q8 0 8 6t-8 6" stroke="var(--surface)" stroke-width="3" fill="none"/>
+      <g class="pulse-x"><circle cx="300" cy="62" r="18" fill="var(--alert)"/><path d="M300 52v12M300 70h.01" stroke="var(--on-color)" stroke-width="4" stroke-linecap="round"/></g>
+    </svg>`
+  };
+
+  $$("[data-fig]").forEach(el => { try { el.innerHTML = figSvg(JSON.parse(el.dataset.fig)); } catch (e) {} });
+  $$("[data-scene]").forEach(el => {
+    const p = PHOTOS[el.dataset.photo];
+    if (p) { const img = new Image(); img.src = p; img.alt = el.getAttribute("aria-label") || ""; el.appendChild(img); }
+    else el.innerHTML = SCENES[el.dataset.scene]();
+  });
+
+  /* ---------- Pontos ---------- */
+  let points = store.get("pts", 0);
+  const awarded = new Set(store.get("awarded", []));
+  function showPts() {
+    $("#ptsN").textContent = points;
+    const s = $("#stPts"); if (s) s.textContent = points;
+  }
+  function award(n, key) {
+    if (!n) return;
+    if (key) { if (awarded.has(key)) return; awarded.add(key); store.set("awarded", Array.from(awarded)); }
+    points += n; store.set("pts", points); showPts();
+    const p = $("#pts"); p.classList.remove("bump"); void p.offsetWidth; p.classList.add("bump");
+    toast("+" + n + " pontos de cuidado");
+  }
+  showPts();
+
+  /* ---------- Início: quem usa ---------- */
+  const GREET = {
+    paciente: "Oi! Que bom ter você aqui. Vamos aprender juntos, no seu ritmo. Se cansar, pare e volte depois.",
+    familiar: "Oi! Você é muito importante na recuperação do seu familiar. Vamos aprender a cuidar com segurança.",
+    academico: "Oi! Use o app na apresentação de 15 minutos. O roteiro completo está na Área do acadêmico."
+  };
+  function setWho(w) {
+    $$("#who .chip").forEach(c => c.setAttribute("aria-pressed", String(c.dataset.who === w)));
+    if (GREET[w]) $("#greet").textContent = GREET[w];
+  }
+  $$("#who .chip").forEach(c => c.addEventListener("click", () => { store.set("who", c.dataset.who); setWho(c.dataset.who); }));
+  setWho(store.get("who", ""));
+
+  /* ---------- Mapa e medalhas ---------- */
+  const STOPS = [
+    { h: "tema-1", t: "Conhecendo o AVC", sub: "Sinais e SAMU 192", ic: "i-brain", c: "alert", n: "1" },
+    { h: "tema-2", t: "Internação", sub: "Cuidar com segurança", ic: "i-hosp", c: "brand", n: "2" },
+    { h: "tema-3", t: "Reabilitação", sub: "Fala, Força, Função", ic: "i-walk", c: "rehab", n: "3" },
+    { h: "tema-4", t: "Após a alta", sub: "Casa segura", ic: "i-home", c: "home", n: "4" },
+    { h: "tema-5", t: "Prevenção", sub: "Os cinco controles", ic: "i-shield", c: "care", n: "5" },
+    { h: "jornada", t: "Jornada do cuidado", sub: "Hospital, casa e ESF", ic: "i-route", c: "care" },
+    { h: "quiz", t: "Desafio final", sub: "Ganhe o certificado", ic: "i-star", c: "rehab" }
+  ];
+  const MEDALS = [
+    ["1", "Detetive do AVC", "i-brain", "alert"], ["2", "Mãos que protegem", "i-hand", "brand"],
+    ["3", "Força na reabilitação", "i-walk", "rehab"], ["4", "Casa segura", "i-home", "home"], ["5", "Guardião da saúde", "i-shield", "care"]
+  ];
+  const isDone = s => s.n ? progress.has(s.n) : s.h === "jornada" ? store.get("seenJornada", false) : store.get("quizDone", false);
+  function drawMap() {
+    const m = $("#map"); if (!m || !m.offsetWidth) return;
+    const W = m.offsetWidth, RH = 136, H = STOPS.length * RH;
+    m.style.height = H + "px";
+    const here = STOPS.findIndex(s => !isDone(s));
+    const pts = []; let html = "";
+    STOPS.forEach((s, i) => {
+      const x = i % 2 ? 0.73 : 0.27, y = 8 + i * RH;
+      pts.push([x * W, y + 36]);
+      html += `<a class="stop c-${s.c}${isDone(s) ? " done" : ""}${i === here ? " here" : ""}" href="#${s.h}" style="left:${x * 100}%;top:${y}px">
+        <span class="dot"><svg class="i"><use href="#${s.ic}"/></svg><span class="star"><svg class="i"><use href="#i-star"/></svg></span></span>
+        <span class="lbl">${s.t}</span><span class="sub">${s.sub}</span>${i === here ? '<span class="here-tag">Você está aqui</span>' : ""}</a>`;
+    });
+    let road = "";
+    for (let i = 1; i < pts.length; i++) {
+      const [x0, y0] = pts[i - 1], [x1, y1] = pts[i];
+      const d = `M${x0} ${y0} C${x1} ${y0} ${x0} ${y1} ${x1} ${y1}`;
+      const done = isDone(STOPS[i - 1]);
+      road += `<path d="${d}" fill="none" stroke="${done ? "var(--care)" : "var(--line)"}" stroke-width="12" stroke-linecap="round"/><path d="${d}" fill="none" stroke="var(--surface)" stroke-width="3" stroke-dasharray="2 12" stroke-linecap="round"/>`;
+    }
+    m.innerHTML = `<svg class="road" viewBox="0 0 ${W} ${H}" aria-hidden="true">${road}</svg>` + html;
+  }
+  function drawProgress() {
+    const md = $("#medals");
+    if (md) md.innerHTML = MEDALS.map(([n, t, ic, c]) => `<div class="mdl c-${c}${progress.has(n) ? " won" : ""}"><span class="medal"><svg class="i"><use href="#${ic}"/></svg></span><span>${t}</span></div>`).join("");
+    $("#stTemas").textContent = progress.size + "/5";
+    $("#stMed").textContent = progress.size;
+    const here = STOPS.find(s => !isDone(s));
+    const g = $("#goNext");
+    g.href = "#" + (here ? here.h : "quiz");
+    g.firstChild.textContent = progress.size || store.get("quizDone", false) ? "Continuar a jornada " : "Começar a jornada ";
+    drawMap();
+  }
+  window.addEventListener("resize", () => { clearTimeout(drawMap._t); drawMap._t = setTimeout(drawMap, 150); });
+  window.addEventListener("hashchange", () => {
+    if (location.hash === "#jornada") store.set("seenJornada", true);
+    if (location.hash === "#inicio" || !location.hash) drawProgress();
+  });
+
+  /* ---------- Histórias passo a passo ---------- */
+  const NEXT = { "1": "tema-2", "2": "tema-3", "3": "tema-4", "4": "tema-5", "5": "jornada" };
+  const stepHooks = [];
+  $$(".story").forEach(root => {
+    const steps = $$(".step", root), segs = $(".segs", root), n = steps.length;
+    const prev = $('[data-nav="prev"]', root), next = $('[data-nav="next"]', root), stepn = $(".stepn", root);
+    steps.forEach((s, i) => { const b = document.createElement("button"); b.tabIndex = -1; b.onclick = () => go(i); segs.appendChild(b); });
+    let cur = 0;
+    function go(i) {
+      i = Math.max(0, Math.min(n - 1, i));
+      const back = i < cur;
+      steps.forEach((s, j) => { s.classList.toggle("from-left", back && j === i); s.classList.toggle("active", j === i); });
+      $$("button", segs).forEach((b, j) => b.classList.toggle("on", j <= i));
+      prev.disabled = i === 0;
+      stepn.textContent = (i + 1) + " de " + n;
+      next.innerHTML = i === n - 1 ? 'Próximo tema <svg class="i"><use href="#i-right"/></svg>' : 'Continuar <svg class="i"><use href="#i-right"/></svg>';
+      cur = i; stopSpeak();
+      stepHooks.forEach(h => h(steps[i]));
+      window.scrollTo({ top: 0 });
+    }
+    prev.onclick = () => go(cur - 1);
+    next.onclick = () => cur < n - 1 ? go(cur + 1) : (location.hash = NEXT[root.dataset.story] || "inicio");
+    go(0);
+  });
+
+  /* Enquete de abertura */
+  $$("#t1Poll .chip").forEach(c => c.addEventListener("click", () => {
+    $$("#t1Poll .chip").forEach(x => x.setAttribute("aria-pressed", String(x === c)));
+    const o = $("#t1PollOut"); o.hidden = false; $("p", o).textContent = c.dataset.r;
+    award(5, "poll1");
+  }));
+
+  /* ---------- Animação "vídeo" ---------- */
+  (function () {
+    const root = $("#player"); if (!root) return;
+    const path = $("#vPath"), L = path.getTotalLength(), parts = $("#vParts");
+    const N = 16; const dots = [];
+    for (let i = 0; i < N; i++) { const c = document.createElementNS("http://www.w3.org/2000/svg", "circle"); c.setAttribute("r", "3.6"); c.setAttribute("fill", "var(--alert)"); parts.appendChild(c); dots.push(c); }
+    const D = 20;
+    const CAP = {
+      isq: [[0, "O sangue leva oxigênio ao cérebro o tempo todo."], [4, "Um coágulo se forma e viaja pelo vaso sanguíneo..."], [8, "...e entope o vaso. A região do cérebro fica sem oxigênio."], [12, "Os sinais aparecem de repente: rosto torto, braço fraco, fala enrolada."], [16, "Ligue 192 já! No hospital, existem tratamentos que só funcionam nas primeiras horas."]],
+      hem: [[0, "O sangue leva oxigênio ao cérebro o tempo todo."], [4, "A pressão alta força a parede do vaso por muito tempo e ela enfraquece."], [8, "O vaso se rompe e o sangue vaza dentro do cérebro."], [12, "Os sinais aparecem de repente: rosto torto, braço fraco, fala enrolada."], [16, "Também é emergência: ligue 192 imediatamente."]]
+    };
+    let ep = "isq", t = 0, playing = false, last = 0, capI = -1, narr = false;
+    const clamp = v => Math.max(0, Math.min(1, v));
+    const pAt = f => path.getPointAtLength(L * f);
+    const CLOT = 0.72, RUP = 0.62, rp = pAt(RUP);
+    $("#vBleed").setAttribute("transform", `translate(${rp.x} ${rp.y}) scale(0)`);
+    $("#vBulge").setAttribute("cx", rp.x); $("#vBulge").setAttribute("cy", rp.y);
+    function render() {
+      const isq = ep === "isq";
+      const blocked = isq && t >= 8, rupt = !isq && t >= 8;
+      dots.forEach((c, i) => {
+        const f = (t * 0.2 + i / N) % 1;
+        const hide = (blocked && f > CLOT) || (rupt && f > RUP);
+        c.setAttribute("opacity", hide ? 0 : 0.9);
+        if (!hide) { const p = pAt(f); c.setAttribute("cx", p.x); c.setAttribute("cy", p.y); }
+      });
+      const clot = $("#vClot");
+      if (isq && t >= 4) { const p = pAt(Math.min(CLOT, (t - 4) / 4 * CLOT)); clot.setAttribute("transform", `translate(${p.x} ${p.y})`); clot.setAttribute("opacity", 1); }
+      else clot.setAttribute("opacity", 0);
+      const bul = !isq && t >= 4 && t < 8 ? clamp((t - 4) / 3) * (8 + 2 * Math.sin(t * 8)) : 0;
+      $("#vBulge").setAttribute("r", Math.max(0, bul));
+      const bs = !isq ? clamp((t - 8) / 3) : 0;
+      $("#vBleed").setAttribute("transform", `translate(${rp.x} ${rp.y}) scale(${bs * 1.3})`); $("#vBleed").setAttribute("opacity", bs ? 1 : 0);
+      const gray = clamp((t - 8.5) / 3) * (isq ? 0.75 : 0.55);
+      $("#vGray").setAttribute("opacity", gray); $("#vGlow").setAttribute("opacity", 0.3 * (1 - gray));
+      $$("#vSigns > g").forEach((g, i) => g.setAttribute("opacity", clamp((t - 12 - i * 0.8) / 0.5)));
+      $("#vBadge").setAttribute("opacity", clamp((t - 16) / 0.6));
+      const caps = CAP[ep]; let ci = 0; caps.forEach((c, i) => { if (t >= c[0]) ci = i; });
+      if (ci !== capI) {
+        capI = ci; $(".caption", root).textContent = caps[ci][1];
+        if (narr && playing && synth) { try { synth.cancel(); const u = new SpeechSynthesisUtterance(caps[ci][1]); u.lang = "pt-BR"; u.rate = 1; synth.speak(u); } catch (e) {} }
+      }
+      $("#pRange").value = Math.round(t / D * 1000);
+      const s = Math.floor(t); $(".ptime", root).textContent = "0:" + String(s).padStart(2, "0") + " / 0:20";
+    }
+    const PLAY = "M8 5l12 7-12 7z", PAUSE = "M7 5h4v14H7zM13 5h4v14h-4z";
+    function setPlaying(v) {
+      playing = v; root.classList.toggle("playing", v);
+      $(".pp", root).setAttribute("d", v ? PAUSE : PLAY);
+      if (v) { if (t >= D) t = 0; capI = -1; last = performance.now(); requestAnimationFrame(loop); }
+    }
+    function loop(now) {
+      if (!playing) return;
+      t += (now - last) / 1000; last = now;
+      if (t >= D) { t = D; render(); setPlaying(false); award(10, "vid-" + ep); $(".caption", root).textContent = ep === "isq" ? "Fim! Agora assista ao AVC hemorrágico." : "Fim! Lembre: tempo é cérebro. Ligue 192."; return; }
+      render(); requestAnimationFrame(loop);
+    }
+    $(".bigplay", root).onclick = () => setPlaying(true);
+    $('[data-act="play"]', root).onclick = () => setPlaying(!playing);
+    $('[data-act="narr"]', root).onclick = function () { narr = !narr; this.setAttribute("aria-pressed", String(narr)); if (!narr) stopSpeak(); toast(narr ? "Narração ligada" : "Narração desligada"); };
+    $("#pRange").addEventListener("input", e => { t = e.target.value / 1000 * D; capI = -1; render(); });
+    $$("[data-ep]", root).forEach(b => b.addEventListener("click", () => {
+      $$("[data-ep]", root).forEach(x => x.setAttribute("aria-selected", String(x === b)));
+      ep = b.dataset.ep; t = 0; capI = -1; setPlaying(false); render();
+      $(".caption", root).textContent = "Aperte o play para assistir.";
+    }));
+    render(); $(".caption", root).textContent = "Aperte o play para assistir.";
+    stepHooks.push(() => setPlaying(false));
+    window.addEventListener("hashchange", () => setPlaying(false));
+  })();
+
+  /* ---------- Joguinho: Detetive do AVC ---------- */
+  (function () {
+    const box = $("#det"); if (!box) return;
+    const DET = [
+      { f: { face: "droop", anim: 1, hair: "bald", old: 1 }, s: "Seu pai está almoçando e, de repente, a boca fica torta para um lado.", a: true, w: "Assimetria facial súbita é sinal de AVC. É o S de Sorriso." },
+      { f: { face: "worried", arms: "drop", hair: "bun", old: 1, skin: "var(--skin3)", shirt: "var(--care)" }, s: "Sua mãe tenta levantar os dois braços, mas um deles cai sozinho.", a: true, w: "Perda de força de um lado do corpo é sinal de AVC. É o A de Abraço." },
+      { f: { face: "neutral", bubble: 1, hair: "short", skin: "var(--skin4)", shirt: "var(--home)" }, s: "Seu irmão começa a falar palavras sem sentido e não entende o que você pergunta.", a: true, w: "Alteração súbita da fala ou da compreensão é sinal de AVC. É o M de Mensagem." },
+      { f: { face: "worried", hand: "back", hair: "long", skin: "var(--skin1)", shirt: "var(--rehab)" }, s: "Sua tia tem dor nas costas há meses, que piora quando carrega peso.", a: false, w: "Dor antiga que piora com esforço não é um sinal típico de AVC. Mesmo assim, merece consulta." },
+      { f: { face: "pain", hand: "head", hair: "short", old: 1, skin: "var(--skin2)" }, s: "De repente, seu avô sente a pior dor de cabeça da vida, diferente de tudo que já teve.", a: true, w: "Dor de cabeça súbita e muito forte, diferente da habitual, é sinal de alerta. Ligue 192." },
+      { f: { face: "smile", hair: "curly", skin: "var(--skin3)", shirt: "var(--care)" }, s: "Depois de uma caminhada longa, sua mãe fica cansada, descansa e logo se sente bem.", a: false, w: "Cansaço que passa com descanso, sem outros sinais, não é sinal de AVC." },
+      { f: { face: "dizzy", hair: "bald", old: 1, skin: "var(--skin4)", shirt: "var(--brand)" }, s: "Seu avô fica muito tonto de repente, perde o equilíbrio e não consegue andar.", a: true, w: "Tontura intensa e súbita com desequilíbrio é sinal de alerta de AVC." },
+      { f: { face: "worried", hand: "eye", hair: "bun", skin: "var(--skin1)", shirt: "var(--home)" }, s: "Sua vizinha perde a visão de um olho de repente.", a: true, w: "Perda súbita da visão é sinal de alerta de AVC. Ligue 192." }
+    ];
+    const T = 12; let i = 0, hits = 0, score = 0, left = T, tm = null;
+    const stop = () => clearInterval(tm);
+    function intro() {
+      stop();
+      box.innerHTML = `<div class="det-end"><div style="width:120px">${figSvg({ face: "smile", hair: "short", shirt: "var(--alert)", skin: "var(--skin3)" })}</div>
+        <h3>8 situações · 12 segundos cada</h3><p class="muted">Quanto mais rápido acertar, mais pontos.</p>
+        <button class="btn btn-main" data-go>Começar o jogo <svg class="i"><use href="#i-right"/></svg></button></div>`;
+      $("[data-go]", box).onclick = () => { i = 0; hits = 0; score = 0; show(); };
+    }
+    function show() {
+      const d = DET[i]; left = T;
+      box.innerHTML = `<div class="det-top"><span>Situação ${i + 1} de ${DET.length}</span><span>${score} pts</span></div>
+        <div class="tbar"><i></i></div>
+        <div class="det-card"><div class="det-art">${figSvg(d.f)}</div><p>${d.s}</p></div>
+        <div class="det-ans"><button class="btn btn-alert" data-v="1"><svg class="i"><use href="#i-phone"/></svg> É sinal de AVC</button><button class="btn btn-ghost" data-v="0">Não parece AVC</button></div>
+        <div class="feedback" hidden></div><div><button class="btn btn-main" data-nx hidden></button></div>`;
+      const bar = $(".tbar i", box);
+      $$("[data-v]", box).forEach(b => b.onclick = () => answer(b.dataset.v === "1"));
+      stop(); tm = setInterval(() => { left -= 0.1; bar.style.width = Math.max(0, left / T * 100) + "%"; if (left <= 0) answer(null); }, 100);
+    }
+    function answer(v) {
+      stop(); const d = DET[i];
+      const ok = v === d.a; let got = 0;
+      if (ok) { hits++; got = 10 + Math.ceil(Math.max(0, left)); score += got; }
+      $$("[data-v]", box).forEach(b => b.disabled = true);
+      $(".det-top span:last-child", box).textContent = score + " pts";
+      const f = $(".feedback", box); f.hidden = false; f.className = "feedback " + (ok ? "good" : "bad");
+      f.innerHTML = "<b>" + (v === null ? "O tempo acabou! Na dúvida, ligue 192." : ok ? "Acertou! +" + got : "Não foi dessa vez.") + "</b>";
+      f.appendChild(document.createTextNode(d.w));
+      const nx = $("[data-nx]", box); nx.hidden = false;
+      nx.innerHTML = i < DET.length - 1 ? 'Próxima <svg class="i"><use href="#i-right"/></svg>' : "Ver resultado";
+      nx.onclick = () => { i++; i < DET.length ? show() : end(); };
+    }
+    function end() {
+      box.innerHTML = `<div class="det-end"><span class="medal big c-alert"><svg class="i"><use href="#i-brain"/></svg></span>
+        <h3>Você acertou ${hits} de ${DET.length}</h3><p class="score">${score}</p><p class="muted">${hits >= 7 ? "Excelente, detetive! Você reconhece os sinais de AVC." : "Bom começo! Jogue de novo para fixar os sinais."}</p>
+        <button class="btn btn-ghost" data-go>Jogar de novo</button></div>`;
+      $("[data-go]", box).onclick = () => { i = 0; hits = 0; score = 0; show(); };
+      award(Math.round(score / 2), "det");
+    }
+    intro();
+    stepHooks.push(() => { if (tm) { stop(); intro(); } });
+    window.addEventListener("hashchange", () => { if (tm) { stop(); intro(); } });
+  })();
+
+  /* ---------- Joguinho: faça ou não faça ---------- */
+  (function () {
+    const ul = $("#sort"); if (!ul) return;
+    const IT = [
+      ["Ligar 192 (SAMU) imediatamente", "faca", "Isso! Quanto antes o atendimento, menores as sequelas."],
+      ["Esperar para ver se melhora sozinho", "nao", "Não espere. Mesmo se os sinais melhorarem, ligue 192."],
+      ["Dar água com açúcar para acalmar", "nao", "Nada de comida, água ou remédios: a pessoa pode engasgar."],
+      ["Anotar a hora em que foi vista bem pela última vez", "faca", "Essa informação ajuda a equipe a escolher o tratamento."],
+      ["Dar o remédio de pressão que ela já toma", "nao", "Não ofereça remédios. Deixe as decisões para a equipe de saúde."],
+      ["Ficar ao lado, manter a calma e tranquilizar", "faca", "Isso ajuda. Fique junto até a chegada do socorro."],
+      ["Colocar para dormir para passar o mal-estar", "nao", "Dormir pode esconder a piora. Ligue 192."]
+    ];
+    let done = 0, right = 0;
+    IT.forEach(([txt, ans, why]) => {
+      const li = document.createElement("li");
+      li.innerHTML = `<b></b><div class="opts"><button data-v="faca"><svg class="i"><use href="#i-check"/></svg> Faça</button><button data-v="nao"><svg class="i"><use href="#i-x"/></svg> Não faça</button></div><p class="why" hidden></p>`;
+      $("b", li).textContent = txt;
+      $$("button", li).forEach(b => b.onclick = () => {
+        const ok = b.dataset.v === ans; done++; if (ok) right++;
+        li.classList.add(ok ? "right" : "wrong");
+        const p = $(".why", li); p.hidden = false; p.textContent = (ok ? "Certo. " : (ans === "faca" ? "Na verdade, faça. " : "Na verdade, não faça. ")) + why;
+        if (done === IT.length) { const r = $("#sortRes"); r.hidden = false; r.textContent = "Você acertou " + right + " de " + IT.length + "!"; award(right * 3, "sort1"); }
+      });
+      ul.appendChild(li);
+    });
+  })();
+
+  /* ---------- Joguinho: memória ---------- */
+  (function () {
+    const grid = $("#mem"); if (!grid) return;
+    const ICON = {
+      pa: `<svg viewBox="0 0 54 54"><circle cx="27" cy="27" r="22" fill="none" stroke="var(--line)" stroke-width="6"/><path d="M8 34a20 20 0 0 1 22-27" fill="none" stroke="var(--alert)" stroke-width="6" stroke-linecap="round"/><path d="M27 27l10-10" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/></svg>`,
+      dm: `<svg viewBox="0 0 54 54"><path d="M27 6c8 12 15 20 15 28a15 15 0 0 1-30 0c0-8 7-16 15-28z" fill="var(--alert-soft)" stroke="var(--alert)" stroke-width="3"/><text x="27" y="40" text-anchor="middle" font-size="12" font-weight="700" fill="var(--alert)" font-family="Atkinson Hyperlegible, sans-serif">mg</text></svg>`,
+      col: `<svg viewBox="0 0 54 54"><path d="M4 27h46" stroke="var(--alert)" stroke-width="16" stroke-linecap="round" opacity=".25"/><path d="M4 27h46" stroke="var(--alert)" stroke-width="3"/><circle cx="20" cy="27" r="7" fill="var(--home)"/><circle cx="33" cy="27" r="5" fill="var(--home)"/></svg>`,
+      cig: `<svg viewBox="0 0 54 54"><rect x="6" y="23" width="36" height="9" rx="2" fill="var(--muted)" opacity=".6"/><rect x="40" y="23" width="8" height="9" fill="var(--alert)"/><path d="M44 18q4-6 0-12" stroke="var(--muted)" stroke-width="2.5" fill="none"/><path d="M8 8l38 38" stroke="var(--alert)" stroke-width="4" stroke-linecap="round"/></svg>`,
+      alc: `<svg viewBox="0 0 54 54"><path d="M14 8h26l-4 38H18z" fill="var(--brand-soft)" stroke="var(--brand)" stroke-width="3" stroke-linejoin="round"/><path d="M17 22h20l-2.5 22h-15z" fill="var(--home)" opacity=".7"/></svg>`,
+      sed: `<svg viewBox="0 0 54 54"><rect x="6" y="22" width="42" height="18" rx="6" fill="var(--rehab-soft)" stroke="var(--rehab)" stroke-width="3"/><rect x="4" y="18" width="8" height="24" rx="4" fill="var(--rehab)"/><rect x="42" y="18" width="8" height="24" rx="4" fill="var(--rehab)"/><path d="M12 46v4M42 46v4" stroke="var(--rehab)" stroke-width="3"/></svg>`
+    };
+    const PAIRS = [
+      ["pa", "Pressão alta", "Pressão alta machuca os vasos com o tempo. É o principal fator de risco para AVC."],
+      ["dm", "Diabetes", "Açúcar alto no sangue danifica os vasos e acelera o entupimento."],
+      ["col", "Colesterol alto", "O excesso de gordura forma placas que estreitam os vasos."],
+      ["cig", "Cigarro", "O cigarro estreita os vasos e facilita a formação de coágulos."],
+      ["alc", "Álcool em excesso", "Beber em excesso aumenta a pressão e o risco de sangramento."],
+      ["sed", "Sedentarismo", "Ficar parado favorece pressão alta, diabetes e ganho de peso."]
+    ];
+    const BACK = `<svg viewBox="0 0 64 64"><use href="#neno" width="64" height="64" style="color:var(--on-color)"/></svg>`;
+    let open = [], moves = 0, pairs = 0, lock = false;
+    function deal() {
+      const cards = [];
+      PAIRS.forEach(([k, name]) => { cards.push({ k, html: ICON[k], label: name + " (desenho)" }); cards.push({ k, html: `<span>${name}</span>`, label: name }); });
+      for (let i = cards.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [cards[i], cards[j]] = [cards[j], cards[i]]; }
+      grid.innerHTML = ""; open = []; moves = 0; pairs = 0; lock = false;
+      $("#memMoves").textContent = 0; $("#memPairs").textContent = 0;
+      $("#memOut p").textContent = "Cada par que você achar, eu explico o porquê.";
+      cards.forEach((c, idx) => {
+        const b = document.createElement("button"); b.className = "mcard"; b.dataset.k = c.k;
+        b.setAttribute("aria-label", "Carta " + (idx + 1));
+        b.innerHTML = `<span class="in"><span class="s s1">${BACK}</span><span class="s s2">${c.html}</span></span>`;
+        b.onclick = () => flip(b, c);
+        grid.appendChild(b);
+      });
+    }
+    function flip(b, c) {
+      if (lock || b.classList.contains("open") || b.classList.contains("ok")) return;
+      b.classList.add("open"); b.setAttribute("aria-label", c.label); open.push(b);
+      if (open.length < 2) return;
+      moves++; $("#memMoves").textContent = moves;
+      const [a, d] = open;
+      if (a.dataset.k === d.dataset.k) {
+        a.classList.add("ok"); d.classList.add("ok"); open = []; pairs++;
+        $("#memPairs").textContent = pairs;
+        const pr = PAIRS.find(p => p[0] === a.dataset.k); $("#memOut p").innerHTML = "<b>" + pr[1] + ":</b> " + pr[2];
+        if (pairs === PAIRS.length) { $("#memOut p").innerHTML = "<b>Parabéns!</b> Você achou todos os pares em " + moves + " jogadas. Lembre: nem todas as pessoas têm todos os fatores."; award(30, "mem1"); }
+      } else {
+        lock = true;
+        setTimeout(() => { a.classList.remove("open"); d.classList.remove("open"); a.setAttribute("aria-label", "Carta virada"); d.setAttribute("aria-label", "Carta virada"); open = []; lock = false; }, 1000);
+      }
+    }
+    $("#memReset").onclick = deal;
+    deal();
+  })();
+
+
   route();
+  drawProgress();
 })();
 </script>
 </body>
