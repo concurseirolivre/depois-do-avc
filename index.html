@@ -93,6 +93,8 @@ svg.i { width: 1.25em; height: 1.25em; flex: none; stroke: currentColor; fill: n
   display: inline-flex; align-items: center; justify-content: center; gap: 4px; cursor: pointer; font-weight: 700; padding: 0 10px;
 }
 .tbtn:hover { border-color: var(--brand); }
+.tbtn:disabled { opacity: .4; cursor: default; }
+#fontDown, #fontUp { font-size: .95rem; }
 .tbtn[aria-pressed="true"] { background: var(--brand); color: var(--on-color); border-color: var(--brand); }
 
 /* ---------- Estrutura ---------- */
@@ -405,7 +407,6 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
 .pts { display: inline-flex; align-items: center; gap: 4px; height: 44px; padding: 0 12px; border-radius: 12px; background: var(--rehab-soft); color: var(--rehab); font-weight: 700; font-variant-numeric: tabular-nums; text-decoration: none; }
 .pts.bump { animation: bump .5s ease; }
 @keyframes bump { 40% { transform: scale(1.18); } }
-@media (max-width: 460px) { #fontDown { display: none; } }
 
 /* Mascote */
 .neno { width: 54px; height: 54px; flex: none; color: var(--rehab); animation: bob 3s ease-in-out infinite; }
@@ -1317,11 +1318,23 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
   window.addEventListener("hashchange", route);
 
   /* ---------- Tamanho da letra e tema ---------- */
-  let base = store.get("font", 18);
-  const applyFont = () => document.documentElement.style.setProperty("--base", base + "px");
+  /* Sem escolha salva, vale o tamanho padrão da tela (17px no celular, 18px no computador) */
+  const FMIN = 14, FMAX = 26;
+  let base = store.get("font", null);
+  const applyFont = () => {
+    if (base) document.documentElement.style.setProperty("--base", base + "px");
+    const cur = base || parseFloat(getComputedStyle(document.documentElement).fontSize);
+    $("#fontDown").disabled = cur <= FMIN; $("#fontUp").disabled = cur >= FMAX;
+  };
+  const changeFont = d => {
+    const cur = base || parseFloat(getComputedStyle(document.documentElement).fontSize);
+    base = Math.max(FMIN, Math.min(FMAX, cur + d)); applyFont(); store.set("font", base);
+    toast(d > 0 ? "Letra maior" : "Letra menor");
+    if (typeof drawMap === "function") setTimeout(drawMap, 50);
+  };
   applyFont();
-  $("#fontUp").onclick = () => { base = Math.min(26, base + 2); applyFont(); store.set("font", base); };
-  $("#fontDown").onclick = () => { base = Math.max(14, base - 2); applyFont(); store.set("font", base); };
+  $("#fontUp").onclick = () => changeFont(2);
+  $("#fontDown").onclick = () => changeFont(-2);
   const savedTheme = store.get("theme", null);
   if (savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
   $("#themeBtn").onclick = () => {
