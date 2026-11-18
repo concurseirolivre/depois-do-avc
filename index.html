@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Cuidar Depois do AVC</title>
+<title>Depois do AVC</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Aplicativo educativo para pacientes com AVC (AVE) e seus familiares: sinais de alerta, cuidados na internação, reabilitação, cuidados em casa e prevenção.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -409,12 +409,13 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
 .neno { width: 54px; height: 54px; flex: none; color: var(--rehab); animation: bob 3s ease-in-out infinite; }
 @keyframes bob { 50% { transform: translateY(-4px) rotate(-3deg); } }
 .neno-say { display: flex; gap: 10px; align-items: flex-end; }
+.neno-say p small { display: block; margin-top: 6px; color: var(--muted); font-size: .88rem; }
 .neno-say p { position: relative; background: var(--surface-2); border: 1px solid var(--line); border-radius: 16px 16px 16px 4px; padding: 10px 14px; font-size: .98rem; min-width: 0; }
 
 /* Herói */
 .hero2 { background: var(--surface); border: 1px solid var(--line); border-radius: 26px; overflow: hidden; box-shadow: var(--shadow); }
 .hero-art svg, .art svg { display: block; width: 100%; height: auto; }
-.hero-art img, .art img { display: block; width: 100%; max-width: 100%; aspect-ratio: 360 / 220; object-fit: cover; }
+.hero-art img, .art img { display: block; width: 100%; max-width: 100%; height: auto; }
 .hero-body { padding: 18px 20px 22px; display: grid; gap: 14px; }
 .hero2 h1 { font-size: 1.95rem; }
 .hero2 h1 span { color: var(--alert); }
@@ -606,7 +607,7 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
   <div class="top-in">
     <a class="logo" href="#inicio" aria-label="Início">
       <span class="logo-mark"><svg class="i"><use href="#i-brain"/></svg></span>
-      <span class="logo-text">Cuidar Depois do AVC<small>Educação para pacientes e famílias · UAVE</small></span>
+      <span class="logo-text">Depois do AVC<small>Educação para pacientes e famílias · UAVE</small></span>
     </a>
     <a class="pts" href="#inicio" id="pts" aria-label="Pontos de cuidado"><svg class="i"><use href="#i-star"/></svg><span id="ptsN">0</span></a>
     <div class="tools">
@@ -622,13 +623,13 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
 <!-- ================= INÍCIO ================= -->
 <section class="view" data-view="inicio">
   <div class="hero2">
-    <div class="hero-art" data-photo="inicio" data-scene="hero" role="img" aria-label="Ilustração de uma família: avô, filha e neta juntos"></div>
+    <div class="hero-art" data-photo="inicio" data-scene="hero" role="img" aria-label="Ilustração de uma família: a filha, o avô e o neto juntos"></div>
     <div class="hero-body">
       <div class="neno-say">
         <svg class="neno" viewBox="0 0 64 64" aria-hidden="true"><use href="#neno"/></svg>
-        <p id="greet">Oi! Eu sou o <b>Neno</b>, um neurônio. Vou te acompanhar nessa jornada pelo cérebro e pelo cuidado.</p>
+        <p id="greet">Oi! Eu sou o <b>Neno</b>, um neurônio! Vou acompanhar você nesta jornada para entender melhor o cérebro, reconhecer os sinais de um AVE e aprender como agir diante dele.</p>
       </div>
-      <h1>Tempo é <span>cérebro</span>.<br>E a família faz parte do cuidado.</h1>
+      <h1><span>Cada minuto importa.</span><br>A família também faz parte do cuidado.</h1>
       <div class="who">
         <span class="muted">Quem está usando?</span>
         <div class="chips" id="who">
@@ -1656,7 +1657,7 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
       '<button class="btn btn-ghost" id="qAgain">Refazer desafio</button></div>' +
       '<p class="muted">' + (s >= 8 ? "Excelente! Sua família está preparada para cuidar." : s >= 5 ? "Bom trabalho! Reveja os temas para reforçar." : "Vale a pena rever os temas com calma. Cada passo conta.") + "</p>" +
       '<div class="field"><label for="certName">Nome para o certificado</label><input id="certName" placeholder="Seu nome ou o nome da família"></div>' +
-      '<div class="cert"><span class="seal"><svg class="i"><use href="#i-heart"/></svg></span><span class="eyebrow" style="--c:var(--care)">Certificado</span><h2>Família que Cuida</h2><p class="nm" id="certOut"></p><p class="muted">concluiu o desafio “Cuidar Depois do AVC” e sabe que, diante de sinais de AVC, deve ligar 192. Tempo é cérebro!</p></div></div>';
+      '<div class="cert"><span class="seal"><svg class="i"><use href="#i-heart"/></svg></span><span class="eyebrow" style="--c:var(--care)">Certificado</span><h2>Família que Cuida</h2><p class="nm" id="certOut"></p><p class="muted">concluiu o desafio “Depois do AVC” e sabe que, diante de sinais de AVC, deve ligar 192. Tempo é cérebro!</p></div></div>';
     const inp = $("#certName", b), out = $("#certOut", b);
     inp.value = name; out.textContent = name;
     inp.addEventListener("input", () => { out.textContent = inp.value; store.set("name", inp.value); });
@@ -1668,7 +1669,7 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
 
   /* Fotos: coloque aqui o caminho de uma foto para substituir a ilustração daquela tela.
      Ex.: inicio: "fotos/familia.jpg". Use apenas fotos autorizadas, sem identificar pacientes. */
-  const PHOTOS = { inicio: "", "t1-abertura": "" };
+  const PHOTOS = { inicio: "img/familia.webp", "t1-abertura": "" };
 
   const INK = "var(--face-ink)";
   function figSvg(o, attrs) {
@@ -1768,14 +1769,15 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
   showPts();
 
   /* ---------- Início: quem usa ---------- */
+  const BASE_GREET = "Oi! Eu sou o <b>Neno</b>, um neurônio! Vou acompanhar você nesta jornada para entender melhor o cérebro, reconhecer os sinais de um AVE e aprender como agir diante dele.";
   const GREET = {
-    paciente: "Oi! Que bom ter você aqui. Vamos aprender juntos, no seu ritmo. Se cansar, pare e volte depois.",
-    familiar: "Oi! Você é muito importante na recuperação do seu familiar. Vamos aprender a cuidar com segurança.",
-    academico: "Oi! Use o app na apresentação de 15 minutos. O roteiro completo está na Área do acadêmico."
+    paciente: "Que bom ter você aqui. Vá no seu ritmo: se cansar, pare e volte depois.",
+    familiar: "Você é muito importante na recuperação do seu familiar.",
+    academico: "O roteiro da apresentação está na Área do acadêmico."
   };
   function setWho(w) {
     $$("#who .chip").forEach(c => c.setAttribute("aria-pressed", String(c.dataset.who === w)));
-    if (GREET[w]) $("#greet").textContent = GREET[w];
+    $("#greet").innerHTML = BASE_GREET + (GREET[w] ? "<br><small>" + GREET[w] + "</small>" : "");
   }
   $$("#who .chip").forEach(c => c.addEventListener("click", () => { store.set("who", c.dataset.who); setWho(c.dataset.who); }));
   setWho(store.get("who", ""));
@@ -1791,8 +1793,8 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
     { h: "quiz", t: "Desafio final", sub: "Ganhe o certificado", ic: "i-star", c: "rehab" }
   ];
   const MEDALS = [
-    ["1", "Detetive do AVC", "i-brain", "alert"], ["2", "Mãos que protegem", "i-hand", "brand"],
-    ["3", "Força na reabilitação", "i-walk", "rehab"], ["4", "Casa segura", "i-home", "home"], ["5", "Guardião da saúde", "i-shield", "care"]
+    ["1", "Detetive do AVC", "i-brain", "alert"], ["2", "Quem sabe cuidar", "i-hand", "brand"],
+    ["3", "Hora de reabilitar", "i-walk", "rehab"], ["4", "Casa segura", "i-home", "home"], ["5", "De olho na saúde", "i-eye", "care"]
   ];
   const isDone = s => s.n ? progress.has(s.n) : s.h === "jornada" ? store.get("seenJornada", false) : store.get("quizDone", false);
   function drawMap() {
