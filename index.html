@@ -421,7 +421,12 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
 .hero-body { padding: 18px 20px 22px; display: grid; gap: 14px; }
 .hero2 h1 { font-size: 1.95rem; }
 .hero2 h1 span { color: var(--alert); }
-.who { display: grid; gap: 6px; }
+.who { display: grid; gap: 8px; }
+.who-q { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; }
+.who-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.who-btn { min-height: 60px; border-radius: 16px; border: 2px solid var(--brand); background: var(--brand-soft); color: var(--brand); font-size: 1.05rem; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 8px 6px; white-space: nowrap; }
+.who-btn svg.i { width: 24px; height: 24px; }
+.who-btn[aria-pressed="true"] { background: var(--brand); color: var(--on-color); border-color: var(--brand); }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 10px; }
 
 .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
@@ -713,18 +718,18 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
   <div class="hero2">
     <div class="hero-art" data-photo="inicio" data-scene="hero" role="img" aria-label="Ilustração de uma família, a filha, o avô e o neto, em frente a uma unidade de saúde do SUS"></div>
     <div class="hero-body">
+      <div class="who">
+        <span class="who-q">Quem está usando?</span>
+        <div class="who-opts" id="who">
+          <button class="chip who-btn" data-who="paciente" aria-pressed="false"><svg class="i"><use href="#i-heart"/></svg> Sou paciente</button>
+          <button class="chip who-btn" data-who="familiar" aria-pressed="false"><svg class="i"><use href="#i-users"/></svg> Sou familiar</button>
+        </div>
+      </div>
       <div class="neno-say">
         <svg class="neno" viewBox="0 0 64 64" aria-hidden="true"><use href="#neno"/></svg>
         <p id="greet">Oi! Eu sou o <b>Neno</b>, um neurônio! Vou acompanhar você nesta jornada para entender melhor o cérebro, reconhecer os sinais de um AVE e aprender como agir diante dele.</p>
       </div>
       <h1><span>Cada minuto importa.</span><br>A família também faz parte do cuidado.</h1>
-      <div class="who">
-        <span class="muted">Quem está usando?</span>
-        <div class="chips" id="who">
-          <button class="chip" data-who="paciente" aria-pressed="false">Sou paciente</button>
-          <button class="chip" data-who="familiar" aria-pressed="false">Sou familiar</button>
-        </div>
-      </div>
       <div class="hero-cta c-alert">
         <a class="btn btn-main" id="goNext" href="#tema-1">Começar a jornada <svg class="i"><use href="#i-right"/></svg></a>
       </div>
