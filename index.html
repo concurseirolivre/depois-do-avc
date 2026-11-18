@@ -486,7 +486,7 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
 .story-nav [data-nav="prev"]:disabled { visibility: hidden; }
 .story.in-game .story-nav { background: var(--surface-2); box-shadow: none; }
 .story.in-game .story-nav .stepn { font-weight: 700; color: var(--c); }
-.story-nav [data-nav="next"].btn-ghost { min-height: 44px; font-size: .9rem; color: var(--muted); }
+.story.in-game .story-nav { grid-template-columns: auto 1fr; }
 .story-nav [data-nav="next"].ready { animation: ready 0.8s ease-in-out 3; }
 @keyframes ready { 50% { transform: scale(1.07); box-shadow: 0 0 0 6px var(--c-soft); } }
 .det [data-nx], .talk [data-nx] { width: 100%; min-height: 56px; }
@@ -646,6 +646,46 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
 .shield .flip.on .face.front { border-color: var(--care); }
 
 .btn-care { background: var(--care); color: var(--on-color); }
+
+/* ===== Celular: mais espaço para o conteúdo ===== */
+@media (max-width: 560px) {
+  :root { --base: 17px; }
+  .top-in { min-height: 52px; gap: 6px; }
+  .logo-mark { width: 34px; height: 34px; border-radius: 10px; }
+  .logo-text { font-size: 1rem; }
+  .tbtn, .pts { min-width: 40px; height: 40px; padding: 0 8px; }
+  main { padding-block: 10px 132px; }
+  .view { gap: 14px; }
+  .card { padding: 16px; border-radius: 16px; }
+  h1, .step h1, .hero2 h1, .thead h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.32rem; }
+  .step { gap: 12px; }
+  .story { gap: 12px; }
+  .story-top { top: calc(52px + env(safe-area-inset-top, 0px)); padding-block: 6px; gap: 8px; }
+  .story-top .back, .story-top .speak { min-height: 40px; }
+  .hero-body { padding: 14px 16px 18px; gap: 12px; }
+  .neno { width: 44px; height: 44px; }
+  .neno-say p { font-size: .94rem; padding: 8px 12px; }
+  .question { padding: 12px 14px; }
+  .question p { font-size: 1rem; }
+  .key-msg { padding: 16px; border-radius: 18px; }
+  .key-msg p { font-size: 1.2rem; }
+  .det-card { grid-template-columns: 92px 1fr; padding: 12px; gap: 12px; }
+  .det-card p { font-size: 1.06rem; }
+  .det-ans .btn { min-height: 56px; }
+  .talk-scene { grid-template-columns: 88px 1fr; }
+  .talk-scene p { font-size: 1.06rem; }
+  .caption { font-size: .95rem; }
+  .sos { padding-top: 6px; padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px)); }
+  .sos-in p { font-size: .8rem; }
+  .sos-in p b { font-size: .98rem; }
+  .sos a { min-height: 44px; padding: 4px 14px; font-size: 1.3rem; border-radius: 12px; }
+  .story-nav { bottom: calc(62px + env(safe-area-inset-bottom, 0px)); padding: 6px; border-radius: 16px; }
+  .story-nav .btn { min-height: 44px; padding: 0 12px; font-size: .95rem; }
+  .toast { bottom: 128px; }
+  .art { background: var(--surface); }
+  .art img { max-height: 40vh; width: auto; max-width: 100%; margin: 0 auto; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -1919,10 +1959,11 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
   const NEXT = { "1": "tema-2", "2": "tema-3", "3": "tema-4", "4": "tema-5", "5": "jornada" };
   const stepHooks = [];
   /* Jogos: marcam a tela como "em jogo" até terminar */
-  function gameStep(sel) { const st = $(sel) && $(sel).closest(".step"); if (st) st.dataset.game = "1"; }
+  const doneGames = new Set(store.get("games", []));
+  function gameStep(sel) { const st = $(sel) && $(sel).closest(".step"); if (st) { st.dataset.game = "1"; if (doneGames.has(sel)) st.dataset.done = "1"; } }
   function gameDone(sel) {
     const st = $(sel) && $(sel).closest(".step"); if (!st || st.dataset.done) return;
-    st.dataset.done = "1";
+    st.dataset.done = "1"; doneGames.add(sel); store.set("games", Array.from(doneGames));
     const story = st.closest(".story"); if (story && story._nav && st.classList.contains("active")) story._nav();
   }
   ["#det", "#sort", "#mem", "#pc", "#talk", "[data-view='tema-2'] .scene"].forEach(gameStep);
@@ -1933,6 +1974,8 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
     let cur = 0;
     function go(i) {
       i = Math.max(0, Math.min(n - 1, i));
+      for (let j = cur; j < i; j++) { if (steps[j].dataset.game && !steps[j].dataset.done) { i = j; break; } }
+      if (i === cur && steps[cur].classList.contains("active")) return;
       const back = i < cur;
       steps.forEach((s, j) => { s.classList.toggle("from-left", back && j === i); s.classList.toggle("active", j === i); });
       $$("button", segs).forEach((b, j) => b.classList.toggle("on", j <= i));
@@ -1945,9 +1988,9 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
     function nav() {
       const st = steps[cur], playing = st.dataset.game && !st.dataset.done;
       root.classList.toggle("in-game", !!playing);
-      next.className = "btn " + (playing ? "btn-ghost" : "btn-main");
-      stepn.textContent = playing ? "Termine o jogo acima" : (cur + 1) + " de " + n;
-      next.innerHTML = playing ? "Pular jogo" : cur === n - 1 ? 'Próximo tema <svg class="i"><use href="#i-right"/></svg>' : 'Continuar <svg class="i"><use href="#i-right"/></svg>';
+      next.hidden = !!playing;
+      stepn.textContent = playing ? "Termine o jogo para continuar" : (cur + 1) + " de " + n;
+      next.innerHTML = cur === n - 1 ? 'Próximo tema <svg class="i"><use href="#i-right"/></svg>' : 'Continuar <svg class="i"><use href="#i-right"/></svg>';
     }
     root._nav = () => { nav(); next.classList.add("ready"); setTimeout(() => next.classList.remove("ready"), 2400); };
     prev.onclick = () => go(cur - 1);
