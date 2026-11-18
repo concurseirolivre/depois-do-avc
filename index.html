@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Cuidar Depois do AVC</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Aplicativo educativo para pacientes com AVC (AVE) e seus familiares: sinais de alerta, cuidados na internação, reabilitação, cuidados em casa e prevenção.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Baloo+2:wght@500;600;700;800&display=swap">
+<style>
+/* Layout: app de coluna única (máx. 760px), cabeçalho fixo no topo, faixa de emergência SAMU 192 fixa embaixo.
+   Cada tema tem sua cor; tipografia de alta legibilidade pensada para idosos e baixa visão. */
+:root {
+  --bg: #F1F5F8;
+  --surface: #FFFFFF;
+  --surface-2: #F7FAFC;
+  --ink: #13283C;
+  --muted: #566A7E;
+  --line: #D6E0EA;
+  --brand: #1D5C88;
+  --brand-soft: #E2EEF7;
+  --alert: #CF3420;
+  --alert-soft: #FDE7E2;
+  --care: #23735F;
+  --care-soft: #DFF1EB;
+  --rehab: #6546A0;
+  --rehab-soft: #ECE6F7;
+  --home: #B66A00;
+  --home-soft: #FFF1DA;
+  --sun: #F2B33D;
+  --on-color: #FFFFFF;
+  --shadow: 0 1px 2px rgba(19,40,60,.06), 0 6px 18px rgba(19,40,60,.07);
+  --font-display: "Baloo 2", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --radius: 18px;
+  --base: 18px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1923; --surface: #162534; --surface-2: #1B2C3D; --ink: #E8EFF5; --muted: #A2B3C4; --line: #2A3D50;
+    --brand: #7DB8E6; --brand-soft: #18324A; --alert: #FF7A63; --alert-soft: #3B1F1B;
+    --care: #63C9AB; --care-soft: #15392F; --rehab: #B8A0EC; --rehab-soft: #2A2244;
+    --home: #F2B45A; --home-soft: #392C17; --sun: #F5C466; --on-color: #0E1923;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 18px rgba(0,0,0,.25);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1923; --surface: #162534; --surface-2: #1B2C3D; --ink: #E8EFF5; --muted: #A2B3C4; --line: #2A3D50;
+  --brand: #7DB8E6; --brand-soft: #18324A; --alert: #FF7A63; --alert-soft: #3B1F1B;
+  --care: #63C9AB; --care-soft: #15392F; --rehab: #B8A0EC; --rehab-soft: #2A2244;
+  --home: #F2B45A; --home-soft: #392C17; --sun: #F5C466; --on-color: #0E1923;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 18px rgba(0,0,0,.25);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { font-size: var(--base); -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); line-height: 1.55; font-size: 1rem;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--surface); }
+h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.12; margin: 0; text-wrap: balance; font-weight: 700; }
+h1 { font-size: 2.1rem; }
+h2 { font-size: 1.55rem; }
+h3 { font-size: 1.2rem; }
+p { margin: 0; }
+button { font: inherit; color: inherit; }
+a { color: var(--brand); }
+:focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; border-radius: 8px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+svg.i { width: 1.25em; height: 1.25em; flex: none; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- Cabeçalho ---------- */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: var(--surface); border-bottom: 1px solid var(--line);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.top-in { max-width: 760px; margin: 0 auto; display: flex; align-items: center; gap: 10px; min-height: 60px; }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); min-width: 0; flex: 1; }
+.logo-mark { width: 38px; height: 38px; border-radius: 12px; background: var(--alert); color: var(--on-color); display: grid; place-items: center; flex: none; }
+.logo-text { font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; line-height: 1.05; min-width: 0; }
+@media (max-width: 460px) { .logo-text small { display: none; } }
+.logo-text small { display: block; font-family: var(--font-body); font-weight: 400; font-size: .7rem; color: var(--muted); margin-top: 3px; }
+.tools { display: flex; gap: 6px; }
+.tbtn {
+  min-width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface-2);
+  display: inline-flex; align-items: center; justify-content: center; gap: 4px; cursor: pointer; font-weight: 700; padding: 0 10px;
+}
+.tbtn:hover { border-color: var(--brand); }
+.tbtn[aria-pressed="true"] { background: var(--brand); color: var(--on-color); border-color: var(--brand); }
+
+/* ---------- Estrutura ---------- */
+main {
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 140px;
+}
+.view { max-width: 760px; margin: 0 auto; display: grid; gap: 22px; }
+.view[hidden] { display: none !important; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); min-width: 0; }
+.stack { display: grid; gap: 12px; }
+.muted { color: var(--muted); }
+.eyebrow { font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--c, var(--brand)); }
+.lead { font-size: 1.12rem; }
+
+/* cor por tema */
+.c-alert { --c: var(--alert); --c-soft: var(--alert-soft); }
+.c-brand { --c: var(--brand); --c-soft: var(--brand-soft); }
+.c-rehab { --c: var(--rehab); --c-soft: var(--rehab-soft); }
+.c-home  { --c: var(--home);  --c-soft: var(--home-soft); }
+.c-care  { --c: var(--care);  --c-soft: var(--care-soft); }
+
+/* ---------- Início ---------- */
+.hero { background: var(--surface); border: 1px solid var(--line); border-radius: 26px; overflow: hidden; box-shadow: var(--shadow); }
+.hero-top { padding: 24px 22px 8px; display: grid; gap: 12px; }
+.hero h1 span { color: var(--alert); }
+.clock-strip { display: flex; align-items: center; gap: 14px; padding: 16px 22px 22px; }
+.clock-strip svg { flex: none; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 10px; padding: 0 22px 22px; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 20px;
+  border-radius: 14px; border: 2px solid transparent; font-weight: 700; cursor: pointer; text-decoration: none; font-size: 1rem;
+}
+.btn-main { background: var(--c, var(--brand)); color: var(--on-color); }
+.btn-main:hover { filter: brightness(1.08); }
+.btn-ghost { background: transparent; border-color: var(--line); color: var(--ink); }
+.btn-ghost:hover { border-color: var(--c, var(--brand)); }
+.btn-alert { background: var(--alert); color: var(--on-color); }
+
+.progress-wrap { display: grid; gap: 8px; }
+.bar { height: 12px; border-radius: 99px; background: var(--line); overflow: hidden; }
+.bar > i { display: block; height: 100%; width: 0; background: var(--care); border-radius: 99px; transition: width .5s ease; }
+
+.trail { display: grid; gap: 14px; counter-reset: t; position: relative; }
+.tcard {
+  display: grid; grid-template-columns: 64px 1fr auto; gap: 14px; align-items: center; text-align: left;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px 14px 14px;
+  box-shadow: var(--shadow); cursor: pointer; width: 100%; text-decoration: none; color: var(--ink);
+  transition: transform .15s ease, border-color .15s ease;
+}
+.tcard:hover { transform: translateY(-2px); border-color: var(--c); }
+.tnum { width: 64px; height: 64px; border-radius: 18px; background: var(--c-soft); color: var(--c); display: grid; place-items: center; position: relative; }
+.tnum svg.i { width: 30px; height: 30px; }
+.tnum b { position: absolute; top: -6px; left: -6px; width: 26px; height: 26px; border-radius: 50%; background: var(--c); color: var(--on-color); font-family: var(--font-display); font-size: .85rem; display: grid; place-items: center; }
+.tcard h3 { font-size: 1.12rem; }
+.tcard p { font-size: .9rem; color: var(--muted); margin-top: 3px; }
+.tcard .mn { font-size: .78rem; font-weight: 700; color: var(--c); letter-spacing: .04em; margin-top: 6px; display: block; }
+.tdone { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--line); display: grid; place-items: center; color: transparent; }
+.tcard.done .tdone { background: var(--care); border-color: var(--care); color: var(--on-color); }
+
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.tile { display: flex; gap: 14px; align-items: flex-start; text-decoration: none; color: var(--ink); }
+.tile .ic { width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: var(--c-soft); color: var(--c); flex: none; }
+.tile h3 { font-size: 1.05rem; }
+.tile p { font-size: .9rem; color: var(--muted); margin-top: 2px; }
+a.card.tile:hover { border-color: var(--c); }
+
+/* ---------- Página de tema ---------- */
+.thead { display: grid; gap: 12px; padding: 22px; border-radius: 26px; background: var(--c-soft); border: 1px solid var(--line); }
+.thead .row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: space-between; }
+.thead h1 { color: var(--ink); font-size: 1.9rem; }
+.back { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; color: var(--ink); font-weight: 700; min-height: 44px; }
+.pill { display: inline-flex; align-items: center; gap: 6px; border-radius: 99px; padding: 6px 12px; font-size: .82rem; font-weight: 700; background: var(--surface); color: var(--c); border: 1px solid var(--line); }
+.speak { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; font-weight: 700; color: var(--c); }
+.speak[aria-pressed="true"] { background: var(--c); color: var(--on-color); }
+
+.question { display: flex; gap: 12px; align-items: flex-start; padding: 16px 18px; border-radius: var(--radius); background: var(--surface); border: 2px dashed var(--c); }
+.question .q { font-family: var(--font-display); font-size: 1.6rem; color: var(--c); line-height: 1; font-weight: 800; }
+.question p { font-weight: 700; font-size: 1.08rem; }
+
+.callout { border-radius: var(--radius); padding: 18px; display: flex; gap: 14px; align-items: flex-start; }
+.callout.alert { background: var(--alert-soft); color: var(--ink); border: 2px solid var(--alert); }
+.callout.alert svg.i { color: var(--alert); width: 30px; height: 30px; }
+.callout.info { background: var(--surface-2); border: 1px solid var(--line); }
+.callout.info svg.i { color: var(--c, var(--brand)); width: 26px; height: 26px; }
+.callout strong { display: block; font-family: var(--font-display); font-size: 1.15rem; margin-bottom: 2px; }
+
+ul.clean { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+ul.clean li { display: flex; gap: 10px; align-items: flex-start; }
+ul.clean li svg.i { margin-top: 3px; color: var(--c, var(--brand)); }
+ul.clean.no li svg.i { color: var(--alert); }
+ul.clean.yes li svg.i { color: var(--care); }
+
+.key-msg { background: var(--c); color: var(--on-color); border-radius: 22px; padding: 22px; display: grid; gap: 6px; }
+.key-msg .eyebrow { color: var(--on-color); opacity: .85; }
+.key-msg p { font-family: var(--font-display); font-size: 1.45rem; line-height: 1.2; font-weight: 700; }
+
+/* Segmentado */
+.seg { display: inline-flex; background: var(--surface-2); border: 1px solid var(--line); border-radius: 14px; padding: 4px; gap: 4px; flex-wrap: wrap; }
+.seg button { border: 0; background: transparent; padding: 10px 14px; border-radius: 10px; cursor: pointer; font-weight: 700; min-height: 44px; }
+.seg button[aria-selected="true"] { background: var(--c); color: var(--on-color); }
+
+/* Cérebro */
+.brain-box { display: grid; grid-template-columns: minmax(0, 220px) 1fr; gap: 18px; align-items: center; }
+.brain-box svg { width: 100%; height: auto; max-width: 260px; justify-self: center; }
+@media (max-width: 560px) { .brain-box { grid-template-columns: 1fr; } }
+.clot { transition: transform .6s ease, opacity .4s; transform-origin: 140px 92px; }
+.bleed { transition: transform .8s ease, opacity .5s; transform-origin: 150px 100px; }
+.flow { stroke-dasharray: 6 10; animation: flow 1.2s linear infinite; }
+@keyframes flow { to { stroke-dashoffset: -32; } }
+
+/* SAMU */
+.samu { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 640px) { .samu { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.flip { perspective: 900px; border: 0; padding: 0; background: none; cursor: pointer; min-height: 210px; text-align: left; width: 100%; display: block; }
+.flip-in { display: block; position: relative; width: 100%; height: 100%; min-height: 210px; transition: transform .55s cubic-bezier(.2,.7,.3,1); transform-style: preserve-3d; }
+.flip.on .flip-in { transform: rotateY(180deg); }
+.face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: var(--radius); padding: 14px; display: flex; flex-direction: column; gap: 6px; border: 1px solid var(--line); }
+.face.front { background: var(--surface); align-items: center; justify-content: center; text-align: center; }
+.face.back { background: var(--alert-soft); transform: rotateY(180deg); border-color: var(--alert); overflow: auto; }
+.letter { font-family: var(--font-display); font-weight: 800; font-size: 3.4rem; line-height: .9; color: var(--alert); }
+.face.front .w { font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; }
+.face.front small { color: var(--muted); font-size: .78rem; }
+.face.back h4 { font-size: 1.05rem; color: var(--alert); }
+.face.back p { font-size: .9rem; }
+.face svg { width: 74px; height: 64px; }
+
+.timer-tool { display: grid; gap: 12px; }
+.timer-out { font-family: var(--font-display); font-size: 1.8rem; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--alert); }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { border: 1px solid var(--line); background: var(--surface-2); border-radius: 99px; padding: 8px 14px; font-weight: 700; cursor: pointer; min-height: 44px; }
+.chip[aria-pressed="true"] { background: var(--c); color: var(--on-color); border-color: var(--c); }
+.chip-out { min-height: 3em; padding: 12px 14px; border-radius: 14px; background: var(--c-soft); }
+
+/* Higiene das mãos */
+.hands { display: grid; grid-template-columns: 150px 1fr; gap: 18px; align-items: center; }
+@media (max-width: 520px) { .hands { grid-template-columns: 1fr; justify-items: center; text-align: center; } }
+.ring { position: relative; width: 150px; height: 150px; }
+.ring svg { width: 150px; height: 150px; transform: rotate(-90deg); }
+.ring .num { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--font-display); font-size: 2.4rem; font-weight: 800; color: var(--c); font-variant-numeric: tabular-nums; }
+.steps-dots { display: flex; gap: 6px; flex-wrap: wrap; }
+.steps-dots i { width: 12px; height: 12px; border-radius: 50%; background: var(--line); }
+.steps-dots i.on { background: var(--c); }
+.step-text { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; min-height: 2.6em; }
+
+/* Jogo pode/chame */
+.game { display: grid; gap: 14px; }
+.situ { padding: 20px; border-radius: var(--radius); background: var(--surface-2); border: 1px solid var(--line); min-height: 120px; display: grid; gap: 8px; align-content: start; }
+.situ .n { font-size: .8rem; color: var(--muted); font-weight: 700; }
+.situ p.s { font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; line-height: 1.25; }
+.answers { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ans { min-height: 60px; border-radius: 14px; border: 2px solid var(--line); background: var(--surface); cursor: pointer; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px; }
+.ans.ok { border-color: var(--care); color: var(--care); }
+.ans.stop { border-color: var(--alert); color: var(--alert); }
+.ans:disabled { cursor: default; opacity: .6; }
+.feedback { border-radius: 14px; padding: 14px 16px; font-weight: 400; }
+.feedback.good { background: var(--care-soft); border: 1px solid var(--care); }
+.feedback.bad { background: var(--alert-soft); border: 1px solid var(--alert); }
+.feedback b { display: block; font-family: var(--font-display); font-size: 1.1rem; }
+
+.complic { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.complic div { border-radius: 14px; background: var(--surface-2); border: 1px solid var(--line); padding: 12px; }
+.complic b { display: block; font-family: var(--font-display); font-size: 1.02rem; }
+.complic span { font-size: .85rem; color: var(--muted); }
+
+/* FFF */
+.fff-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.fff-tab { border: 2px solid var(--line); background: var(--surface); border-radius: 18px; padding: 14px 8px; cursor: pointer; display: grid; justify-items: center; gap: 4px; }
+.fff-tab .L { font-family: var(--font-display); font-size: 2.6rem; font-weight: 800; line-height: .9; color: var(--c); }
+.fff-tab span { font-weight: 700; }
+.fff-tab[aria-selected="true"] { background: var(--c); border-color: var(--c); color: var(--on-color); }
+.fff-tab[aria-selected="true"] .L { color: var(--on-color); }
+.fff-panel { display: grid; gap: 12px; }
+.alt { display: grid; grid-template-columns: 44px 1fr; gap: 12px; padding: 14px; border-radius: 14px; background: var(--surface-2); border: 1px solid var(--line); }
+.alt .ic { width: 44px; height: 44px; border-radius: 12px; background: var(--c-soft); color: var(--c); display: grid; place-items: center; }
+.alt b { font-family: var(--font-display); font-size: 1.08rem; display: block; }
+.alt .tip { font-size: .9rem; color: var(--muted); margin-top: 4px; }
+
+.team { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; }
+.team button { border: 1px solid var(--line); background: var(--surface-2); border-radius: 14px; padding: 12px 8px; cursor: pointer; font-weight: 700; font-size: .9rem; min-height: 54px; }
+.team button[aria-pressed="true"] { background: var(--c); color: var(--on-color); border-color: var(--c); }
+
+/* Checklist */
+.check { display: grid; gap: 8px; }
+.check label { display: grid; grid-template-columns: 30px 1fr; gap: 12px; align-items: start; padding: 14px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface-2); cursor: pointer; }
+.check input { width: 26px; height: 26px; accent-color: var(--care); margin: 0; }
+.check input:checked + span { color: var(--muted); }
+.check label:has(input:checked) { border-color: var(--care); background: var(--care-soft); }
+.check span b { display: block; font-family: var(--font-display); font-size: 1.05rem; color: var(--ink); }
+
+/* CASA SEGURA */
+.word { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.word .grp { display: flex; gap: 6px; }
+.lt { width: 46px; height: 54px; border-radius: 12px; border: 2px solid var(--c); background: var(--surface); color: var(--c); font-family: var(--font-display); font-weight: 800; font-size: 1.7rem; cursor: pointer; display: grid; place-items: center; }
+.lt[aria-pressed="true"] { background: var(--c); color: var(--on-color); }
+.lt.seen:not([aria-pressed="true"]) { background: var(--c-soft); }
+@media (max-width: 420px) { .lt { width: 38px; height: 46px; font-size: 1.4rem; } }
+.lt-out { padding: 16px; border-radius: 14px; background: var(--c-soft); min-height: 5.4em; }
+.lt-out b { font-family: var(--font-display); font-size: 1.25rem; display: block; }
+
+/* Casa - caça aos riscos */
+.scene { position: relative; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); }
+.scene svg { display: block; width: 100%; height: auto; }
+.hot { cursor: pointer; }
+.hot .ring-h { fill: transparent; stroke: transparent; stroke-width: 3; }
+.hot:hover .ring-h, .hot:focus .ring-h { stroke: var(--home); stroke-dasharray: 5 4; }
+.hot.found .ring-h { stroke: var(--care); stroke-dasharray: none; fill: rgba(35,115,95,.12); }
+.hot .badge { opacity: 0; transition: opacity .3s; }
+.hot.found .badge { opacity: 1; }
+.found-list { display: grid; gap: 6px; }
+.found-list li { font-size: .95rem; }
+
+/* Remédios */
+.med-form { display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 8px; align-items: end; }
+@media (max-width: 600px) { .med-form { grid-template-columns: 1fr 1fr; } .med-form .full { grid-column: 1 / -1; } }
+.field { display: grid; gap: 4px; min-width: 0; }
+.field label { font-size: .82rem; font-weight: 700; color: var(--muted); }
+.field input { min-height: 48px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface-2); padding: 0 12px; font: inherit; color: var(--ink); width: 100%; }
+.meds { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.meds li { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; padding: 12px 14px; border-radius: 14px; background: var(--surface-2); border: 1px solid var(--line); }
+.meds li b { font-family: var(--font-display); font-size: 1.05rem; }
+.meds li small { color: var(--muted); display: block; }
+.x { width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; display: grid; place-items: center; }
+
+/* Cinco controles */
+.controls { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+@media (max-width: 640px) { .controls { grid-template-columns: repeat(2, minmax(0, 1fr)); } .controls > :last-child { grid-column: 1 / -1; } }
+.ctrl { border: 2px solid var(--line); background: var(--surface); border-radius: 16px; padding: 14px 8px; display: grid; gap: 6px; justify-items: center; text-align: center; cursor: pointer; }
+.ctrl .dial { width: 54px; height: 54px; }
+.ctrl b { font-family: var(--font-display); font-size: 1rem; line-height: 1.1; }
+.ctrl[aria-pressed="true"] { border-color: var(--c); background: var(--c-soft); }
+.ctrl-out { padding: 16px; border-radius: 14px; background: var(--c-soft); min-height: 5em; }
+.ctrl-out b { font-family: var(--font-display); font-size: 1.2rem; display: block; }
+
+.habits { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+.habits .flip, .habits .flip-in { min-height: 170px; }
+.habits .face.front { background: var(--care-soft); border-color: var(--care); }
+.habits .face.front .w { color: var(--care); }
+.habits .face.back { background: var(--surface); border-color: var(--care); }
+.habits .face.back h4 { color: var(--care); }
+
+/* Jornada */
+.journey { display: grid; gap: 0; position: relative; }
+.jstep { display: grid; grid-template-columns: 56px 1fr; gap: 14px; position: relative; padding-bottom: 20px; }
+.jstep:not(:last-child)::before { content: ""; position: absolute; left: 27px; top: 56px; bottom: 0; width: 3px; background: var(--line); }
+.jdot { width: 56px; height: 56px; border-radius: 50%; background: var(--c-soft); color: var(--c); display: grid; place-items: center; border: 3px solid var(--c); }
+.jstep h3 { margin-top: 6px; }
+.jstep p { color: var(--muted); margin-top: 4px; }
+
+/* Quiz */
+.qz { display: grid; gap: 12px; }
+.qz-q { font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; line-height: 1.25; }
+.qz-opts { display: grid; gap: 8px; }
+.qz-opt { text-align: left; border: 2px solid var(--line); background: var(--surface); border-radius: 14px; padding: 14px 16px; cursor: pointer; min-height: 54px; font-size: 1rem; }
+.qz-opt:hover:not(:disabled) { border-color: var(--c, var(--brand)); }
+.qz-opt.right { border-color: var(--care); background: var(--care-soft); }
+.qz-opt.wrong { border-color: var(--alert); background: var(--alert-soft); }
+.qz-opt:disabled { cursor: default; }
+.qz-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.score { font-family: var(--font-display); font-weight: 800; font-size: 3rem; color: var(--care); line-height: 1; font-variant-numeric: tabular-nums; }
+
+.cert { border: 3px double var(--care); border-radius: 22px; padding: 26px 20px; text-align: center; display: grid; gap: 8px; background: var(--surface); }
+.cert .seal { width: 76px; height: 76px; margin: 0 auto; border-radius: 50%; background: var(--care); color: var(--on-color); display: grid; place-items: center; }
+.cert .seal svg.i { width: 40px; height: 40px; }
+.cert h2 { color: var(--care); }
+.cert .nm { font-family: var(--font-display); font-size: 1.7rem; font-weight: 800; border-bottom: 2px solid var(--line); padding-bottom: 4px; min-height: 1.4em; }
+
+/* Acadêmico */
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+td.n { font-variant-numeric: tabular-nums; white-space: nowrap; }
+details { border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+details + details { margin-top: 10px; }
+summary { cursor: pointer; padding: 16px 18px; font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; font-size: 1.6rem; color: var(--c, var(--brand)); line-height: 1; }
+details[open] summary::after { content: "–"; }
+details .in { padding: 0 18px 18px; display: grid; gap: 12px; }
+blockquote { margin: 0; padding: 14px 16px; border-radius: 12px; background: var(--brand-soft); font-style: italic; }
+
+.next-row { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+
+/* ---------- Faixa SAMU ---------- */
+.sos {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 25;
+  background: var(--alert); color: var(--on-color);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-top: 10px; padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+}
+.sos-in { max-width: 760px; margin: 0 auto; display: flex; align-items: center; gap: 12px; }
+.sos-in p { flex: 1; min-width: 0; font-size: .92rem; line-height: 1.25; }
+.sos-in p b { display: block; font-family: var(--font-display); font-size: 1.08rem; }
+.sos a { display: inline-flex; align-items: center; gap: 8px; background: var(--on-color); color: var(--alert); border-radius: 14px; padding: 8px 16px; text-decoration: none; font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; min-height: 52px; font-variant-numeric: tabular-nums; }
+.sos a svg.i { width: 22px; height: 22px; }
+
+.toast { position: fixed; left: 50%; bottom: 96px; transform: translateX(-50%) translateY(20px); opacity: 0; background: var(--ink); color: var(--bg); padding: 12px 18px; border-radius: 12px; font-weight: 700; z-index: 40; transition: all .3s; pointer-events: none; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: .85rem; display: grid; gap: 6px; padding-top: 6px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- Ícones -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-brain" viewBox="0 0 24 24"><path d="M9.5 3.5a3 3 0 0 0-3 3v.2A3 3 0 0 0 4 9.6a3 3 0 0 0 .7 4.8A3 3 0 0 0 7 19a2.5 2.5 0 0 0 5 .5V5.5a2 2 0 0 0-2.5-2z"/><path d="M14.5 3.5a3 3 0 0 1 3 3v.2a3 3 0 0 1 2.5 2.9 3 3 0 0 1-.7 4.8A3 3 0 0 1 17 19a2.5 2.5 0 0 1-5 .5"/><path d="M8 9h1.5M16 9h-1.5M8 14h2M16 14h-2"/></symbol>
+  <symbol id="i-hosp" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M12 8v6M9 11h6M3 21h18"/></symbol>
+  <symbol id="i-walk" viewBox="0 0 24 24"><circle cx="13" cy="4" r="2"/><path d="M9 21l2-6 3 3v3M7 12l3-4 4 1 2 3 3 1M11 15l1-6"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-hand" viewBox="0 0 24 24"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V12M11 11V4a1.5 1.5 0 0 1 3 0v7M14 11V5.5a1.5 1.5 0 0 1 3 0V13M17 9.5a1.5 1.5 0 0 1 3 0V15a6 6 0 0 1-6 6h-2a6 6 0 0 1-5-2.7L4.3 14a1.5 1.5 0 0 1 2.4-1.8L8 14"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h8a3.5 3.5 0 0 0 0-7H8a3.5 3.5 0 0 1 0-7h8"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M8 7h7M8 11h5"/></symbol>
+  <symbol id="i-pill" viewBox="0 0 24 24"><rect x="3" y="9" width="18" height="7" rx="3.5" transform="rotate(-35 12 12.5)"/><path d="M9.5 8.5l5 7"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-8-4.6-8-10.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 8 2.5C20 15.4 12 20 12 20z"/></symbol>
+  <symbol id="i-speech" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></symbol>
+  <symbol id="i-arm" viewBox="0 0 24 24"><path d="M7 20c0-4 1-6 3-8l2-3c1-2 3-2 4-1s1 2 0 3l-2 2 3 1c2 .5 3 2 2 4"/><path d="M7 20h10"/></symbol>
+  <symbol id="i-cup" viewBox="0 0 24 24"><path d="M5 8h12v5a6 6 0 0 1-12 0z"/><path d="M17 9h1.5a2.5 2.5 0 0 1 0 5H17M8 3v2M11 3v2M14 3v2"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-puzzle" viewBox="0 0 24 24"><path d="M10 3h4v3a2 2 0 1 0 4 0V3h3v7h-3a2 2 0 1 0 0 4h3v7h-7v-3a2 2 0 1 0-4 0v3H3v-7h3a2 2 0 1 0 0-4H3V3z"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14a5 5 0 0 1 5 5"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10" width="15" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="top-in">
+    <a class="logo" href="#inicio" aria-label="Início">
+      <span class="logo-mark"><svg class="i"><use href="#i-brain"/></svg></span>
+      <span class="logo-text">Cuidar Depois do AVC<small>Educação para pacientes e famílias · UAVE</small></span>
+    </a>
+    <div class="tools">
+      <button class="tbtn" id="fontDown" aria-label="Diminuir letra">A−</button>
+      <button class="tbtn" id="fontUp" aria-label="Aumentar letra">A+</button>
+      <button class="tbtn" id="themeBtn" aria-label="Alternar modo escuro"><svg class="i"><use href="#i-moon"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= INÍCIO ================= -->
+<section class="view" data-view="inicio">
+  <div class="hero">
+    <div class="hero-top">
+      <span class="eyebrow" style="--c:var(--alert)">AVE, AVC ou derrame: é a mesma doença</span>
+      <h1>Tempo é <span>cérebro</span>. E a família faz parte do cuidado.</h1>
+      <p class="lead muted">Aqui você aprende, no seu ritmo, a reconhecer um AVC, a ajudar com segurança no hospital, a entender a reabilitação e a cuidar em casa depois da alta.</p>
+    </div>
+    <div class="clock-strip">
+      <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="32" r="28" fill="var(--alert-soft)" stroke="var(--alert)" stroke-width="4"/>
+        <path d="M32 14v18l11 7" stroke="var(--alert)" stroke-width="4" stroke-linecap="round" fill="none">
+          <animateTransform attributeName="transform" type="rotate" from="0 32 32" to="360 32 32" dur="12s" repeatCount="indefinite"/>
+        </path>
+      </svg>
+      <p><b>A cada minuto sem tratamento, mais células do cérebro são perdidas.</b> Reconhecer os sinais e ligar <b>192</b> rápido pode reduzir sequelas e salvar vidas.</p>
+    </div>
+    <div class="hero-cta c-brand">
+      <a class="btn btn-main" href="#tema-1">Começar pelo tema 1 <svg class="i"><use href="#i-right"/></svg></a>
+      <a class="btn btn-ghost" href="#quiz">Fazer o desafio final</a>
+    </div>
+  </div>
+
+  <div class="card progress-wrap">
+    <div class="qz-head"><h3>Seu caminho de aprendizado</h3><span class="muted" id="progLabel">0 de 5 temas</span></div>
+    <div class="bar"><i id="progBar"></i></div>
+  </div>
+
+  <nav class="trail" aria-label="Os cinco temas">
+    <a class="tcard c-alert" href="#tema-1" data-t="1">
+      <span class="tnum"><b>1</b><svg class="i"><use href="#i-brain"/></svg></span>
+      <span><h3>Conhecendo o AVC</h3><p>Tipos, causas, sinais e o que fazer</p><span class="mn">S·A·M·U 192</span></span>
+      <span class="tdone"><svg class="i"><use href="#i-check"/></svg></span>
+    </a>
+    <a class="tcard c-brand" href="#tema-2" data-t="2">
+      <span class="tnum"><b>2</b><svg class="i"><use href="#i-hosp"/></svg></span>
+      <span><h3>Cuidados na internação</h3><p>Como ajudar com segurança durante a visita</p><span class="mn">MÃOS LIMPAS · PERGUNTE À EQUIPE</span></span>
+      <span class="tdone"><svg class="i"><use href="#i-check"/></svg></span>
+    </a>
+    <a class="tcard c-rehab" href="#tema-3" data-t="3">
+      <span class="tnum"><b>3</b><svg class="i"><use href="#i-walk"/></svg></span>
+      <span><h3>Sequelas e reabilitação</h3><p>O que pode mudar e por que reabilitar</p><span class="mn">F·F·F — FALA, FORÇA, FUNÇÃO</span></span>
+      <span class="tdone"><svg class="i"><use href="#i-check"/></svg></span>
+    </a>
+    <a class="tcard c-home" href="#tema-4" data-t="4">
+      <span class="tnum"><b>4</b><svg class="i"><use href="#i-home"/></svg></span>
+      <span><h3>Cuidados após a alta</h3><p>Remédios, alimentação e casa segura</p><span class="mn">CASA SEGURA</span></span>
+      <span class="tdone"><svg class="i"><use href="#i-check"/></svg></span>
+    </a>
+    <a class="tcard c-care" href="#tema-5" data-t="5">
+      <span class="tnum"><b>5</b><svg class="i"><use href="#i-shield"/></svg></span>
+      <span><h3>Prevenção de um novo AVC</h3><p>Controle dos fatores de risco</p><span class="mn">OS CINCO CONTROLES</span></span>
+      <span class="tdone"><svg class="i"><use href="#i-check"/></svg></span>
+    </a>
+  </nav>
+
+  <div class="grid2">
+    <a class="card tile c-care" href="#jornada">
+      <span class="ic"><svg class="i"><use href="#i-route"/></svg></span>
+      <span><h3>A jornada do cuidado</h3><p>Hospital, casa e unidade de saúde: o cuidado continua. Inclui a visita domiciliar.</p></span>
+    </a>
+    <a class="card tile c-rehab" href="#quiz">
+      <span class="ic"><svg class="i"><use href="#i-star"/></svg></span>
+      <span><h3>Desafio da família</h3><p>10 perguntas para testar o que aprendeu e ganhar seu certificado.</p></span>
+    </a>
+    <a class="card tile c-brand" href="#academico">
+      <span class="ic"><svg class="i"><use href="#i-book"/></svg></span>
+      <span><h3>Área do acadêmico</h3><p>Roteiro da atividade, etapas, falas de abertura e postura ética.</p></span>
+    </a>
+  </div>
+
+  <div class="callout info c-brand">
+    <svg class="i"><use href="#i-info"/></svg>
+    <p>Este aplicativo é educativo. <b>Cada paciente tem necessidades próprias</b>: as orientações específicas sempre devem ser confirmadas com a equipe que cuida dele.</p>
+  </div>
+</section>
+
+<!-- ================= TEMA 1 ================= -->
+<section class="view c-alert" data-view="tema-1" hidden>
+  <div class="thead">
+    <div class="row">
+      <a class="back" href="#inicio"><svg class="i"><use href="#i-left"/></svg> Temas</a>
+      <button class="speak" data-speak="tema-1" aria-pressed="false"><svg class="i"><use href="#i-sound"/></svg> Ouvir</button>
+    </div>
+    <span class="eyebrow">Tema 1 de 5</span>
+    <h1>Conhecendo o AVC: tipos, causas, sinais e sintomas</h1>
+  </div>
+
+  <div class="question"><span class="q">?</span><p>Você saberia reconhecer se alguém da sua família estivesse tendo um AVC?</p></div>
+
+  <div class="card stack" data-read>
+    <h2>O que é o AVC</h2>
+    <p>O <b>Acidente Vascular Encefálico</b> (AVE), também chamado de <b>AVC</b> ou <b>derrame</b>, acontece quando a circulação de sangue no cérebro muda de repente. Uma parte do cérebro fica sem oxigênio e pode ser lesionada. <b>É uma emergência.</b></p>
+  </div>
+
+  <div class="card stack">
+    <div class="qz-head"><h2>Os dois tipos principais</h2>
+      <div class="seg" role="tablist" aria-label="Tipo de AVC">
+        <button role="tab" aria-selected="true" data-type="isq">Isquêmico</button>
+        <button role="tab" aria-selected="false" data-type="hem">Hemorrágico</button>
+      </div>
+    </div>
+    <div class="brain-box">
+      <svg viewBox="0 0 280 200" role="img" aria-label="Desenho de um cérebro com um vaso sanguíneo">
+        <path d="M60 120c-28-4-40-34-22-56 4-26 32-40 56-30 14-20 46-22 62-6 22-10 52 0 58 22 26 6 34 36 18 56 6 24-14 44-38 40-10 18-40 22-56 8-18 12-46 6-54-14-14 0-26-8-24-20z" fill="var(--rehab-soft)" stroke="var(--rehab)" stroke-width="4"/>
+        <path d="M90 60c10 10 6 24-4 30M130 46c-6 14 4 26 18 26M176 56c-4 16 6 26 22 26M100 118c14-6 28 0 32 14M170 120c8-12 26-14 36-4M70 96c10 0 18 6 20 16" fill="none" stroke="var(--rehab)" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+        <!-- vaso -->
+        <path id="vessel" d="M20 190c40-20 70-50 90-80s30-30 60-30" fill="none" stroke="var(--alert)" stroke-width="12" stroke-linecap="round" opacity=".25"/>
+        <path class="flow" id="flowLine" d="M20 190c40-20 70-50 90-80s30-30 60-30" fill="none" stroke="var(--alert)" stroke-width="5" stroke-linecap="round"/>
+        <g class="clot" id="clot"><circle cx="140" cy="92" r="11" fill="var(--ink)"/><circle cx="136" cy="89" r="3" fill="var(--surface)" opacity=".5"/></g>
+        <g class="bleed" id="bleed" style="opacity:0; transform:scale(.3)"><path d="M150 100c-20-4-28 14-18 24 4 14 26 16 34 4 14-2 16-22 2-26-4-8-14-8-18-2z" fill="var(--alert)" opacity=".75"/></g>
+        <circle id="area" cx="190" cy="76" r="22" fill="var(--muted)" opacity=".28"/>
+      </svg>
+      <div class="stack" aria-live="polite">
+        <h3 id="typeTitle">AVC isquêmico</h3>
+        <p id="typeText">Um vaso que leva sangue ao cérebro fica <b>entupido</b> (por exemplo, por um coágulo). A região que ele alimentava fica sem oxigênio.</p>
+        <p class="muted" id="typeExtra">É o tipo mais comum. Em algumas situações, o hospital pode usar tratamentos para desfazer o entupimento, mas eles só funcionam nas primeiras horas.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card stack">
+    <span class="eyebrow">Recurso para lembrar</span>
+    <h2>Lembre do SAMU para reconhecer o AVC</h2>
+    <p class="muted">Toque em cada letra para virar o cartão.</p>
+    <div class="samu">
+      <button class="flip" aria-label="S de Sorriso">
+        <span class="flip-in">
+          <span class="face front"><span class="letter">S</span><span class="w">Sorriso</span>
+            <svg viewBox="0 0 74 64" aria-hidden="true"><circle cx="37" cy="32" r="28" fill="var(--home-soft)" stroke="var(--home)" stroke-width="3"/><circle cx="27" cy="26" r="3" fill="var(--ink)"/><circle cx="47" cy="27" r="3" fill="var(--ink)"/><path d="M24 40c6 6 14 6 20 4l6 6" stroke="var(--alert)" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+            <small>toque para ver</small></span>
+          <span class="face back"><h4>Peça para sorrir</h4><p>A boca fica torta? Um lado do rosto caiu? <b>Assimetria facial</b> é sinal de alerta.</p></span>
+        </span>
+      </button>
+      <button class="flip" aria-label="A de Abraço">
+        <span class="flip-in">
+          <span class="face front"><span class="letter">A</span><span class="w">Abraço</span>
+            <svg viewBox="0 0 74 64" aria-hidden="true"><circle cx="37" cy="14" r="8" fill="var(--home-soft)" stroke="var(--home)" stroke-width="3"/><path d="M37 22v24M37 30L14 22M37 30l22 14" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" fill="none"/><path d="M58 44l-2 8" stroke="var(--alert)" stroke-width="3" stroke-linecap="round"/></svg>
+            <small>toque para ver</small></span>
+          <span class="face back"><h4>Peça para abrir os braços</h4><p>Um braço cai ou não sobe? <b>Fraqueza ou perda de força</b>, principalmente de um lado do corpo.</p></span>
+        </span>
+      </button>
+      <button class="flip" aria-label="M de Mensagem">
+        <span class="flip-in">
+          <span class="face front"><span class="letter">M</span><span class="w">Mensagem</span>
+            <svg viewBox="0 0 74 64" aria-hidden="true"><path d="M8 8h58v34H28l-14 12V42H8z" fill="var(--brand-soft)" stroke="var(--brand)" stroke-width="3" stroke-linejoin="round"/><path d="M18 20c4-4 6 4 10 0s6 4 10 0 6 4 10 0 6 4 8 0" stroke="var(--alert)" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+            <small>toque para ver</small></span>
+          <span class="face back"><h4>Peça para repetir uma frase</h4><p>A fala sai enrolada, sem sentido, ou a pessoa <b>não entende</b> o que você diz?</p></span>
+        </span>
+      </button>
+      <button class="flip" aria-label="U de Urgência">
+        <span class="flip-in">
+          <span class="face front"><span class="letter">U</span><span class="w">Urgência</span>
+            <svg viewBox="0 0 74 64" aria-hidden="true"><rect x="10" y="12" width="54" height="40" rx="10" fill="var(--alert)"/><text x="37" y="40" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="800" font-size="22" fill="var(--on-color)">192</text></svg>
+            <small>toque para ver</small></span>
+          <span class="face back"><h4>Ligue 192 já</h4><p>Não espere melhorar. <b>Anote o horário</b> em que a pessoa foi vista bem pela última vez.</p></span>
+        </span>
+      </button>
+    </div>
+    <h3 style="margin-top:8px">Outros sinais que também são alerta</h3>
+    <ul class="clean" data-read>
+      <li><svg class="i"><use href="#i-eye"/></svg><span>Perda súbita da visão, de um ou dos dois olhos.</span></li>
+      <li><svg class="i"><use href="#i-walk"/></svg><span>Desequilíbrio, tontura intensa ou dificuldade para andar.</span></li>
+      <li><svg class="i"><use href="#i-alert"/></svg><span>Dor de cabeça súbita e muito forte, diferente da habitual.</span></li>
+    </ul>
+  </div>
+
+  <div class="callout alert">
+    <svg class="i"><use href="#i-phone"/></svg>
+    <div data-read>
+      <strong>Suspeita de AVC? Ligue 192 (SAMU) ou vá à emergência.</strong>
+      <p>Não espere os sintomas passarem. Não ofereça comida, água ou remédios. Anote a hora em que a pessoa foi vista bem pela última vez.</p>
+    </div>
+  </div>
+
+  <div class="card timer-tool">
+    <span class="eyebrow">Ferramenta</span>
+    <h3>Anotar o horário: “quando foi vista bem pela última vez?”</h3>
+    <p class="muted">Essa informação ajuda a equipe a decidir o tratamento. Toque no botão para registrar a hora atual, ou anote num papel.</p>
+    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+      <button class="btn btn-alert" id="markTime"><svg class="i"><use href="#i-clock"/></svg> Registrar horário agora</button>
+      <span class="timer-out" id="timeOut" aria-live="polite">--:--</span>
+    </div>
+  </div>
+
+  <div class="card stack">
+    <h2>Fatores de risco</h2>
+    <p class="muted">Toque em cada um para entender. Nem todas as pessoas têm todos os fatores.</p>
+    <div class="chips" id="riskChips">
+      <button class="chip" data-r="Pressão alta danifica as paredes dos vasos com o tempo. É o principal fator de risco para AVC.">Pressão alta</button>
+      <button class="chip" data-r="O açúcar alto no sangue machuca os vasos e acelera o entupimento.">Diabetes</button>
+      <button class="chip" data-r="O excesso de gordura forma placas que estreitam os vasos.">Colesterol alto</button>
+      <button class="chip" data-r="O cigarro estreita os vasos e deixa o sangue mais propenso a formar coágulos.">Cigarro</button>
+      <button class="chip" data-r="O consumo excessivo de álcool aumenta a pressão e o risco de sangramento.">Álcool em excesso</button>
+      <button class="chip" data-r="Ficar parado a maior parte do tempo favorece pressão alta, diabetes e ganho de peso.">Sedentarismo</button>
+      <button class="chip" data-r="O excesso de peso sobrecarrega o coração e os vasos.">Obesidade</button>
+      <button class="chip" data-r="Alguns problemas do coração, como arritmias, podem formar coágulos que vão até o cérebro.">Doenças do coração</button>
+      <button class="chip" data-r="Quem já teve um AVC tem mais chance de ter outro. Por isso a prevenção é tão importante (veja o tema 5).">AVC anterior</button>
+    </div>
+    <p class="chip-out" id="riskOut" aria-live="polite">Escolha um fator acima.</p>
+  </div>
+
+  <div class="key-msg"><span class="eyebrow">Mensagem principal</span><p>Diante de suspeita de AVC, ligue 192. Tempo é cérebro!</p></div>
+  <div class="card" data-quiz="1"></div>
+  <div class="next-row"><a class="btn btn-ghost" href="#inicio"><svg class="i"><use href="#i-left"/></svg> Temas</a><a class="btn btn-main" href="#tema-2">Próximo: Internação <svg class="i"><use href="#i-right"/></svg></a></div>
+</section>
+
+<!-- ================= TEMA 2 ================= -->
+<section class="view c-brand" data-view="tema-2" hidden>
+  <div class="thead">
+    <div class="row">
+      <a class="back" href="#inicio"><svg class="i"><use href="#i-left"/></svg> Temas</a>
+      <button class="speak" data-speak="tema-2" aria-pressed="false"><svg class="i"><use href="#i-sound"/></svg> Ouvir</button>
+    </div>
+    <span class="eyebrow">Tema 2 de 5</span>
+    <h1>Cuidados durante a internação e prevenção de complicações</h1>
+  </div>
+
+  <div class="question"><span class="q">?</span><p>Você sabe o que pode e o que não pode fazer quando visita seu familiar na Unidade de AVC?</p></div>
+
+  <div class="card stack" data-read>
+    <h2>Por que a Unidade de AVC?</h2>
+    <p>Na Unidade de AVE a equipe <b>monitora</b> o paciente o tempo todo para perceber qualquer mudança cedo, iniciar o tratamento e começar a reabilitação conforme a necessidade de cada pessoa. A família ajuda muito, desde que siga as orientações da equipe.</p>
+  </div>
+
+  <div class="card stack">
+    <span class="eyebrow">Demonstração</span>
+    <h2>Higiene das mãos: antes e depois de tocar o paciente</h2>
+    <div class="hands">
+      <div class="ring">
+        <svg viewBox="0 0 150 150" aria-hidden="true"><circle cx="75" cy="75" r="64" stroke="var(--line)" stroke-width="12" fill="none"/><circle id="handArc" cx="75" cy="75" r="64" stroke="var(--brand)" stroke-width="12" fill="none" stroke-linecap="round" stroke-dasharray="402" stroke-dashoffset="402"/></svg>
+        <span class="num" id="handNum">20</span>
+      </div>
+      <div class="stack">
+        <p class="step-text" id="handStep" aria-live="polite">Toque em “Treinar” e lave as mãos junto com o aplicativo.</p>
+        <div class="steps-dots" id="handDots"></div>
+        <div><button class="btn btn-main" id="handGo"><svg class="i"><use href="#i-hand"/></svg> Treinar (20 segundos)</button></div>
+      </div>
+    </div>
+    <p class="muted">Use água e sabão ou álcool em gel, conforme a orientação da unidade.</p>
+  </div>
+
+  <div class="card stack">
+    <span class="eyebrow">Jogo</span>
+    <h2>Pode fazer ou chame a equipe?</h2>
+    <div class="game" id="game">
+      <div class="situ"><span class="n" id="gN">Situação 1 de 8</span><p class="s" id="gS"></p></div>
+      <div class="answers">
+        <button class="ans ok" data-a="pode"><svg class="i"><use href="#i-check"/></svg> Pode fazer</button>
+        <button class="ans stop" data-a="equipe"><svg class="i"><use href="#i-users"/></svg> Chame a equipe</button>
+      </div>
+      <div class="feedback" id="gF" hidden></div>
+      <div><button class="btn btn-ghost" id="gNext" hidden>Próxima situação <svg class="i"><use href="#i-right"/></svg></button></div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card stack">
+      <h3>Como a família ajuda</h3>
+      <ul class="clean yes" data-read>
+        <li><svg class="i"><use href="#i-check"/></svg><span>Lave as mãos antes e depois do contato.</span></li>
+        <li><svg class="i"><use href="#i-check"/></svg><span>Fale com calma, diga quem você é e dê tempo para ele responder. Mesmo com dificuldade de fala, converse diretamente com ele.</span></li>
+        <li><svg class="i"><use href="#i-check"/></svg><span>Respeite o repouso, os horários, a privacidade e as orientações da equipe.</span></li>
+      </ul>
+    </div>
+    <div class="card stack">
+      <h3>Não faça sem a equipe</h3>
+      <ul class="clean no" data-read>
+        <li><svg class="i"><use href="#i-x"/></svg><span>Dar água, comida, balas ou remédios. O AVC pode causar <b>disfagia</b> (dificuldade para engolir), com risco de engasgo.</span></li>
+        <li><svg class="i"><use href="#i-x"/></svg><span>Levantar, transferir ou caminhar com o paciente.</span></li>
+        <li><svg class="i"><use href="#i-x"/></svg><span>Mexer em sondas, soro, cateteres, oxigênio, monitores ou bombas.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout alert">
+    <svg class="i"><use href="#i-alert"/></svg>
+    <div data-read>
+      <strong>Avise a enfermagem na hora se perceber</strong>
+      <p>Piora da fala, da força ou da consciência, falta de ar, dor, engasgo ou qualquer mudança inesperada.</p>
+    </div>
+  </div>
+
+  <div class="card stack">
+    <h2>Complicações que a equipe trabalha para prevenir</h2>
+    <div class="complic">
+      <div><b>Engasgo e aspiração</b><span>Saliva ou alimento que vai para o pulmão</span></div>
+      <div><b>Pneumonia</b><span>Infecção no pulmão</span></div>
+      <div><b>Quedas</b><span>Pela fraqueza e desequilíbrio</span></div>
+      <div><b>Lesão por pressão</b><span>Feridas por ficar muito tempo na mesma posição</span></div>
+      <div><b>Trombose</b><span>Coágulo nas pernas pela pouca movimentação</span></div>
+      <div><b>Desidratação e desnutrição</b><span>Quando come ou bebe pouco</span></div>
+      <div><b>Infecções</b><span>Por isso a higiene das mãos é tão importante</span></div>
+    </div>
+    <p class="muted">A prevenção depende da avaliação de cada paciente, dos cuidados da equipe e da participação segura da família.</p>
+  </div>
+
+  <div class="key-msg"><span class="eyebrow">Mensagem principal</span><p>Mãos limpas, conversa calma e, na dúvida, pergunte à equipe antes de agir.</p></div>
+  <div class="card" data-quiz="2"></div>
+  <div class="next-row"><a class="btn btn-ghost" href="#tema-1"><svg class="i"><use href="#i-left"/></svg> Tema 1</a><a class="btn btn-main" href="#tema-3">Próximo: Reabilitação <svg class="i"><use href="#i-right"/></svg></a></div>
+</section>
+
+<!-- ================= TEMA 3 ================= -->
+<section class="view c-rehab" data-view="tema-3" hidden>
+  <div class="thead">
+    <div class="row">
+      <a class="back" href="#inicio"><svg class="i"><use href="#i-left"/></svg> Temas</a>
+      <button class="speak" data-speak="tema-3" aria-pressed="false"><svg class="i"><use href="#i-sound"/></svg> Ouvir</button>
+    </div>
+    <span class="eyebrow">Tema 3 de 5</span>
+    <h1>Sequelas do AVC e a importância da reabilitação</h1>
+  </div>
+
+  <div class="question"><span class="q">?</span><p>Por que duas pessoas que tiveram AVC podem ficar com dificuldades tão diferentes?</p></div>
+
+  <div class="card stack" data-read>
+    <h2>Cada AVC é diferente</h2>
+    <p>As consequências dependem da <b>área do cérebro atingida</b>, do tamanho da lesão, da saúde antes do AVC e de como a pessoa evolui. Algumas pessoas recuperam grande parte das funções. Outras ficam com limitações, temporárias ou permanentes.</p>
+  </div>
+
+  <div class="card stack">
+    <span class="eyebrow">Recurso para lembrar</span>
+    <h2>F·F·F: Fala, Força e Função</h2>
+    <div class="fff-tabs" role="tablist" aria-label="Fala, Força e Função">
+      <button class="fff-tab" role="tab" aria-selected="true" data-f="fala"><span class="L">F</span><span>Fala</span></button>
+      <button class="fff-tab" role="tab" aria-selected="false" data-f="forca"><span class="L">F</span><span>Força</span></button>
+      <button class="fff-tab" role="tab" aria-selected="false" data-f="funcao"><span class="L">F</span><span>Função</span></button>
+    </div>
+    <div class="fff-panel" data-fp="fala">
+      <div class="alt"><span class="ic"><svg class="i"><use href="#i-speech"/></svg></span><div><b>Afasia</b>Dificuldade para falar, encontrar palavras ou entender o que os outros dizem.<p class="tip">Como ajudar: frases curtas, uma pergunta por vez, paciência. Gestos e figuras ajudam.</p></div></div>
+      <div class="alt"><span class="ic"><svg class="i"><use href="#i-speech"/></svg></span><div><b>Disartria</b>A fala sai pouco clara ou “enrolada”, porque os músculos da boca ficaram fracos.<p class="tip">Como ajudar: não complete as frases por ele; peça para repetir com calma.</p></div></div>
+    </div>
+    <div class="fff-panel" data-fp="forca" hidden>
+      <div class="alt"><span class="ic"><svg class="i"><use href="#i-arm"/></svg></span><div><b>Fraqueza ou paralisia de um lado</b>Braço e perna do mesmo lado podem ficar fracos ou sem movimento.<p class="tip">Como ajudar: posicione e movimente apenas como a fisioterapia ensinou.</p></div></div>
+      <div class="alt"><span class="ic"><svg class="i"><use href="#i-walk"/></svg></span><div><b>Equilíbrio e marcha</b>Dificuldade para ficar em pé ou caminhar, com maior risco de quedas.<p class="tip">Como ajudar: nunca deixe andar sozinho se ainda não tem segurança.</p></div></div>
+    </div>
+    <div class="fff-panel" data-fp="funcao" hidden>
+      <div class="alt"><span class="ic"><svg class="i"><use href="#i-cup"/></svg></span><div><b>Deglutição (disfagia)</b>Dificuldade para engolir alimentos, líquidos ou a própria saliva.<p class="tip">Como ajudar: siga exatamente a consistência liberada pela fonoaudiologia.</p></div></div>
+      <div class="alt"><span class="ic"><svg class="i"><use href="#i-eye"/></svg></span><div><b>Sensibilidade e percepção</b>Dormência, mudanças na visão ou dificuldade de perceber um lado do espaço (a pessoa “esquece” um lado).<p class="tip">Como ajudar: aproxime-se e coloque objetos do lado que ele percebe melhor, se a equipe orientar.</p></div></div>
+      <div class="alt"><span class="ic"><svg class="i"><use href="#i-puzzle"/></svg></span><div><b>Cognição e comportamento</b>Mudanças na memória, atenção, planejamento, humor ou comportamento.<p class="tip">Como ajudar: rotina previsível, ambiente calmo e acolhimento. Tristeza e irritação são comuns; converse com a equipe.</p></div></div>
+    </div>
+  </div>
+
+  <div class="card stack">
+    <h2>Por que reabilitar?</h2>
+    <p data-read>A reabilitação ajuda a <b>recuperar funções</b>, aprender novas formas de fazer as coisas, <b>prevenir complicações</b> e conquistar a <b>maior independência possível</b>.</p>
+    <h3>Quem faz parte da equipe</h3>
+    <p class="muted">Toque em cada profissional.</p>
+    <div class="team" id="team">
+      <button data-p="Ajuda a recuperar movimento, força, equilíbrio e a andar com segurança.">Fisioterapia</button>
+      <button data-p="Cuida da fala, da linguagem e da deglutição (engolir com segurança).">Fonoaudiologia</button>
+      <button data-p="Treina as atividades do dia a dia, como vestir-se, comer e tomar banho, e indica adaptações.">Terapia ocupacional</button>
+      <button data-p="Acompanha os cuidados diários, previne complicações e orienta a família.">Enfermagem</button>
+      <button data-p="Trata a causa do AVC, ajusta remédios e coordena o plano de cuidado.">Medicina</button>
+      <button data-p="Planeja uma alimentação adequada e segura, inclusive com a consistência certa.">Nutrição</button>
+      <button data-p="Apoia as emoções do paciente e da família nessa fase de mudança.">Psicologia</button>
+      <button data-p="Orienta sobre direitos, benefícios e a rede de apoio após a alta.">Serviço social</button>
+    </div>
+    <p class="chip-out" id="teamOut" aria-live="polite">Escolha um profissional acima.</p>
+  </div>
+
+  <div class="callout info">
+    <svg class="i"><use href="#i-heart"/></svg>
+    <p data-read><b>A recuperação é individual e pode continuar depois da alta.</b> Evite comparar seu familiar com outros pacientes e siga o plano definido pela equipe.</p>
+  </div>
+
+  <div class="key-msg"><span class="eyebrow">Mensagem principal</span><p>Fala, Força e Função podem melhorar com reabilitação. Cada passo conta.</p></div>
+  <div class="card" data-quiz="3"></div>
+  <div class="next-row"><a class="btn btn-ghost" href="#tema-2"><svg class="i"><use href="#i-left"/></svg> Tema 2</a><a class="btn btn-main" href="#tema-4">Próximo: Após a alta <svg class="i"><use href="#i-right"/></svg></a></div>
+</section>
+
+<!-- ================= TEMA 4 ================= -->
+<section class="view c-home" data-view="tema-4" hidden>
+  <div class="thead">
+    <div class="row">
+      <a class="back" href="#inicio"><svg class="i"><use href="#i-left"/></svg> Temas</a>
+      <button class="speak" data-speak="tema-4" aria-pressed="false"><svg class="i"><use href="#i-sound"/></svg> Ouvir</button>
+    </div>
+    <span class="eyebrow">Tema 4 de 5</span>
+    <h1>Cuidados com o paciente após a alta hospitalar</h1>
+  </div>
+
+  <div class="question"><span class="q">?</span><p>Sua casa está pronta para receber seu familiar depois da alta?</p></div>
+
+  <div class="card stack" data-read>
+    <h2>Alta não quer dizer recuperação completa</h2>
+    <p>Antes de ir para casa, a família precisa entender o plano de cuidados: as limitações, os remédios, a reabilitação e onde será o acompanhamento.</p>
+  </div>
+
+  <div class="card stack">
+    <span class="eyebrow">Lista para levar</span>
+    <h2>Antes de sair do hospital, pergunte</h2>
+    <div class="check" id="dischargeList">
+      <label><input type="checkbox" id="dc1"><span><b>Remédios</b>Quais são, a dose e o horário de cada um. Nunca pare, comece ou mude por conta própria.</span></label>
+      <label><input type="checkbox" id="dc2"><span><b>Alimentação</b>Qual consistência de comida e líquidos foi liberada e quais cuidados para engolir continuam.</span></label>
+      <label><input type="checkbox" id="dc3"><span><b>Movimentação</b>Como fazer transferências, mudar de posição, dar banho e higiene com segurança.</span></label>
+      <label><input type="checkbox" id="dc4"><span><b>Equipamentos</b>Quais materiais e adaptações serão necessários em casa.</span></label>
+      <label><input type="checkbox" id="dc5"><span><b>Reabilitação e consultas</b>Quais atendimentos foram indicados e como agendar.</span></label>
+      <label><input type="checkbox" id="dc6"><span><b>Unidade de referência</b>Qual unidade de saúde vai acompanhar e como pedir ajuda em caso de dúvida.</span></label>
+    </div>
+    <p class="muted" id="dcCount">0 de 6 itens esclarecidos</p>
+  </div>
+
+  <div class="card stack">
+    <span class="eyebrow">Recurso para lembrar</span>
+    <h2>CASA SEGURA</h2>
+    <p class="muted">Toque em cada letra.</p>
+    <div class="word" id="casa"></div>
+    <div class="lt-out" id="casaOut" aria-live="polite"><b>Toque na primeira letra</b>Cada letra é um cuidado para a casa ficar segura.</div>
+  </div>
+
+  <div class="card stack">
+    <span class="eyebrow">Jogo</span>
+    <h2>Encontre os 6 riscos de queda nesta casa</h2>
+    <p class="muted">Toque nos lugares que podem causar acidentes. Achados: <b id="hzCount">0</b> de 6</p>
+    <div class="scene">
+      <svg viewBox="0 0 400 260" role="img" aria-label="Desenho de uma sala e um banheiro com riscos escondidos">
+        <rect width="400" height="260" fill="var(--surface-2)"/>
+        <rect x="0" y="0" width="400" height="170" fill="var(--home-soft)"/>
+        <rect x="0" y="170" width="400" height="90" fill="var(--line)"/>
+        <!-- janela -->
+        <rect x="30" y="30" width="70" height="56" rx="4" fill="var(--brand-soft)" stroke="var(--muted)" stroke-width="3"/><path d="M65 30v56M30 58h70" stroke="var(--muted)" stroke-width="3"/>
+        <!-- porta banheiro -->
+        <rect x="300" y="50" width="80" height="120" fill="var(--surface)" stroke="var(--muted)" stroke-width="3"/>
+        <rect x="312" y="96" width="44" height="40" rx="8" fill="var(--brand-soft)" stroke="var(--muted)" stroke-width="2"/>
+        <text x="340" y="70" text-anchor="middle" font-size="11" font-family="Atkinson Hyperlegible, sans-serif" fill="var(--muted)">banheiro</text>
+        <!-- luminária apagada -->
+        <path d="M170 0v30" stroke="var(--muted)" stroke-width="2"/><path d="M155 30h30l-6 16h-18z" fill="var(--muted)" opacity=".7"/>
+        <!-- sofá -->
+        <rect x="120" y="120" width="120" height="50" rx="12" fill="var(--rehab-soft)" stroke="var(--rehab)" stroke-width="3"/>
+        <rect x="112" y="110" width="20" height="60" rx="8" fill="var(--rehab-soft)" stroke="var(--rehab)" stroke-width="3"/><rect x="228" y="110" width="20" height="60" rx="8" fill="var(--rehab-soft)" stroke="var(--rehab)" stroke-width="3"/>
+        <!-- tapete solto -->
+        <path d="M60 205l90-6 6 22-92 8z" fill="var(--alert)" opacity=".55"/><path d="M150 199c8 2 10 8 6 22" stroke="var(--alert)" stroke-width="3" fill="none"/>
+        <!-- caixa no caminho -->
+        <rect x="236" y="190" width="40" height="30" fill="var(--home)" opacity=".75"/><path d="M236 198h40" stroke="var(--surface)" stroke-width="2"/>
+        <!-- mesinha com remédios baixa -->
+        <rect x="20" y="146" width="60" height="8" fill="var(--muted)"/><path d="M26 154v16M74 154v16" stroke="var(--muted)" stroke-width="3"/>
+        <rect x="32" y="132" width="10" height="14" rx="2" fill="var(--care)"/><rect x="48" y="128" width="10" height="18" rx="2" fill="var(--alert)"/><circle cx="64" cy="142" r="3" fill="var(--sun)"/>
+        <!-- chinelo -->
+        <ellipse cx="200" cy="240" rx="18" ry="7" fill="var(--brand)" opacity=".7"/>
+        <!-- piso molhado sem barra -->
+        <path d="M318 182c6-4 14-4 20 0s14 4 20 0" stroke="var(--brand)" stroke-width="3" fill="none"/>
+
+        <g class="hot" tabindex="0" role="button" data-h="Tapete solto: retire tapetes soltos ou fixe-os bem no chão."><circle class="ring-h" cx="108" cy="212" r="34"/><g class="badge"><circle cx="134" cy="190" r="11" fill="var(--care)"/><path d="M129 190l4 4 6-7" stroke="var(--on-color)" stroke-width="2.5" fill="none"/></g></g>
+        <g class="hot" tabindex="0" role="button" data-h="Objeto no caminho: mantenha as passagens livres de caixas, fios e móveis."><circle class="ring-h" cx="256" cy="205" r="26"/><g class="badge"><circle cx="276" cy="186" r="11" fill="var(--care)"/><path d="M271 186l4 4 6-7" stroke="var(--on-color)" stroke-width="2.5" fill="none"/></g></g>
+        <g class="hot" tabindex="0" role="button" data-h="Luz apagada: mantenha boa iluminação, inclusive à noite no caminho do banheiro."><circle class="ring-h" cx="170" cy="36" r="24"/><g class="badge"><circle cx="190" cy="18" r="11" fill="var(--care)"/><path d="M185 18l4 4 6-7" stroke="var(--on-color)" stroke-width="2.5" fill="none"/></g></g>
+        <g class="hot" tabindex="0" role="button" data-h="Remédios ao alcance: organize os remédios com uma lista atualizada e longe de crianças."><circle class="ring-h" cx="50" cy="146" r="28"/><g class="badge"><circle cx="72" cy="124" r="11" fill="var(--care)"/><path d="M67 124l4 4 6-7" stroke="var(--on-color)" stroke-width="2.5" fill="none"/></g></g>
+        <g class="hot" tabindex="0" role="button" data-h="Banheiro sem barra de apoio e piso molhado: instale barras de apoio quando indicado e mantenha o chão seco."><circle class="ring-h" cx="340" cy="150" r="36"/><g class="badge"><circle cx="366" cy="122" r="11" fill="var(--care)"/><path d="M361 122l4 4 6-7" stroke="var(--on-color)" stroke-width="2.5" fill="none"/></g></g>
+        <g class="hot" tabindex="0" role="button" data-h="Chinelo solto: use calçados firmes, fechados atrás, e os dispositivos de apoio prescritos."><circle class="ring-h" cx="200" cy="238" r="22"/><g class="badge"><circle cx="220" cy="222" r="11" fill="var(--care)"/><path d="M215 222l4 4 6-7" stroke="var(--on-color)" stroke-width="2.5" fill="none"/></g></g>
+      </svg>
+    </div>
+    <ul class="clean yes found-list" id="hzList"></ul>
+  </div>
+
+  <div class="card stack">
+    <span class="eyebrow">Ferramenta</span>
+    <h2>Minha lista de remédios</h2>
+    <p class="muted">Copie aqui o que está na receita da alta. A lista fica salva só neste aparelho. Não mude doses sem orientação médica.</p>
+    <form class="med-form" id="medForm" autocomplete="off">
+      <div class="field full"><label for="mName">Remédio</label><input id="mName" required placeholder="Nome do remédio"></div>
+      <div class="field"><label for="mDose">Dose</label><input id="mDose" placeholder="ex.: 1 comprimido"></div>
+      <div class="field"><label for="mTime">Horário</label><input id="mTime" placeholder="ex.: 8h e 20h"></div>
+      <button class="btn btn-main" type="submit" aria-label="Adicionar remédio"><svg class="i"><use href="#i-plus"/></svg> Adicionar</button>
+    </form>
+    <ul class="meds" id="medList"></ul>
+  </div>
+
+  <div class="callout alert">
+    <svg class="i"><use href="#i-phone"/></svg>
+    <div data-read><strong>Os sinais voltaram de repente?</strong><p>Ligue 192 imediatamente. Não espere a consulta de rotina.</p></div>
+  </div>
+
+  <div class="key-msg"><span class="eyebrow">Mensagem principal</span><p>Casa segura, remédios certos e reabilitação em dia: o cuidado continua em casa.</p></div>
+  <div class="card" data-quiz="4"></div>
+  <div class="next-row"><a class="btn btn-ghost" href="#tema-3"><svg class="i"><use href="#i-left"/></svg> Tema 3</a><a class="btn btn-main" href="#tema-5">Próximo: Prevenção <svg class="i"><use href="#i-right"/></svg></a></div>
+</section>
+
+<!-- ================= TEMA 5 ================= -->
+<section class="view c-care" data-view="tema-5" hidden>
+  <div class="thead">
+    <div class="row">
+      <a class="back" href="#inicio"><svg class="i"><use href="#i-left"/></svg> Temas</a>
+      <button class="speak" data-speak="tema-5" aria-pressed="false"><svg class="i"><use href="#i-sound"/></svg> Ouvir</button>
+    </div>
+    <span class="eyebrow">Tema 5 de 5</span>
+    <h1>Prevenção de um novo AVC e controle dos fatores de risco</h1>
+  </div>
+
+  <div class="question"><span class="q">?</span><p>O que a família pode fazer para diminuir a chance de um novo AVC?</p></div>
+
+  <div class="card stack" data-read>
+    <h2>Prevenir é cuidar todos os dias</h2>
+    <p>Depois de um AVC, é essencial investigar a causa e controlar os fatores de risco. <b>Não existe uma receita única</b>: a prevenção depende do tipo e da causa do AVC e da avaliação médica.</p>
+  </div>
+
+  <div class="card stack">
+    <span class="eyebrow">Recurso para lembrar</span>
+    <h2>Os cinco controles</h2>
+    <div class="controls" id="controls">
+      <button class="ctrl" aria-pressed="true" data-c="0"><svg class="dial" viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="22" fill="none" stroke="var(--line)" stroke-width="6"/><path d="M8 34a20 20 0 0 1 22-27" fill="none" stroke="var(--care)" stroke-width="6" stroke-linecap="round"/><path d="M27 27l9-9" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/></svg><b>Pressão</b></button>
+      <button class="ctrl" aria-pressed="false" data-c="1"><svg class="dial" viewBox="0 0 54 54" aria-hidden="true"><path d="M27 6c8 12 15 20 15 28a15 15 0 0 1-30 0c0-8 7-16 15-28z" fill="var(--alert-soft)" stroke="var(--alert)" stroke-width="3"/><text x="27" y="40" text-anchor="middle" font-size="12" font-weight="700" font-family="Atkinson Hyperlegible, sans-serif" fill="var(--alert)">mg</text></svg><b>Glicose (diabetes)</b></button>
+      <button class="ctrl" aria-pressed="false" data-c="2"><svg class="dial" viewBox="0 0 54 54" aria-hidden="true"><rect x="4" y="18" width="46" height="18" rx="9" fill="var(--home-soft)" stroke="var(--home)" stroke-width="3"/><path d="M14 22v10a10 10 0 0 0 10-6" fill="var(--home)" opacity=".7"/></svg><b>Colesterol</b></button>
+      <button class="ctrl" aria-pressed="false" data-c="3"><svg class="dial" viewBox="0 0 54 54" aria-hidden="true"><rect x="6" y="24" width="38" height="8" rx="2" fill="var(--muted)" opacity=".6"/><rect x="40" y="24" width="8" height="8" fill="var(--alert)"/><path d="M8 10l38 34" stroke="var(--alert)" stroke-width="4" stroke-linecap="round"/></svg><b>Cigarro e álcool</b></button>
+      <button class="ctrl" aria-pressed="false" data-c="4"><svg class="dial" viewBox="0 0 54 54" aria-hidden="true"><rect x="6" y="10" width="42" height="36" rx="6" fill="var(--brand-soft)" stroke="var(--brand)" stroke-width="3"/><path d="M6 20h42M16 6v8M38 6v8" stroke="var(--brand)" stroke-width="3" stroke-linecap="round"/><path d="M18 32l6 6 12-12" stroke="var(--care)" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg><b>Remédios e consultas</b></button>
+    </div>
+    <div class="ctrl-out" id="ctrlOut" aria-live="polite"></div>
+  </div>
+
+  <div class="card stack">
+    <span class="eyebrow">Cartões</span>
+    <h2>Hábitos saudáveis</h2>
+    <p class="muted">Toque para virar.</p>
+    <div class="habits">
+      <button class="flip"><span class="flip-in"><span class="face front"><svg viewBox="0 0 74 64" aria-hidden="true"><circle cx="37" cy="34" r="24" fill="var(--surface)" stroke="var(--care)" stroke-width="3"/><path d="M25 34h24M37 22v24" stroke="var(--care)" stroke-width="3" stroke-linecap="round"/><circle cx="29" cy="28" r="4" fill="var(--alert)"/><circle cx="45" cy="40" r="4" fill="var(--home)"/></svg><span class="w">Prato equilibrado</span></span><span class="face back"><h4>Alimentação</h4><p>Mais frutas, verduras e comida de verdade; menos sal, frituras e ultraprocessados. Se houver dificuldade para engolir, siga a orientação individual.</p></span></span></button>
+      <button class="flip"><span class="flip-in"><span class="face front"><svg viewBox="0 0 74 64" aria-hidden="true"><circle cx="40" cy="12" r="6" fill="var(--care)"/><path d="M38 20l-6 16 10 6-4 16M32 36l-10 14M36 26l14 6" stroke="var(--care)" stroke-width="4" stroke-linecap="round" fill="none"/></svg><span class="w">Corpo em movimento</span></span><span class="face back"><h4>Atividade física</h4><p>Movimente-se <b>somente</b> conforme a liberação e a orientação da equipe. A reabilitação também é exercício.</p></span></span></button>
+      <button class="flip"><span class="flip-in"><span class="face front"><svg viewBox="0 0 74 64" aria-hidden="true"><rect x="14" y="26" width="40" height="10" rx="2" fill="var(--muted)" opacity=".5"/><path d="M10 50L62 12" stroke="var(--alert)" stroke-width="5" stroke-linecap="round"/></svg><span class="w">Sem fumaça</span></span><span class="face back"><h4>Parar de fumar</h4><p>Não fume e procure apoio para parar: a unidade de saúde pode ajudar. Evite também o consumo excessivo de álcool.</p></span></span></button>
+      <button class="flip"><span class="flip-in"><span class="face front"><svg viewBox="0 0 74 64" aria-hidden="true"><rect x="16" y="8" width="42" height="50" rx="6" fill="var(--surface)" stroke="var(--care)" stroke-width="3"/><path d="M24 22h26M24 32h26M24 42h16" stroke="var(--care)" stroke-width="3" stroke-linecap="round"/></svg><span class="w">Plano em dia</span></span><span class="face back"><h4>Acompanhamento</h4><p>Vá às consultas e mantenha o acompanhamento na Atenção Primária e nos serviços especializados indicados.</p></span></span></button>
+    </div>
+  </div>
+
+  <div class="callout info">
+    <svg class="i"><use href="#i-pill"/></svg>
+    <p data-read><b>Nunca interrompa por conta própria</b> antiagregantes, anticoagulantes, remédios de pressão ou outros remédios. Qualquer mudança só com orientação médica.</p>
+  </div>
+
+  <div class="key-msg"><span class="eyebrow">Mensagem principal</span><p>Pressão, açúcar e colesterol controlados, sem cigarro e com os remédios em dia.</p></div>
+  <div class="card" data-quiz="5"></div>
+  <div class="next-row"><a class="btn btn-ghost" href="#tema-4"><svg class="i"><use href="#i-left"/></svg> Tema 4</a><a class="btn btn-main" href="#jornada">A jornada do cuidado <svg class="i"><use href="#i-right"/></svg></a></div>
+</section>
+
+<!-- ================= JORNADA ================= -->
+<section class="view c-care" data-view="jornada" hidden>
+  <div class="thead">
+    <div class="row"><a class="back" href="#inicio"><svg class="i"><use href="#i-left"/></svg> Início</a>
+      <button class="speak" data-speak="jornada" aria-pressed="false"><svg class="i"><use href="#i-sound"/></svg> Ouvir</button></div>
+    <span class="eyebrow">Continuidade do cuidado</span>
+    <h1>O cuidado não termina na internação</h1>
+  </div>
+
+  <div class="card">
+    <div class="journey" data-read>
+      <div class="jstep c-alert"><span class="jdot"><svg class="i"><use href="#i-phone"/></svg></span><div><h3>1. Emergência</h3><p>Reconhecer os sinais e ligar 192. O tempo até o atendimento faz diferença.</p></div></div>
+      <div class="jstep c-brand"><span class="jdot"><svg class="i"><use href="#i-hosp"/></svg></span><div><h3>2. Unidade de AVC (UAVE)</h3><p>Monitorização, tratamento e início da reabilitação. A família participa com segurança.</p></div></div>
+      <div class="jstep c-rehab"><span class="jdot"><svg class="i"><use href="#i-check"/></svg></span><div><h3>3. Preparo para a alta</h3><p>Entender remédios, alimentação, movimentação, equipamentos e para onde ir depois.</p></div></div>
+      <div class="jstep c-home"><span class="jdot"><svg class="i"><use href="#i-home"/></svg></span><div><h3>4. Em casa</h3><p>Casa segura, rotina de cuidados, reabilitação e prevenção de um novo AVC.</p></div></div>
+      <div class="jstep c-care"><span class="jdot"><svg class="i"><use href="#i-users"/></svg></span><div><h3>5. Atenção Primária (ESF / UBS)</h3><p>A equipe da Estratégia Saúde da Família acompanha de perto, perto da sua casa.</p></div></div>
+    </div>
+  </div>
+
+  <div class="card stack">
+    <span class="eyebrow">Para a família</span>
+    <h2>A visita domiciliar dos acadêmicos</h2>
+    <p data-read>Depois da alta, se você autorizar, um grupo de acadêmicos pode visitar sua casa com supervisão. O objetivo é conhecer o lugar onde o cuidado continua, encontrar barreiras e reforçar as orientações da equipe. <b>A visita não substitui consultas nem o atendimento da ESF</b>: ela fortalece esse vínculo.</p>
+    <div class="grid2">
+      <div class="stack"><h3>O que acontece na visita</h3>
+        <ul class="clean yes">
+          <li><svg class="i"><use href="#i-check"/></svg><span>Combinamos dia, horário e quem estará presente.</span></li>
+          <li><svg class="i"><use href="#i-check"/></svg><span>Observamos acesso, luz, banheiro, local de descanso e riscos de queda, sem julgar.</span></li>
+          <li><svg class="i"><use href="#i-check"/></svg><span>Conversamos sobre a rotina, os remédios e os atendimentos.</span></li>
+          <li><svg class="i"><use href="#i-check"/></svg><span>Revemos orientações de alimentação, movimentação e reabilitação.</span></li>
+          <li><svg class="i"><use href="#i-check"/></svg><span>Necessidades são comunicadas à ESF ou à equipe responsável.</span></li>
+        </ul>
+      </div>
+      <div class="stack"><h3>Seus direitos</h3>
+        <ul class="clean">
+          <li><svg class="i"><use href="#i-lock"/></svg><span>A visita só acontece com seu consentimento. Você pode recusar.</span></li>
+          <li><svg class="i"><use href="#i-lock"/></svg><span>Ninguém fotografa ou grava sem autorização formal.</span></li>
+          <li><svg class="i"><use href="#i-lock"/></svg><span>Seu nome e informações ficam em sigilo.</span></li>
+          <li><svg class="i"><use href="#i-lock"/></svg><span>Os acadêmicos não mudam remédios, dieta ou exercícios: isso é com a equipe.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="key-msg"><span class="eyebrow">Mensagem final</span><p>Educação, família, reabilitação e Atenção Primária juntas: assim o cuidado continua.</p></div>
+  <div class="next-row"><a class="btn btn-ghost" href="#inicio"><svg class="i"><use href="#i-left"/></svg> Início</a><a class="btn btn-main" href="#quiz">Fazer o desafio <svg class="i"><use href="#i-right"/></svg></a></div>
+</section>
+
+<!-- ================= QUIZ FINAL ================= -->
+<section class="view c-rehab" data-view="quiz" hidden>
+  <div class="thead">
+    <div class="row"><a class="back" href="#inicio"><svg class="i"><use href="#i-left"/></svg> Início</a></div>
+    <span class="eyebrow">Desafio da família</span>
+    <h1>10 situações do dia a dia</h1>
+  </div>
+  <div class="card" id="finalQuiz"></div>
+</section>
+
+<!-- ================= ACADÊMICO ================= -->
+<section class="view c-brand" data-view="academico" hidden>
+  <div class="thead">
+    <div class="row"><a class="back" href="#inicio"><svg class="i"><use href="#i-left"/></svg> Início</a></div>
+    <span class="eyebrow">UAVE · HMGV · Roteiro comum aos cinco grupos</span>
+    <h1>Área do acadêmico</h1>
+    <p>Educação em saúde e continuidade do cuidado ao paciente com AVE. Três momentos: educação com familiares, acompanhamento na internação e visita domiciliar.</p>
+  </div>
+
+  <details open>
+    <summary>Objetivos</summary>
+    <div class="in"><ul class="clean">
+      <li><svg class="i"><use href="#i-check"/></svg><span>Orientar familiares sobre o AVE, manifestações, fatores de risco e possíveis sequelas.</span></li>
+      <li><svg class="i"><use href="#i-check"/></svg><span>Reforçar cuidados de segurança durante a internação e a visita hospitalar.</span></li>
+      <li><svg class="i"><use href="#i-check"/></svg><span>Explicar a importância da reabilitação e da participação familiar.</span></li>
+      <li><svg class="i"><use href="#i-check"/></svg><span>Preparar a família para os cuidados após a alta, respeitando as orientações da equipe.</span></li>
+      <li><svg class="i"><use href="#i-check"/></svg><span>Identificar necessidades do paciente e barreiras no ambiente domiciliar.</span></li>
+      <li><svg class="i"><use href="#i-check"/></svg><span>Compreender a articulação entre hospital, família e Atenção Primária à Saúde.</span></li>
+    </ul></div>
+  </details>
+
+  <details>
+    <summary>Organização e tempo (≈15 min)</summary>
+    <div class="in">
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Etapa</th><th>Conteúdo</th><th>Tempo</th><th>Recurso didático</th></tr></thead>
+        <tbody>
+          <tr><td class="n">1</td><td>Conhecendo o AVE: tipos, causas, sinais e sintomas</td><td class="n">3 min</td><td>Mnemônico SAMU: sorriso, abraço, mensagem e urgência</td></tr>
+          <tr><td class="n">2</td><td>Cuidados na internação e prevenção de complicações</td><td class="n">3 min</td><td>Demonstração da higiene das mãos e situações de segurança</td></tr>
+          <tr><td class="n">3</td><td>Sequelas do AVE e importância da reabilitação</td><td class="n">3 min</td><td>Mnemônico FFF: Fala, Força e Função</td></tr>
+          <tr><td class="n">4</td><td>Cuidados após a alta hospitalar</td><td class="n">3 min</td><td>CASA SEGURA e identificação de riscos de queda</td></tr>
+          <tr><td class="n">5</td><td>Prevenção de novo AVE e fatores de risco</td><td class="n">3 min</td><td>Cinco controles e cartões de hábitos saudáveis</td></tr>
+        </tbody>
+      </table></div>
+      <p class="muted">Os tempos são flexíveis. Diante de dúvidas importantes, priorize a segurança e oriente o familiar a falar com a equipe assistencial. Use linguagem simples, acolhedora e respeitosa.</p>
+      <p><b>Estrutura de cada tema:</b> pergunta inicial para chamar atenção → explicação em linguagem simples → demonstração (cartaz, imagem, dinâmica) → mensagem principal. Neste app, cada tema segue essa ordem e pode ser projetado ou mostrado no celular.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Falas de abertura e encerramento</summary>
+    <div class="in">
+      <h3>Abertura</h3>
+      <blockquote>“Bom dia! Somos acadêmicos e estamos realizando uma atividade educativa da UAVE. Em poucos minutos, vamos conversar sobre o AVC, os cuidados durante a internação e como a família pode ajudar na recuperação e na continuidade do cuidado. Ao final, teremos um momento para dúvidas. As orientações específicas de cada paciente devem sempre ser confirmadas com a equipe.”</blockquote>
+      <h3>Encerramento</h3>
+      <blockquote>“A participação da família é muito importante, mas cada paciente tem necessidades próprias. Por segurança, não ofereçam alimentos, líquidos ou medicamentos e não movimentem o paciente sem autorização da equipe. Se perceberem alguma alteração, chamem um profissional da equipe. Obrigado pela participação.”</blockquote>
+    </div>
+  </details>
+
+  <details>
+    <summary>2ª etapa: acompanhamento do paciente na UAVE</summary>
+    <div class="in">
+      <div class="check">
+        <label><input type="checkbox" id="ac1"><span>Conhecer a história clínica e neurológica, dentro das informações autorizadas para o ensino.</span></label>
+        <label><input type="checkbox" id="ac2"><span>Observar comunicação, mobilidade, alimentação/deglutição, autocuidado e grau de dependência, com supervisão.</span></label>
+        <label><input type="checkbox" id="ac3"><span>Identificar dúvidas e necessidades relatadas pelo paciente e familiar.</span></label>
+        <label><input type="checkbox" id="ac4"><span>Registrar apenas o necessário, em ambiente e instrumento autorizados.</span></label>
+        <label><input type="checkbox" id="ac5"><span>Discutir quais orientações já foram dadas e quais precisam ser reforçadas.</span></label>
+      </div>
+      <div class="callout alert"><svg class="i"><use href="#i-alert"/></svg><p>Os acadêmicos não realizam procedimentos, mobilizações, avaliações ou orientações clínicas de forma independente. Tudo com autorização e supervisão.</p></div>
+    </div>
+  </details>
+
+  <details>
+    <summary>3ª etapa: visita domiciliar após a alta</summary>
+    <div class="in">
+      <h3>Antes</h3>
+      <div class="check">
+        <label><input type="checkbox" id="av1"><span>Confirmar a alta e a autorização do paciente e/ou responsável.</span></label>
+        <label><input type="checkbox" id="av2"><span>Articular previamente com a equipe da ESF de referência.</span></label>
+        <label><input type="checkbox" id="av3"><span>Combinar data e horário, explicar o objetivo e confirmar quem estará presente.</span></label>
+      </div>
+      <h3>Durante</h3>
+      <div class="check">
+        <label><input type="checkbox" id="av4"><span>Observar acessibilidade, iluminação, circulação, banheiro, local de descanso e riscos de queda, sem julgar ou expor a família.</span></label>
+        <label><input type="checkbox" id="av5"><span>Conversar sobre rotina, dificuldades no cuidado, uso dos remédios e comparecimento aos atendimentos.</span></label>
+        <label><input type="checkbox" id="av6"><span>Verificar a compreensão das orientações de alimentação, deglutição, mobilização e reabilitação.</span></label>
+        <label><input type="checkbox" id="av7"><span>Identificar necessidades a comunicar à ESF ou à equipe responsável.</span></label>
+      </div>
+      <h3>Depois</h3>
+      <div class="check">
+        <label><input type="checkbox" id="av8"><span>Registrar de forma objetiva, sem fotografar ou compartilhar dados identificáveis sem autorização institucional.</span></label>
+        <label><input type="checkbox" id="av9"><span>Discutir achados e necessidades com o docente e a equipe de referência.</span></label>
+        <label><input type="checkbox" id="av10"><span>Orientar a família a procurar os serviços adequados; em urgência, acionar o SAMU 192.</span></label>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Postura ética e segurança</summary>
+    <div class="in"><ul class="clean">
+      <li><svg class="i"><use href="#i-users"/></svg><span>Apresentar-se como acadêmico e explicar a finalidade da atividade.</span></li>
+      <li><svg class="i"><use href="#i-check"/></svg><span>Pedir consentimento antes de conversar, observar ou realizar qualquer atividade.</span></li>
+      <li><svg class="i"><use href="#i-lock"/></svg><span>Preservar sigilo: não divulgar nomes, imagens, prontuários ou detalhes que identifiquem o paciente.</span></li>
+      <li><svg class="i"><use href="#i-x"/></svg><span>Não fotografar, filmar ou gravar sem autorização formal.</span></li>
+      <li><svg class="i"><use href="#i-x"/></svg><span>Não oferecer diagnóstico, prognóstico ou promessa de recuperação.</span></li>
+      <li><svg class="i"><use href="#i-x"/></svg><span>Não recomendar mudanças de remédios, dieta, consistência de líquidos ou exercícios sem prescrição da equipe.</span></li>
+      <li><svg class="i"><use href="#i-heart"/></svg><span>Respeitar a autonomia, a cultura, as condições sociais e o ritmo de compreensão da família.</span></li>
+    </ul></div>
+  </details>
+
+  <div class="key-msg"><span class="eyebrow">Mensagem final</span><p>Atuação ética, acolhedora, segura e centrada nas necessidades do paciente e de sua família.</p></div>
+</section>
+
+<footer class="foot">
+  <p>Conteúdo baseado no roteiro “Educação em saúde e continuidade do cuidado ao paciente com AVE” (UAVE · HMGV). Material educativo: não substitui a orientação da equipe de saúde.</p>
+</footer>
+</main>
+
+<div class="sos" role="region" aria-label="Emergência">
+  <div class="sos-in">
+    <p><b>Suspeita de AVC?</b>Ligue já para o SAMU. Não espere melhorar.</p>
+    <a href="tel:192" aria-label="Ligar 192"><svg class="i"><use href="#i-phone"/></svg>192</a>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  "use strict";
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem("ave:" + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem("ave:" + k, JSON.stringify(v)); } catch (e) {} }
+  };
+  const toast = (msg) => { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("show"), 2400); };
+
+  /* ---------- Rotas ---------- */
+  const views = $$(".view");
+  function route() {
+    const h = (location.hash || "#inicio").slice(1);
+    const v = views.find(x => x.dataset.view === h) || views[0];
+    views.forEach(x => x.hidden = x !== v);
+    stopSpeak();
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener("hashchange", route);
+
+  /* ---------- Tamanho da letra e tema ---------- */
+  let base = store.get("font", 18);
+  const applyFont = () => document.documentElement.style.setProperty("--base", base + "px");
+  applyFont();
+  $("#fontUp").onclick = () => { base = Math.min(26, base + 2); applyFont(); store.set("font", base); };
+  $("#fontDown").onclick = () => { base = Math.max(14, base - 2); applyFont(); store.set("font", base); };
+  const savedTheme = store.get("theme", null);
+  if (savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
+  $("#themeBtn").onclick = () => {
+    const cur = document.documentElement.getAttribute("data-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    const next = cur === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next); store.set("theme", next);
+  };
+
+  /* ---------- Leitura em voz alta ---------- */
+  const synth = window.speechSynthesis;
+  function stopSpeak() { try { synth && synth.cancel(); } catch (e) {} $$(".speak").forEach(b => b.setAttribute("aria-pressed", "false")); }
+  $$(".speak").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (!synth) { toast("Seu aparelho não tem leitura em voz alta."); return; }
+      if (btn.getAttribute("aria-pressed") === "true") { stopSpeak(); return; }
+      stopSpeak();
+      const view = btn.closest(".view");
+      const parts = [view.querySelector("h1").textContent];
+      const q = view.querySelector(".question p"); if (q) parts.push(q.textContent);
+      view.querySelectorAll("[data-read]").forEach(el => parts.push(el.innerText));
+      const km = view.querySelector(".key-msg p"); if (km) parts.push("Mensagem principal. " + km.textContent);
+      const u = new SpeechSynthesisUtterance(parts.join(". ").replace(/\s+/g, " "));
+      u.lang = "pt-BR"; u.rate = 0.92;
+      const voice = synth.getVoices().find(v => /pt[-_]BR/i.test(v.lang));
+      if (voice) u.voice = voice;
+      u.onend = () => btn.setAttribute("aria-pressed", "false");
+      btn.setAttribute("aria-pressed", "true");
+      synth.speak(u);
+    });
+  });
+
+  /* ---------- Cartões que viram ---------- */
+  $$(".flip").forEach(f => f.addEventListener("click", () => f.classList.toggle("on")));
+
+  /* ---------- Tema 1: tipos ---------- */
+  const types = {
+    isq: { t: "AVC isquêmico", p: "Um vaso que leva sangue ao cérebro fica <b>entupido</b> (por exemplo, por um coágulo). A região que ele alimentava fica sem oxigênio.", e: "É o tipo mais comum. Em algumas situações, o hospital pode usar tratamentos para desfazer o entupimento, mas eles só funcionam nas primeiras horas." },
+    hem: { t: "AVC hemorrágico", p: "Um vaso sanguíneo se <b>rompe</b> e o sangue vaza dentro ou ao redor do cérebro, comprimindo e lesionando a região.", e: "A pressão alta sem controle é uma das causas mais importantes. Também é emergência: ligue 192." }
+  };
+  $$("[data-type]").forEach(b => b.addEventListener("click", () => {
+    $$("[data-type]").forEach(x => x.setAttribute("aria-selected", String(x === b)));
+    const k = b.dataset.type, d = types[k];
+    $("#typeTitle").textContent = d.t; $("#typeText").innerHTML = d.p; $("#typeExtra").textContent = d.e;
+    const isq = k === "isq";
+    $("#clot").style.opacity = isq ? 1 : 0; $("#clot").style.transform = isq ? "scale(1)" : "scale(.2)";
+    $("#bleed").style.opacity = isq ? 0 : 1; $("#bleed").style.transform = isq ? "scale(.3)" : "scale(1)";
+    $("#area").setAttribute("cx", isq ? 190 : 152); $("#area").setAttribute("cy", isq ? 76 : 112);
+  }));
+
+  $("#markTime").addEventListener("click", () => {
+    const d = new Date();
+    $("#timeOut").textContent = d.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }) + " · " + d.toLocaleDateString("pt-BR");
+    toast("Horário registrado. Informe à equipe do SAMU.");
+  });
+
+  function chipGroup(sel, attr, out) {
+    $$(sel).forEach(c => c.addEventListener("click", () => {
+      $$(sel).forEach(x => x.setAttribute("aria-pressed", String(x === c)));
+      $(out).innerHTML = "<b>" + c.textContent + ":</b> " + c.getAttribute(attr);
+    }));
+  }
+  chipGroup("#riskChips .chip", "data-r", "#riskOut");
+  chipGroup("#team button", "data-p", "#teamOut");
+
+  /* ---------- Tema 2: mãos ---------- */
+  const handSteps = ["Molhe as mãos e aplique sabão (ou álcool em gel)", "Esfregue palma com palma", "Esfregue o dorso das mãos", "Esfregue entre os dedos", "Esfregue os polegares", "Esfregue as pontas dos dedos e unhas", "Enxágue e seque (ou deixe o álcool secar)"];
+  const dots = $("#handDots"); handSteps.forEach(() => dots.appendChild(document.createElement("i")));
+  let handTimer = null;
+  $("#handGo").addEventListener("click", () => {
+    clearInterval(handTimer);
+    const total = 20; let t = 0; const arc = $("#handArc"); const len = 402;
+    const tick = () => {
+      const step = Math.min(handSteps.length - 1, Math.floor(t / total * handSteps.length));
+      $("#handStep").textContent = handSteps[step];
+      $$("i", dots).forEach((d, i) => d.classList.toggle("on", i <= step));
+      $("#handNum").textContent = Math.max(0, total - t);
+      arc.style.strokeDashoffset = len - len * (t / total);
+      if (t >= total) { clearInterval(handTimer); $("#handStep").textContent = "Pronto! Mãos limpas protegem seu familiar."; toast("Muito bem!"); }
+      t++;
+    };
+    tick(); handTimer = setInterval(tick, 1000);
+  });
+
+  /* ---------- Tema 2: jogo ---------- */
+  const situ = [
+    ["Seu pai pede um copo de água. Você pode dar?", "equipe", "O AVC pode causar disfagia (dificuldade para engolir). Água pode ir para o pulmão. Pergunte sempre à equipe antes."],
+    ["Lavar as mãos antes de segurar a mão da sua mãe.", "pode", "Isso mesmo! A higiene das mãos protege contra infecções."],
+    ["Ele quer ir ao banheiro e você pensa em levantá-lo sozinho.", "equipe", "Levantar ou caminhar sem a equipe pode causar quedas. Chame a enfermagem."],
+    ["A bomba de soro começou a apitar.", "equipe", "Não mexa em soro, bombas, sondas ou monitores. Avise a enfermagem."],
+    ["Conversar com calma, mesmo que ele não consiga responder.", "pode", "Ótimo! Identifique-se, fale devagar e dê tempo. Ele pode entender mesmo sem conseguir falar."],
+    ["Você percebe que a fala dele piorou de repente.", "equipe", "Qualquer piora na fala, força, consciência ou respiração deve ser avisada à enfermagem imediatamente."],
+    ["Trazer um docinho de casa para animar a visita.", "equipe", "Nada de alimentos, balas ou bebidas sem liberação expressa da equipe."],
+    ["Respeitar o horário de descanso e a privacidade dos outros pacientes.", "pode", "Exatamente. O repouso faz parte da recuperação."]
+  ];
+  let gi = 0, gScore = 0;
+  function showSitu() {
+    $("#gN").textContent = "Situação " + (gi + 1) + " de " + situ.length;
+    $("#gS").textContent = situ[gi][0];
+    $("#gF").hidden = true; $("#gNext").hidden = true;
+    $$("#game .ans").forEach(b => b.disabled = false);
+  }
+  $$("#game .ans").forEach(b => b.addEventListener("click", () => {
+    const [, right, why] = situ[gi]; const ok = b.dataset.a === right; if (ok) gScore++;
+    const f = $("#gF"); f.hidden = false; f.className = "feedback " + (ok ? "good" : "bad");
+    f.innerHTML = "<b>" + (ok ? "Acertou!" : (right === "pode" ? "Neste caso, pode fazer." : "Melhor chamar a equipe.")) + "</b>" + why;
+    $$("#game .ans").forEach(x => x.disabled = true);
+    const n = $("#gNext"); n.hidden = false;
+    n.innerHTML = gi < situ.length - 1 ? 'Próxima situação <svg class="i"><use href="#i-right"/></svg>' : "Jogar de novo";
+  }));
+  $("#gNext").addEventListener("click", () => {
+    if (gi < situ.length - 1) { gi++; showSitu(); }
+    else { toast("Você acertou " + gScore + " de " + situ.length + "!"); gi = 0; gScore = 0; showSitu(); }
+  });
+  showSitu();
+
+  /* ---------- Tema 3: FFF ---------- */
+  $$(".fff-tab").forEach(t => t.addEventListener("click", () => {
+    $$(".fff-tab").forEach(x => x.setAttribute("aria-selected", String(x === t)));
+    $$(".fff-panel").forEach(p => p.hidden = p.dataset.fp !== t.dataset.f);
+  }));
+
+  /* ---------- Tema 4: checklist ---------- */
+  function persistChecks(sel, key, after) {
+    const saved = store.get(key, {});
+    $$(sel).forEach(c => { c.checked = !!saved[c.id]; c.addEventListener("change", () => { saved[c.id] = c.checked; store.set(key, saved); after && after(); }); });
+    after && after();
+  }
+  persistChecks("#dischargeList input", "alta", () => {
+    const n = $$("#dischargeList input:checked").length;
+    $("#dcCount").textContent = n + " de 6 itens esclarecidos" + (n === 6 ? ". Família preparada!" : "");
+  });
+  persistChecks("[data-view=academico] input", "acad");
+
+  /* CASA SEGURA */
+  const casa = [
+    ["C", "Caminhos livres", "Retire caixas, fios e móveis do caminho."],
+    ["A", "Apoios e barras", "Instale barras de apoio no banheiro e corredores, quando indicado."],
+    ["S", "Sapatos firmes", "Calçados fechados atrás e com sola antiderrapante. Nada de chinelo solto."],
+    ["A", "Acenda as luzes", "Boa iluminação, inclusive à noite no caminho até o banheiro."],
+    ["S", "Sem tapetes soltos", "Retire tapetes soltos ou fixe-os bem no chão."],
+    ["E", "Equipamentos prescritos", "Use andador, bengala ou cadeira apenas como a equipe orientou."],
+    ["G", "Guarde os remédios", "Organizados, com lista atualizada e fora do alcance de crianças."],
+    ["U", "Unidade de saúde", "Saiba qual é a sua unidade de referência e como pedir ajuda."],
+    ["R", "Reabilitação em dia", "Vá aos atendimentos e faça em casa só o que foi ensinado."],
+    ["A", "Atenção aos sinais", "Sinais de AVC de novo? Ligue 192 na hora. Não deixe o paciente fazer sozinho o que ainda não é seguro."]
+  ];
+  const w = $("#casa");
+  const g1 = document.createElement("span"), g2 = document.createElement("span");
+  g1.className = g2.className = "grp"; w.append(g1, g2);
+  casa.forEach((c, i) => {
+    const b = document.createElement("button"); b.className = "lt"; b.textContent = c[0]; b.setAttribute("aria-pressed", "false"); b.setAttribute("aria-label", c[0] + ": " + c[1]);
+    b.addEventListener("click", () => {
+      $$(".lt", w).forEach(x => x.setAttribute("aria-pressed", String(x === b))); b.classList.add("seen");
+      $("#casaOut").innerHTML = "<b>" + c[0] + " · " + c[1] + "</b>" + c[2];
+    });
+    (i < 4 ? g1 : g2).appendChild(b);
+  });
+
+  /* Caça aos riscos */
+  let found = 0;
+  $$(".hot").forEach(h => {
+    const act = () => {
+      if (h.classList.contains("found")) return;
+      h.classList.add("found"); found++;
+      $("#hzCount").textContent = found;
+      const li = document.createElement("li");
+      li.innerHTML = '<svg class="i"><use href="#i-check"/></svg><span></span>'; li.querySelector("span").textContent = h.dataset.h;
+      $("#hzList").appendChild(li);
+      toast(found === 6 ? "Você encontrou todos os riscos!" : "Risco encontrado!");
+    };
+    h.addEventListener("click", act);
+    h.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); act(); } });
+  });
+
+  /* Remédios */
+  let meds = store.get("meds", null);
+  if (!meds) meds = [{ n: "Exemplo: remédio da pressão", d: "1 comprimido", h: "8h", ex: true }];
+  function drawMeds() {
+    const ul = $("#medList"); ul.innerHTML = "";
+    meds.forEach((m, i) => {
+      const li = document.createElement("li");
+      li.innerHTML = '<div><b></b><small></small></div><button class="x" aria-label="Remover"><svg class="i"><use href="#i-x"/></svg></button>';
+      li.querySelector("b").textContent = m.n; li.querySelector("small").textContent = [m.d, m.h].filter(Boolean).join(" · ") + (m.ex ? " (exemplo, pode apagar)" : "");
+      li.querySelector("button").onclick = () => { meds.splice(i, 1); store.set("meds", meds); drawMeds(); };
+      ul.appendChild(li);
+    });
+  }
+  $("#medForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const n = $("#mName").value.trim(); if (!n) return;
+    meds = meds.filter(m => !m.ex);
+    meds.push({ n, d: $("#mDose").value.trim(), h: $("#mTime").value.trim() });
+    store.set("meds", meds); drawMeds(); e.target.reset(); toast("Remédio adicionado à lista.");
+  });
+  drawMeds();
+
+  /* ---------- Tema 5: controles ---------- */
+  const ctrls = [
+    ["Pressão arterial", "Meça conforme a orientação profissional e anote os valores para mostrar nas consultas. Use os remédios da pressão todos os dias, mesmo se estiver se sentindo bem."],
+    ["Glicose (diabetes)", "Mantenha o diabetes acompanhado e tratado. Siga a dieta e os remédios orientados e faça os exames pedidos."],
+    ["Colesterol", "Acompanhe com exames e tratamento. Alimentação equilibrada ajuda, e às vezes são necessários remédios."],
+    ["Cigarro e álcool", "Não fume e procure apoio para parar. Evite o consumo excessivo de bebidas alcoólicas."],
+    ["Remédios e consultas", "Use os remédios exatamente como prescritos. Não interrompa antiagregantes, anticoagulantes ou remédios de pressão sem orientação médica. Vá às consultas na Atenção Primária e nos serviços indicados."]
+  ];
+  const showCtrl = (i) => { $("#ctrlOut").innerHTML = "<b>" + ctrls[i][0] + "</b>" + ctrls[i][1]; };
+  $$("#controls .ctrl").forEach(b => b.addEventListener("click", () => {
+    $$("#controls .ctrl").forEach(x => x.setAttribute("aria-pressed", String(x === b))); showCtrl(+b.dataset.c);
+  }));
+  showCtrl(0);
+
+  /* ---------- Quizzes ---------- */
+  const QZ = {
+    1: [
+      ["Qual destes é um sinal de alerta de AVC?", ["Boca torta de repente", "Sono depois do almoço", "Dor nas costas antiga"], 0, "Assimetria facial súbita (boca torta) é um sinal clássico. Lembre do S de Sorriso."],
+      ["Suspeitou de AVC. O que fazer primeiro?", ["Dar um remédio e esperar", "Ligar 192 e anotar o horário", "Dar água com açúcar"], 1, "Ligue 192 já. Não ofereça comida, água ou remédios e anote quando a pessoa foi vista bem pela última vez."]
+    ],
+    2: [
+      ["O paciente pede um biscoito. O que fazer?", ["Dar um pedaço pequeno", "Perguntar antes à equipe", "Dar só se ele estiver sentado"], 1, "O AVC pode causar dificuldade para engolir. Só ofereça qualquer alimento com liberação da equipe."],
+      ["Quando higienizar as mãos?", ["Só na saída", "Antes e depois do contato com o paciente", "Só se estiverem sujas"], 1, "Antes e depois do contato, conforme orientação da unidade."]
+    ],
+    3: [
+      ["O que quer dizer F·F·F?", ["Febre, Fome, Frio", "Fala, Força, Função", "Família, Fé, Foco"], 1, "Fala, Força e Função: as principais áreas que podem ser afetadas e trabalhadas na reabilitação."],
+      ["Sobre a recuperação depois do AVC, é correto dizer:", ["É igual para todos", "É individual e pode continuar após a alta", "Acaba quando sai do hospital"], 1, "Cada pessoa evolui de um jeito. Evite comparações e siga o plano da equipe."]
+    ],
+    4: [
+      ["Qual destas mudanças deixa a casa mais segura?", ["Colocar tapetes no corredor", "Deixar as luzes apagadas à noite", "Manter os caminhos livres"], 2, "Caminhos livres, boa iluminação e sem tapetes soltos: CASA SEGURA."],
+      ["O remédio está dando sono. O que fazer?", ["Parar por conta própria", "Conversar com a equipe ou o médico", "Tomar metade"], 1, "Nunca suspenda, inicie ou mude remédios por conta própria."]
+    ],
+    5: [
+      ["Qual é um dos cinco controles para evitar um novo AVC?", ["Controlar a pressão arterial", "Dormir menos", "Tomar mais café"], 0, "Pressão, glicose, colesterol, cigarro/álcool e remédios/consultas."],
+      ["A prevenção de um novo AVC é:", ["Igual para todo mundo", "Individual, conforme a causa e a avaliação médica", "Desnecessária depois da alta"], 1, "Não existe receita única: siga o plano individual definido pelos profissionais."]
+    ]
+  };
+  const FINAL = [
+    ["Dona Maria, 68 anos, de repente não consegue levantar o braço direito e a fala ficou enrolada. O que a família deve fazer?", ["Esperar uma hora para ver se melhora", "Ligar 192 e anotar o horário", "Levar para dormir"], 1, "Fraqueza e fala alterada são sinais de AVC. Ligue 192 imediatamente."],
+    ["O que é o AVC isquêmico?", ["Um vaso que se rompe", "Um vaso que entope", "Uma infecção no cérebro"], 1, "Isquêmico: entupimento. Hemorrágico: rompimento com sangramento."],
+    ["No hospital, seu tio pede para você ajudá-lo a ir até a janela. Você:", ["Ajuda, segurando firme", "Chama a equipe antes", "Deixa ele ir sozinho"], 1, "Não levante nem caminhe com o paciente sem orientação e auxílio da equipe."],
+    ["Uma possível complicação que a equipe busca prevenir é:", ["Lesão por pressão", "Miopia", "Cárie"], 0, "Também: aspiração, pneumonia, quedas, trombose, desidratação, desnutrição e infecções."],
+    ["“Disfagia” significa:", ["Dificuldade para engolir", "Dificuldade para dormir", "Dor de cabeça"], 0, "Por isso a consistência de alimentos e líquidos deve seguir a orientação da equipe."],
+    ["Qual profissional cuida principalmente da fala e da deglutição?", ["Fonoaudiologia", "Nutrição", "Serviço social"], 0, "A fonoaudiologia trabalha a comunicação e a deglutição segura."],
+    ["Antes da alta, a família deve saber:", ["Só o dia da próxima consulta", "Remédios, alimentação, cuidados, equipamentos e a unidade de referência", "Nada, a equipe resolve depois"], 1, "Use a lista “Antes de sair do hospital” do tema 4."],
+    ["Em casa, qual calçado é mais seguro?", ["Chinelo solto", "Meia no piso liso", "Calçado firme, fechado atrás"], 2, "S de Sapatos firmes, na CASA SEGURA."],
+    ["Seu pai acha que, como a pressão está boa, pode parar o remédio. A orientação é:", ["Pode parar", "Não parar sem orientação médica", "Tomar só quando lembrar"], 1, "A pressão está boa justamente por causa do remédio. Não interrompa sem orientação."],
+    ["Quem continua acompanhando o paciente perto de casa depois da alta?", ["Ninguém", "A Atenção Primária (ESF/UBS)", "Só o hospital"], 1, "Hospital, família e Atenção Primária juntos garantem a continuidade do cuidado."]
+  ];
+
+  const progress = new Set(store.get("done", []));
+  function drawProgress() {
+    $$(".tcard").forEach(c => c.classList.toggle("done", progress.has(c.dataset.t)));
+    $("#progLabel").textContent = progress.size + " de 5 temas";
+    $("#progBar").style.width = (progress.size / 5 * 100) + "%";
+  }
+  drawProgress();
+
+  function buildQuiz(box, qs, onEnd, title) {
+    let i = 0, score = 0;
+    function render() {
+      if (i >= qs.length) { onEnd(score, qs.length, box, () => { i = 0; score = 0; render(); }); return; }
+      const [q, opts, right, why] = qs[i];
+      box.innerHTML = "";
+      const wrap = document.createElement("div"); wrap.className = "qz";
+      wrap.innerHTML = '<div class="qz-head"><span class="eyebrow"></span><span class="muted"></span></div><p class="qz-q"></p><div class="qz-opts"></div><div class="feedback" hidden></div><div><button class="btn btn-main" hidden></button></div>';
+      wrap.querySelector(".eyebrow").textContent = title;
+      wrap.querySelector(".muted").textContent = "Pergunta " + (i + 1) + " de " + qs.length;
+      wrap.querySelector(".qz-q").textContent = q;
+      const oc = wrap.querySelector(".qz-opts"), fb = wrap.querySelector(".feedback"), nx = wrap.querySelector("button.btn");
+      opts.forEach((o, k) => {
+        const b = document.createElement("button"); b.className = "qz-opt"; b.textContent = o;
+        b.onclick = () => {
+          const ok = k === right; if (ok) score++;
+          $$(".qz-opt", oc).forEach((x, j) => { x.disabled = true; if (j === right) x.classList.add("right"); });
+          if (!ok) b.classList.add("wrong");
+          fb.hidden = false; fb.className = "feedback " + (ok ? "good" : "bad");
+          fb.innerHTML = "<b>" + (ok ? "Isso mesmo!" : "Quase.") + "</b>"; fb.appendChild(document.createTextNode(why));
+          nx.hidden = false; nx.innerHTML = i < qs.length - 1 ? 'Próxima <svg class="i"><use href="#i-right"/></svg>' : "Ver resultado";
+        };
+        oc.appendChild(b);
+      });
+      nx.onclick = () => { i++; render(); };
+      box.appendChild(wrap);
+    }
+    render();
+  }
+
+  $$("[data-quiz]").forEach(box => {
+    const t = box.dataset.quiz;
+    buildQuiz(box, QZ[t], (s, n, b, again) => {
+      progress.add(t); store.set("done", Array.from(progress)); drawProgress();
+      b.innerHTML = '<div class="qz"><span class="eyebrow">Teste rápido</span><p class="qz-q">Tema concluído! Você acertou ' + s + " de " + n + '.</p><div class="next-row"><button class="btn btn-ghost">Refazer</button></div></div>';
+      b.querySelector("button").onclick = again;
+      toast("Tema " + t + " concluído");
+    }, "Teste rápido");
+  });
+
+  buildQuiz($("#finalQuiz"), FINAL, (s, n, b, again) => {
+    const name = store.get("name", "");
+    b.innerHTML =
+      '<div class="stack"><div class="qz-head"><div><span class="eyebrow">Resultado</span><p class="score">' + s + "/" + n + '</p></div>' +
+      '<button class="btn btn-ghost" id="qAgain">Refazer desafio</button></div>' +
+      '<p class="muted">' + (s >= 8 ? "Excelente! Sua família está preparada para cuidar." : s >= 5 ? "Bom trabalho! Reveja os temas para reforçar." : "Vale a pena rever os temas com calma. Cada passo conta.") + "</p>" +
+      '<div class="field"><label for="certName">Nome para o certificado</label><input id="certName" placeholder="Seu nome ou o nome da família"></div>' +
+      '<div class="cert"><span class="seal"><svg class="i"><use href="#i-heart"/></svg></span><span class="eyebrow" style="--c:var(--care)">Certificado</span><h2>Família que Cuida</h2><p class="nm" id="certOut"></p><p class="muted">concluiu o desafio “Cuidar Depois do AVC” e sabe que, diante de sinais de AVC, deve ligar 192. Tempo é cérebro!</p></div></div>';
+    const inp = $("#certName", b), out = $("#certOut", b);
+    inp.value = name; out.textContent = name;
+    inp.addEventListener("input", () => { out.textContent = inp.value; store.set("name", inp.value); });
+    $("#qAgain", b).onclick = again;
+  }, "Desafio da família");
+
+  route();
+})();
+</script>
+</body>
+</html>
