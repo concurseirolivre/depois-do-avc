@@ -569,6 +569,10 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
 /* ================= Tema 2 ================= */
 .ecg { stroke-dasharray: 160; stroke-dashoffset: 160; animation: ecg 2.2s linear infinite; }
 @keyframes ecg { to { stroke-dashoffset: -160; } }
+.ecg2 { stroke-dasharray: 520 520; stroke-dashoffset: 520; animation: ecg2 2.2s linear infinite; }
+@keyframes ecg2 { to { stroke-dashoffset: -520; } }
+.beat { transform-box: fill-box; transform-origin: center; animation: beat 1.1s ease-in-out infinite; }
+@keyframes beat { 15% { transform: scale(1.18); } 30% { transform: scale(1); } }
 .blink { animation: blink 1s steps(2, start) infinite; }
 @keyframes blink { to { visibility: hidden; } }
 .hot2 { cursor: pointer; }
@@ -1677,7 +1681,23 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
     </svg>`;
   }
   SCENES.room = () => roomSvg(false);
-  SCENES.roomVisit = () => roomSvg(true);
+  /* Abertura do tema 2: ilustração de fundo + monitor animado no espaço livre à direita */
+  SCENES.roomVisit = () => `<svg viewBox="0 0 1672 941" aria-hidden="true">
+      <image href="img/t2-abertura.webp" x="0" y="0" width="1672" height="941"/>
+      <g stroke="#1d1d1d" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M1300 470 V850" fill="none"/>
+        <path d="M1190 860 H1410" fill="none"/>
+        <circle cx="1200" cy="880" r="16" fill="#9aa7b3"/><circle cx="1400" cy="880" r="16" fill="#9aa7b3"/>
+        <rect x="1255" y="430" width="90" height="50" rx="12" fill="#cfd8e0"/>
+        <rect x="1060" y="130" width="480" height="320" rx="34" fill="#e9eef3"/>
+        <rect x="1090" y="160" width="420" height="260" rx="20" fill="#13222f"/>
+      </g>
+      <text x="1120" y="230" font-size="46" font-weight="700" fill="#F2B33D" font-family="Baloo 2, sans-serif">98%</text>
+      <text x="1490" y="230" text-anchor="end" font-size="46" font-weight="700" fill="#63C9AB" font-family="Baloo 2, sans-serif">78</text>
+      <g class="beat"><path d="M1418 212c-8-14-30-8-26 8 2 9 14 16 26 24 12-8 24-15 26-24 4-16-18-22-26-8z" fill="#ff6b6b" transform="translate(-28 -26) scale(.9)"/></g>
+      <polyline class="ecg2" points="1105,330 1170,330 1190,300 1210,370 1230,320 1255,330 1320,330 1340,260 1365,395 1385,315 1410,330 1495,330" fill="none" stroke="#63C9AB" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`;
+  SCENES.roomVisitOld = () => roomSvg(true);
 
   function pollSetup(sel, outSel, key) {
     $$(sel + " .chip").forEach(c => c.addEventListener("click", () => {
