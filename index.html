@@ -556,6 +556,68 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
 .pulse-x { animation: pulsex 1.4s ease-in-out infinite; transform-origin: 300px 62px; }
 @keyframes pulsex { 50% { transform: scale(1.12); } }
 
+
+/* ================= Tema 2 ================= */
+.ecg { stroke-dasharray: 160; stroke-dashoffset: 160; animation: ecg 2.2s linear infinite; }
+@keyframes ecg { to { stroke-dashoffset: -160; } }
+.blink { animation: blink 1s steps(2, start) infinite; }
+@keyframes blink { to { visibility: hidden; } }
+.hot2 { cursor: pointer; }
+.hot2 .rh { fill: transparent; stroke: var(--brand); stroke-width: 2.5; stroke-dasharray: 4 4; opacity: .8; animation: hint 2s ease-in-out infinite; }
+@keyframes hint { 50% { opacity: .25; } }
+.hot2:focus { outline: none; }
+.hot2:focus .rh, .hot2:hover .rh { opacity: 1; stroke-width: 3.5; animation: none; }
+.hot2.seen .rh { stroke-dasharray: none; animation: none; opacity: 1; }
+.hot2.seen.ok .rh { stroke: var(--care); fill: rgba(35,115,95,.12); }
+.hot2.seen.no .rh { stroke: var(--alert); fill: rgba(207,52,32,.10); }
+.hot2.sel .rh { stroke-width: 4.5; }
+.room-out { padding: 16px; border-radius: 16px; background: var(--c-soft); display: grid; gap: 4px; min-height: 7.2em; }
+.room-out b { font-family: var(--font-display); font-size: 1.25rem; }
+.room-out .tag { justify-self: start; font-size: .78rem; font-weight: 700; padding: 3px 10px; border-radius: 99px; background: var(--surface); color: var(--muted); }
+.room-out .tag.ok { background: var(--care); color: var(--on-color); }
+.room-out .tag.no { background: var(--alert); color: var(--on-color); }
+
+.wash { display: grid; grid-template-columns: minmax(0, 1fr) 190px; gap: 18px; align-items: center; }
+@media (max-width: 560px) { .wash { grid-template-columns: 1fr; } .wash .ring { margin: 0 auto; } }
+.wash-art { width: 100%; max-width: 300px; height: auto; display: block; margin: 0 auto; }
+.wash .ring { width: 120px; height: 120px; }
+.wash .ring svg { width: 120px; height: 120px; }
+.wash .ring .num { font-size: 2rem; }
+.wash.go .hands-g { animation: rub .5s ease-in-out infinite alternate; }
+@keyframes rub { from { transform: translateX(-5px) rotate(-2deg); } to { transform: translateX(5px) rotate(2deg); } }
+.germ { transition: opacity .5s, transform .5s; transform-box: fill-box; transform-origin: center; }
+.germ.gone { opacity: 0; transform: scale(.2); }
+.germ circle.b { animation: wob 1.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes wob { 50% { transform: scale(1.12); } }
+
+.det-art.ic { display: grid; place-items: center; aspect-ratio: 1; padding: 0; }
+.det-art.ic svg.i { width: 56%; height: 56%; color: var(--c); }
+
+.talk { display: grid; gap: 12px; }
+.talk-scene { display: grid; grid-template-columns: 120px 1fr; gap: 14px; align-items: center; }
+@media (max-width: 480px) { .talk-scene { grid-template-columns: 96px 1fr; } }
+.talk-scene .who { background: var(--c-soft); border-radius: 18px; padding: 6px 4px 0; overflow: hidden; }
+.talk-scene p { font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; line-height: 1.25; }
+.talk-opts { display: grid; gap: 10px; }
+.talk-opts button { text-align: left; border: 2px solid var(--line); background: var(--surface); border-radius: 16px; padding: 14px 16px; cursor: pointer; display: grid; grid-template-columns: 36px 1fr; gap: 10px; align-items: center; font-size: 1rem; }
+.talk-opts button .bub { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--c-soft); color: var(--c); }
+.talk-opts button.right { border-color: var(--care); background: var(--care-soft); }
+.talk-opts button.wrong { border-color: var(--alert); background: var(--alert-soft); }
+.talk-opts button:disabled { cursor: default; }
+
+.shield { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.shield .flip, .shield .flip-in { min-height: 250px; }
+.shield .face.front { background: var(--brand-soft); border-color: var(--brand); }
+.shield .face.front .ic { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: var(--surface); color: var(--brand); }
+.shield .face.front .ic svg.i { width: 30px; height: 30px; }
+.shield .face.front .w { color: var(--ink); font-size: 1.05rem; line-height: 1.15; }
+.shield .face.back { background: var(--surface); border-color: var(--brand); }
+.shield .face.back h4 { color: var(--brand); }
+.shield .face.back p { font-size: .86rem; line-height: 1.35; font-weight: 400; }
+.shield .flip.on .face.front { border-color: var(--care); }
+
+.btn-care { background: var(--care); color: var(--on-color); }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
@@ -594,6 +656,8 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
   <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01"/></symbol>
   <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></symbol>
+  <symbol id="i-lungs" viewBox="0 0 24 24"><path d="M12 3v8M12 11c-1.5 0-2.5-2-4.5-2C4.5 9 3 13 3 16.5 3 19 4 20 6 20c3 0 4.5-2 4.5-4.5V13M12 11c1.5 0 2.5-2 4.5-2 3 0 4.5 4 4.5 7.5 0 2.5-1 3.5-3 3.5-3 0-4.5-2-4.5-4.5V13"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3c4 5 6.5 8.5 6.5 11.5a6.5 6.5 0 0 1-13 0C5.5 11.5 8 8 12 3z"/></symbol>
   <symbol id="neno" viewBox="0 0 64 64">
     <path d="M32 18V7M19 28L8 20M45 28l11-8M22 46l-8 11M42 46l8 11" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none"/>
     <g fill="currentColor"><circle cx="32" cy="6" r="4"/><circle cx="7" cy="19" r="4"/><circle cx="57" cy="19" r="4"/><circle cx="13" cy="58" r="4"/><circle cx="51" cy="58" r="4"/><circle cx="32" cy="34" r="18"/></g>
@@ -823,97 +887,106 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
 
 <!-- ================= TEMA 2 ================= -->
 <section class="view c-brand" data-view="tema-2" hidden>
-  <div class="thead">
-    <div class="row">
-      <a class="back" href="#inicio"><svg class="i"><use href="#i-left"/></svg> Temas</a>
-      <button class="speak" data-speak="tema-2" aria-pressed="false"><svg class="i"><use href="#i-sound"/></svg> Ouvir</button>
+  <div class="story" data-story="2">
+    <div class="story-top">
+      <a class="back" href="#inicio"><svg class="i"><use href="#i-left"/></svg> Mapa</a>
+      <div class="segs" aria-hidden="true"></div>
+      <button class="speak" aria-pressed="false" aria-label="Ouvir esta tela"><svg class="i"><use href="#i-sound"/></svg><span class="sp-l">Ouvir</span></button>
     </div>
-    <span class="eyebrow">Tema 2 de 5</span>
-    <h1>Cuidados durante a internação e prevenção de complicações</h1>
-  </div>
 
-  <div class="question"><span class="q">?</span><p>Você sabe o que pode e o que não pode fazer quando visita seu familiar na Unidade de AVC?</p></div>
-
-  <div class="card stack" data-read>
-    <h2>Por que a Unidade de AVC?</h2>
-    <p>Na Unidade de AVE a equipe <b>monitora</b> o paciente o tempo todo para perceber qualquer mudança cedo, iniciar o tratamento e começar a reabilitação conforme a necessidade de cada pessoa. A família ajuda muito, desde que siga as orientações da equipe.</p>
-  </div>
-
-  <div class="card stack">
-    <span class="eyebrow">Demonstração</span>
-    <h2>Higiene das mãos: antes e depois de tocar o paciente</h2>
-    <div class="hands">
-      <div class="ring">
-        <svg viewBox="0 0 150 150" aria-hidden="true"><circle cx="75" cy="75" r="64" stroke="var(--line)" stroke-width="12" fill="none"/><circle id="handArc" cx="75" cy="75" r="64" stroke="var(--brand)" stroke-width="12" fill="none" stroke-linecap="round" stroke-dasharray="402" stroke-dashoffset="402"/></svg>
-        <span class="num" id="handNum">20</span>
+    <!-- 1. Abertura -->
+    <div class="step">
+      <span class="eyebrow">Tema 2 de 5 · Cuidados na internação</span>
+      <h1>Hora da visita na Unidade de AVC</h1>
+      <div class="art" data-photo="t2-abertura" data-scene="roomVisit" role="img" aria-label="Ilustração: o avô deitado no leito da Unidade de AVC e a filha chegando com um copo de água"></div>
+      <div class="question"><span class="q">?</span><p data-read>Você sabe o que pode e o que não pode fazer quando visita seu familiar na Unidade de AVC?</p></div>
+      <div class="chips" id="t2Poll">
+        <button class="chip" aria-pressed="false" data-r="Ótimo! Vamos conferir nos joguinhos.">Sei bem</button>
+        <button class="chip" aria-pressed="false" data-r="Normal ter dúvidas. Até o fim do tema você vai se sentir mais seguro.">Mais ou menos</button>
+        <button class="chip" aria-pressed="false" data-r="Sem problema! Vamos aprender juntos, passo a passo.">Não sei</button>
       </div>
-      <div class="stack">
-        <p class="step-text" id="handStep" aria-live="polite">Toque em “Treinar” e lave as mãos junto com o aplicativo.</p>
-        <div class="steps-dots" id="handDots"></div>
-        <div><button class="btn btn-main" id="handGo"><svg class="i"><use href="#i-hand"/></svg> Treinar (20 segundos)</button></div>
+      <div class="neno-say" id="t2PollOut" hidden><svg class="neno" viewBox="0 0 64 64" aria-hidden="true"><use href="#neno"/></svg><p></p></div>
+    </div>
+
+    <!-- 2. Explore o quarto -->
+    <div class="step">
+      <span class="eyebrow">Explore</span>
+      <h2>Conheça o quarto da Unidade de AVC</h2>
+      <p data-read>Na Unidade de AVC, a equipe acompanha seu familiar o tempo todo para perceber mudanças cedo, tratar e começar a reabilitação. Toque nos 7 itens do quarto para descobrir para que servem.</p>
+      <div class="scene" data-scene="room" role="img" aria-label="Quarto da Unidade de AVC com itens para tocar"></div>
+      <p class="muted">Descobertos: <b id="roomCount">0</b> de 7</p>
+      <div class="room-out" id="roomOut"><span class="tag">Toque em um item</span><b>O que é isso?</b>Cada aparelho tem uma função no cuidado.</div>
+    </div>
+
+    <!-- 3. Mãos -->
+    <div class="step">
+      <span class="eyebrow">Demonstração</span>
+      <h2>Mãos limpas protegem seu familiar</h2>
+      <p data-read>Higienize as mãos antes e depois de tocar seu familiar, com água e sabão ou álcool em gel, conforme a orientação da unidade. Aperte o botão e lave as mãos junto com a animação.</p>
+      <div class="wash" id="wash">
+        <svg viewBox="0 0 220 170" class="wash-art" aria-hidden="true">
+          <rect width="220" height="170" rx="18" fill="var(--brand-soft)"/>
+          <g class="hands-g">
+            <path d="M58 168 V96 Q58 74 70 74 V54 Q70 44 79 44 Q88 44 88 54 V48 Q88 38 97 38 Q106 38 106 48 V52 Q106 44 114 44 Q122 44 122 54 V110 Q122 150 98 168 Z" fill="var(--skin2)" stroke="var(--face-ink)" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M58 104 Q44 96 40 82 Q38 72 46 72 Q54 74 58 88" fill="var(--skin2)" stroke="var(--face-ink)" stroke-width="2.5" stroke-linejoin="round"/>
+            <g transform="translate(220 0) scale(-1 1)">
+              <path d="M58 168 V96 Q58 74 70 74 V54 Q70 44 79 44 Q88 44 88 54 V48 Q88 38 97 38 Q106 38 106 48 V52 Q106 44 114 44 Q122 44 122 54 V110 Q122 150 98 168 Z" fill="var(--skin1)" stroke="var(--face-ink)" stroke-width="2.5" stroke-linejoin="round"/>
+              <path d="M58 104 Q44 96 40 82 Q38 72 46 72 Q54 74 58 88" fill="var(--skin1)" stroke="var(--face-ink)" stroke-width="2.5" stroke-linejoin="round"/>
+            </g>
+          </g>
+          <g id="foam"></g>
+          <g id="germs"></g>
+        </svg>
+        <div class="stack">
+          <div class="ring"><svg viewBox="0 0 150 150" aria-hidden="true"><circle cx="75" cy="75" r="64" stroke="var(--line)" stroke-width="12" fill="none"/><circle id="handArc" cx="75" cy="75" r="64" stroke="var(--brand)" stroke-width="12" fill="none" stroke-linecap="round" stroke-dasharray="402" stroke-dashoffset="402"/></svg><span class="num" id="handNum">20</span></div>
+          <p class="step-text" id="handStep" aria-live="polite">Toque em “Lavar as mãos” e acompanhe.</p>
+          <div class="steps-dots" id="handDots"></div>
+          <div><button class="btn btn-main" id="handGo"><svg class="i"><use href="#i-hand"/></svg> Lavar as mãos</button></div>
+        </div>
       </div>
     </div>
-    <p class="muted">Use água e sabão ou álcool em gel, conforme a orientação da unidade.</p>
-  </div>
 
-  <div class="card stack">
-    <span class="eyebrow">Jogo</span>
-    <h2>Pode fazer ou chame a equipe?</h2>
-    <div class="game" id="game">
-      <div class="situ"><span class="n" id="gN">Situação 1 de 8</span><p class="s" id="gS"></p></div>
-      <div class="answers">
-        <button class="ans ok" data-a="pode"><svg class="i"><use href="#i-check"/></svg> Pode fazer</button>
-        <button class="ans stop" data-a="equipe"><svg class="i"><use href="#i-users"/></svg> Chame a equipe</button>
+    <!-- 4. Pode ou chame -->
+    <div class="step">
+      <span class="eyebrow">Joguinho · Pode ou chame a equipe?</span>
+      <h2>O que você faria?</h2>
+      <p data-read>Na dúvida, pergunte à equipe antes de agir. Leia cada situação e escolha.</p>
+      <div class="det" id="pc"></div>
+    </div>
+
+    <!-- 5. Conversa -->
+    <div class="step">
+      <span class="eyebrow">Joguinho · Como conversar</span>
+      <h2>Fale com ele, mesmo que ele não consiga responder</h2>
+      <p data-read>Fale com calma, diga quem você é e dê tempo para ele responder. Mesmo com dificuldade de fala, converse diretamente com ele. Escolha a melhor atitude em cada momento.</p>
+      <div class="talk" id="talk"></div>
+    </div>
+
+    <!-- 6. Complicações -->
+    <div class="step">
+      <span class="eyebrow">Cartões · Escudo de proteção</span>
+      <h2>Complicações que a equipe trabalha para prevenir</h2>
+      <p data-read>A prevenção depende da avaliação de cada paciente, dos cuidados da equipe e da participação segura da família. Toque em cada cartão para ver como prevenir.</p>
+      <div class="shield" id="shield"></div>
+      <div class="callout alert">
+        <svg class="i"><use href="#i-alert"/></svg>
+        <div data-read><strong>Avise a enfermagem na hora se perceber</strong><p>Piora da fala, da força ou da consciência, falta de ar, dor, engasgo ou qualquer mudança inesperada.</p></div>
       </div>
-      <div class="feedback" id="gF" hidden></div>
-      <div><button class="btn btn-ghost" id="gNext" hidden>Próxima situação <svg class="i"><use href="#i-right"/></svg></button></div>
+    </div>
+
+    <!-- 7. Final -->
+    <div class="step">
+      <div class="medal-hero"><span class="medal big c-brand"><svg class="i"><use href="#i-hand"/></svg></span><div><span class="eyebrow">Medalha do tema 2</span><h2>Quem sabe cuidar</h2><p class="muted">Responda o teste rápido para ganhar.</p></div></div>
+      <div class="key-msg"><span class="eyebrow">Mensagem principal</span><p data-read>Mãos limpas, conversa calma e, na dúvida, pergunte à equipe antes de agir.</p></div>
+      <div class="card" data-quiz="2"></div>
+    </div>
+
+    <div class="story-nav">
+      <button class="btn btn-ghost" data-nav="prev"><svg class="i"><use href="#i-left"/></svg> Voltar</button>
+      <span class="stepn"></span>
+      <button class="btn btn-main" data-nav="next">Continuar <svg class="i"><use href="#i-right"/></svg></button>
     </div>
   </div>
-
-  <div class="grid2">
-    <div class="card stack">
-      <h3>Como a família ajuda</h3>
-      <ul class="clean yes" data-read>
-        <li><svg class="i"><use href="#i-check"/></svg><span>Lave as mãos antes e depois do contato.</span></li>
-        <li><svg class="i"><use href="#i-check"/></svg><span>Fale com calma, diga quem você é e dê tempo para ele responder. Mesmo com dificuldade de fala, converse diretamente com ele.</span></li>
-        <li><svg class="i"><use href="#i-check"/></svg><span>Respeite o repouso, os horários, a privacidade e as orientações da equipe.</span></li>
-      </ul>
-    </div>
-    <div class="card stack">
-      <h3>Não faça sem a equipe</h3>
-      <ul class="clean no" data-read>
-        <li><svg class="i"><use href="#i-x"/></svg><span>Dar água, comida, balas ou remédios. O AVC pode causar <b>disfagia</b> (dificuldade para engolir), com risco de engasgo.</span></li>
-        <li><svg class="i"><use href="#i-x"/></svg><span>Levantar, transferir ou caminhar com o paciente.</span></li>
-        <li><svg class="i"><use href="#i-x"/></svg><span>Mexer em sondas, soro, cateteres, oxigênio, monitores ou bombas.</span></li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="callout alert">
-    <svg class="i"><use href="#i-alert"/></svg>
-    <div data-read>
-      <strong>Avise a enfermagem na hora se perceber</strong>
-      <p>Piora da fala, da força ou da consciência, falta de ar, dor, engasgo ou qualquer mudança inesperada.</p>
-    </div>
-  </div>
-
-  <div class="card stack">
-    <h2>Complicações que a equipe trabalha para prevenir</h2>
-    <div class="complic">
-      <div><b>Engasgo e aspiração</b><span>Saliva ou alimento que vai para o pulmão</span></div>
-      <div><b>Pneumonia</b><span>Infecção no pulmão</span></div>
-      <div><b>Quedas</b><span>Pela fraqueza e desequilíbrio</span></div>
-      <div><b>Lesão por pressão</b><span>Feridas por ficar muito tempo na mesma posição</span></div>
-      <div><b>Trombose</b><span>Coágulo nas pernas pela pouca movimentação</span></div>
-      <div><b>Desidratação e desnutrição</b><span>Quando come ou bebe pouco</span></div>
-      <div><b>Infecções</b><span>Por isso a higiene das mãos é tão importante</span></div>
-    </div>
-    <p class="muted">A prevenção depende da avaliação de cada paciente, dos cuidados da equipe e da participação segura da família.</p>
-  </div>
-
-  <div class="key-msg"><span class="eyebrow">Mensagem principal</span><p>Mãos limpas, conversa calma e, na dúvida, pergunte à equipe antes de agir.</p></div>
-  <div class="card" data-quiz="2"></div>
-  <div class="next-row"><a class="btn btn-ghost" href="#tema-1"><svg class="i"><use href="#i-left"/></svg> Tema 1</a><a class="btn btn-main" href="#tema-3">Próximo: Reabilitação <svg class="i"><use href="#i-right"/></svg></a></div>
 </section>
 
 <!-- ================= TEMA 3 ================= -->
@@ -1289,57 +1362,6 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
   chipGroup("#riskChips .chip", "data-r", "#riskOut");
   chipGroup("#team button", "data-p", "#teamOut");
 
-  /* ---------- Tema 2: mãos ---------- */
-  const handSteps = ["Molhe as mãos e aplique sabão (ou álcool em gel)", "Esfregue palma com palma", "Esfregue o dorso das mãos", "Esfregue entre os dedos", "Esfregue os polegares", "Esfregue as pontas dos dedos e unhas", "Enxágue e seque (ou deixe o álcool secar)"];
-  const dots = $("#handDots"); handSteps.forEach(() => dots.appendChild(document.createElement("i")));
-  let handTimer = null;
-  $("#handGo").addEventListener("click", () => {
-    clearInterval(handTimer);
-    const total = 20; let t = 0; const arc = $("#handArc"); const len = 402;
-    const tick = () => {
-      const step = Math.min(handSteps.length - 1, Math.floor(t / total * handSteps.length));
-      $("#handStep").textContent = handSteps[step];
-      $$("i", dots).forEach((d, i) => d.classList.toggle("on", i <= step));
-      $("#handNum").textContent = Math.max(0, total - t);
-      arc.style.strokeDashoffset = len - len * (t / total);
-      if (t >= total) { clearInterval(handTimer); $("#handStep").textContent = "Pronto! Mãos limpas protegem seu familiar."; toast("Muito bem!"); }
-      t++;
-    };
-    tick(); handTimer = setInterval(tick, 1000);
-  });
-
-  /* ---------- Tema 2: jogo ---------- */
-  const situ = [
-    ["Seu pai pede um copo de água. Você pode dar?", "equipe", "O AVC pode causar disfagia (dificuldade para engolir). Água pode ir para o pulmão. Pergunte sempre à equipe antes."],
-    ["Lavar as mãos antes de segurar a mão da sua mãe.", "pode", "Isso mesmo! A higiene das mãos protege contra infecções."],
-    ["Ele quer ir ao banheiro e você pensa em levantá-lo sozinho.", "equipe", "Levantar ou caminhar sem a equipe pode causar quedas. Chame a enfermagem."],
-    ["A bomba de soro começou a apitar.", "equipe", "Não mexa em soro, bombas, sondas ou monitores. Avise a enfermagem."],
-    ["Conversar com calma, mesmo que ele não consiga responder.", "pode", "Ótimo! Identifique-se, fale devagar e dê tempo. Ele pode entender mesmo sem conseguir falar."],
-    ["Você percebe que a fala dele piorou de repente.", "equipe", "Qualquer piora na fala, força, consciência ou respiração deve ser avisada à enfermagem imediatamente."],
-    ["Trazer um docinho de casa para animar a visita.", "equipe", "Nada de alimentos, balas ou bebidas sem liberação expressa da equipe."],
-    ["Respeitar o horário de descanso e a privacidade dos outros pacientes.", "pode", "Exatamente. O repouso faz parte da recuperação."]
-  ];
-  let gi = 0, gScore = 0;
-  function showSitu() {
-    $("#gN").textContent = "Situação " + (gi + 1) + " de " + situ.length;
-    $("#gS").textContent = situ[gi][0];
-    $("#gF").hidden = true; $("#gNext").hidden = true;
-    $$("#game .ans").forEach(b => b.disabled = false);
-  }
-  $$("#game .ans").forEach(b => b.addEventListener("click", () => {
-    const [, right, why] = situ[gi]; const ok = b.dataset.a === right; if (ok) gScore++;
-    const f = $("#gF"); f.hidden = false; f.className = "feedback " + (ok ? "good" : "bad");
-    f.innerHTML = "<b>" + (ok ? "Acertou!" : (right === "pode" ? "Neste caso, pode fazer." : "Melhor chamar a equipe.")) + "</b>" + why;
-    $$("#game .ans").forEach(x => x.disabled = true);
-    const n = $("#gNext"); n.hidden = false;
-    n.innerHTML = gi < situ.length - 1 ? 'Próxima situação <svg class="i"><use href="#i-right"/></svg>' : "Jogar de novo";
-  }));
-  $("#gNext").addEventListener("click", () => {
-    if (gi < situ.length - 1) { gi++; showSitu(); }
-    else { toast("Você acertou " + gScore + " de " + situ.length + "!"); gi = 0; gScore = 0; showSitu(); }
-  });
-  showSitu();
-
   /* ---------- Tema 3: FFF ---------- */
   $$(".fff-tab").forEach(t => t.addEventListener("click", () => {
     $$(".fff-tab").forEach(x => x.setAttribute("aria-selected", String(x === t)));
@@ -1559,6 +1581,8 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
     b += H[o.hair || "short"] || "";
     if (face === "pain") {
       b += `<path d="M62 61 h11 M87 61 h11 M60 48 L74 54 M100 48 L86 54" stroke="${INK}" stroke-width="3.5" stroke-linecap="round"/>`;
+    } else if (face === "sleep") {
+      b += `<path d="M62 60 Q68 65 74 60 M86 60 Q92 65 98 60" stroke="${INK}" stroke-width="3" fill="none" stroke-linecap="round"/><text x="112" y="30" font-size="16" font-weight="700" fill="var(--brand)" font-family="Baloo 2, sans-serif">z</text><text x="124" y="18" font-size="12" font-weight="700" fill="var(--brand)" font-family="Baloo 2, sans-serif">z</text>`;
     } else if (face === "dizzy") {
       b += `<g stroke="${INK}" stroke-width="2.5" fill="none" stroke-linecap="round"><path d="M68 60 m-6 0 a6 6 0 1 0 6 -6 a3.5 3.5 0 1 0 3 4"/><path d="M92 60 m-6 0 a6 6 0 1 0 6 -6 a3.5 3.5 0 1 0 3 4"/></g>`;
       b += `<g class="spin"><circle cx="56" cy="20" r="4" fill="var(--sun)"/><circle cx="104" cy="20" r="4" fill="var(--sun)"/><circle cx="80" cy="6" r="4" fill="var(--sun)"/></g>`;
@@ -1570,7 +1594,7 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
     if (o.old) b += `<g stroke="${INK}" stroke-width="2" fill="none" opacity=".6"><circle cx="68" cy="60" r="9.5"/><circle cx="92" cy="60" r="9.5"/><path d="M77.5 60h5"/></g>`;
     const M = {
       smile: "M68 76 Q80 88 92 76", neutral: "M70 79 H90", worried: "M70 82 Q80 75 90 82",
-      pain: "M70 83 Q80 74 90 83", dizzy: "M70 80 Q75 76 80 80 T90 80", droop: "M68 76 Q76 82 84 80 Q90 80 94 88"
+      pain: "M70 83 Q80 74 90 83", sleep: "M72 80 H88", dizzy: "M70 80 Q75 76 80 80 T90 80", droop: "M68 76 Q76 82 84 80 Q90 80 94 88"
     };
     const mp = (d, cls) => `<path class="${cls || ""}" d="${d}" stroke="${INK}" stroke-width="3.5" fill="none" stroke-linecap="round"/>`;
     if (face === "droop" && o.anim) b += mp(M.smile, "mouth-a") + mp(M.droop, "mouth-b");
@@ -1579,6 +1603,7 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
     if (o.hand === "head") b += `<path d="M134 172 Q134 118 110 50" stroke="${shirt}" stroke-width="16" stroke-linecap="round"/><circle cx="106" cy="40" r="10" fill="${skin}"/>`;
     if (o.hand === "eye") b += `<path d="M134 172 Q132 112 100 70" stroke="${shirt}" stroke-width="16" stroke-linecap="round"/><ellipse cx="93" cy="60" rx="13" ry="11" fill="${skin}"/>`;
     if (o.hand === "back") b += `<path d="M136 118 l12 -8 M138 130 l14 0 M136 142 l12 8" stroke="var(--alert)" stroke-width="3" stroke-linecap="round"/>`;
+    if (o.cup) b += `<path d="M128 172 Q134 140 130 118" stroke="${shirt}" stroke-width="16" stroke-linecap="round"/><rect x="119" y="94" width="22" height="26" rx="3" fill="var(--brand-soft)" stroke="var(--brand)" stroke-width="2.5"/><path d="M122 103h16" stroke="var(--brand)" stroke-width="2" opacity=".6"/><circle cx="130" cy="118" r="9" fill="${skin}"/>`;
     if (o.bubble) b += `<g><path d="M112 4 h46 v30 h-26 l-10 10 v-10 h-10z" fill="var(--surface)" stroke="var(--brand)" stroke-width="2.5" stroke-linejoin="round"/><path d="M118 19 q4 -6 8 0 t8 0 t8 0 t8 0" stroke="var(--alert)" stroke-width="2.5" fill="none" stroke-linecap="round"/></g>`;
     if (o.phone) b += `<path d="M136 172 Q136 120 124 88" stroke="${shirt}" stroke-width="16" stroke-linecap="round"/><g class="ring-ph"><rect x="112" y="50" width="16" height="32" rx="4" fill="var(--ink)"/><circle cx="122" cy="80" r="9" fill="${skin}"/></g><path d="M136 46 q7 7 0 14 M143 41 q12 12 0 24" stroke="var(--alert)" stroke-width="2.5" fill="none" stroke-linecap="round"/>`;
     return `<svg viewBox="0 0 160 172" ${attrs || 'aria-hidden="true"'}>${b}</svg>`;
@@ -1607,6 +1632,212 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
       <g class="pulse-x"><circle cx="300" cy="62" r="18" fill="var(--alert)"/><path d="M300 52v12M300 70h.01" stroke="var(--on-color)" stroke-width="4" stroke-linecap="round"/></g>
     </svg>`
   };
+
+
+  /* ================= Tema 2: quarto da UAVE ================= */
+  const ROOM = [
+    { k: "mon", x: 47, y: 48, r: 32, ok: false, t: "Monitor", d: "Mostra os batimentos do coração, a pressão e o oxigênio o tempo todo. Se apitar, não mexa: avise a enfermagem." },
+    { k: "iv", x: 105, y: 76, r: 30, ok: false, t: "Soro e bomba de infusão", d: "Controla o soro e os remédios na velocidade certa. Nunca ajuste, pause ou desligue." },
+    { k: "o2", x: 303, y: 60, r: 20, ok: false, t: "Oxigênio", d: "Ajuda na respiração quando necessário. Não retire do nariz nem mude o fluxo." },
+    { k: "sonda", x: 160, y: 120, r: 15, ok: false, t: "Sonda", d: "Pode levar alimento e remédios quando há dificuldade para engolir. Não puxe nem mexa." },
+    { k: "grade", x: 234, y: 136, r: 18, ok: false, t: "Grade da cama", d: "Protege contra quedas. Mantenha como a equipe deixou e não tire seu familiar da cama sem a equipe." },
+    { k: "bell", x: 282, y: 130, r: 16, ok: true, t: "Campainha", d: "Use para chamar a enfermagem se perceber piora da fala, da força, falta de ar, dor, engasgo ou qualquer mudança." },
+    { k: "gel", x: 340, y: 112, r: 19, ok: true, t: "Álcool em gel", d: "Use antes e depois de tocar seu familiar. Mãos limpas evitam infecções." }
+  ];
+  function roomSvg(visit) {
+    const pat = figSvg({ hair: "bald", old: 1, skin: "var(--skin2)", shirt: "var(--brand-soft)", face: visit ? "smile" : "neutral" }, `viewBox="0 0 160 172" ` + at(124, 64, 96));
+    const vis = visit ? figSvg({ hair: "curly", skin: "var(--skin4)", shirt: "var(--rehab)", face: "worried", cup: 1 }, `viewBox="0 0 160 172" ` + at(232, 92, 132)) : "";
+    const hots = visit ? "" : ROOM.map(h => `<g class="hot2" tabindex="0" role="button" aria-label="${h.t}" data-k="${h.k}"><circle class="rh" cx="${h.x}" cy="${h.y}" r="${h.r}"/></g>`).join("");
+    return `<svg viewBox="0 0 360 240" aria-hidden="${visit ? "true" : "false"}">
+      <rect width="360" height="240" fill="var(--brand-soft)"/>
+      <rect y="196" width="360" height="44" fill="var(--line)"/>
+      <rect x="150" y="18" width="84" height="56" rx="6" fill="var(--surface)" opacity=".75"/><path d="M192 18v56M150 46h84" stroke="var(--brand-soft)" stroke-width="4"/>
+      <path d="M46 76V196M30 196h32" stroke="var(--muted)" stroke-width="4" stroke-linecap="round"/>
+      <rect x="10" y="22" width="74" height="54" rx="7" fill="#0F1E2C" stroke="var(--muted)" stroke-width="2"/>
+      <text x="16" y="36" font-size="9" font-weight="700" fill="#F2B33D" font-family="Atkinson Hyperlegible, sans-serif">98%</text>
+      <text x="62" y="36" font-size="9" font-weight="700" fill="#63C9AB" font-family="Atkinson Hyperlegible, sans-serif">78</text>
+      <polyline class="ecg" points="14,56 26,56 30,46 34,66 38,52 44,56 56,56 60,42 64,68 68,52 74,56 80,56" fill="none" stroke="#63C9AB" stroke-width="2.4" stroke-linejoin="round"/>
+      <path d="M104 16V196M92 196h24" stroke="var(--muted)" stroke-width="3.5" stroke-linecap="round"/>
+      <rect x="92" y="22" width="24" height="34" rx="7" fill="var(--surface)" stroke="var(--brand)" stroke-width="2"/><rect x="95" y="34" width="18" height="19" rx="4" fill="var(--brand)" opacity=".35"/>
+      <path d="M104 56V92" stroke="var(--brand)" stroke-width="1.6"/>
+      <rect x="92" y="92" width="26" height="30" rx="4" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"/><rect x="96" y="97" width="12" height="8" rx="2" fill="#0F1E2C"/><circle class="blink" cx="112" cy="101" r="2.6" fill="#F2B33D"/>
+      <path d="M105 122 Q110 160 150 152 T200 148" stroke="var(--brand)" stroke-width="1.6" fill="none"/>
+      <rect x="292" y="50" width="22" height="18" rx="3" fill="var(--care)"/><circle cx="303" cy="59" r="4" fill="var(--surface)"/>
+      <path d="M303 68 Q262 92 182 106" stroke="var(--care)" stroke-width="1.8" fill="none"/>
+      <rect x="112" y="96" width="10" height="94" rx="4" fill="var(--muted)"/>
+      <ellipse cx="168" cy="124" rx="36" ry="13" fill="var(--surface)" stroke="var(--line)" stroke-width="2"/>
+      ${pat}
+      <path d="M168 110 Q150 114 152 134" stroke="var(--home)" stroke-width="1.8" fill="none"/><rect x="172" y="104" width="8" height="5" rx="1" fill="var(--surface)" opacity=".9"/>
+      <path d="M146 140 Q150 132 166 134 H306 Q314 134 314 144 V160 H146Z" fill="var(--care-soft)" stroke="var(--care)" stroke-width="2"/>
+      <rect x="118" y="158" width="198" height="18" rx="5" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"/>
+      <path d="M134 176v16M300 176v16" stroke="var(--muted)" stroke-width="4" stroke-linecap="round"/><circle cx="134" cy="194" r="4" fill="var(--muted)"/><circle cx="300" cy="194" r="4" fill="var(--muted)"/>
+      <rect x="196" y="132" width="78" height="5" rx="2.5" fill="var(--muted)"/><path d="M206 137v20M235 137v20M264 137v20" stroke="var(--muted)" stroke-width="3"/>
+      <path d="M276 72 Q286 104 282 124" stroke="var(--ink)" stroke-width="1.6" fill="none"/><circle cx="282" cy="128" r="6" fill="var(--alert)" stroke="var(--surface)" stroke-width="2"/>
+      <rect x="330" y="94" width="20" height="36" rx="4" fill="var(--surface)" stroke="var(--brand)" stroke-width="2"/><path d="M340 104c3 4 4 6 4 8a4 4 0 0 1-8 0c0-2 1-4 4-8z" fill="var(--brand)"/>
+      ${vis}${hots}
+    </svg>`;
+  }
+  SCENES.room = () => roomSvg(false);
+  SCENES.roomVisit = () => roomSvg(true);
+
+  function pollSetup(sel, outSel, key) {
+    $$(sel + " .chip").forEach(c => c.addEventListener("click", () => {
+      $$(sel + " .chip").forEach(x => x.setAttribute("aria-pressed", String(x === c)));
+      const o = $(outSel); o.hidden = false; $("p", o).textContent = c.dataset.r;
+      award(5, key);
+    }));
+  }
+
+  function initTema2() {
+    pollSetup("#t2Poll", "#t2PollOut", "poll2");
+
+    /* Explore o quarto */
+    const seen = new Set();
+    $$("[data-view='tema-2'] .hot2").forEach(g => {
+      const h = ROOM.find(r => r.k === g.dataset.k);
+      const act = () => {
+        $$("[data-view='tema-2'] .hot2").forEach(x => x.classList.toggle("sel", x === g));
+        g.classList.add("seen", h.ok ? "ok" : "no");
+        seen.add(h.k); $("#roomCount").textContent = seen.size;
+        $("#roomOut").innerHTML = `<span class="tag ${h.ok ? "ok" : "no"}">${h.ok ? "Pode usar" : "Não mexa"}</span><b>${h.t}</b>${h.d}`;
+        if (seen.size === ROOM.length) { award(15, "room"); toast("Você conheceu todo o quarto!"); }
+      };
+      g.addEventListener("click", act);
+      g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); act(); } });
+    });
+
+    /* Lavagem das mãos */
+    const wash = $("#wash");
+    const GP = [[78, 70], [97, 56], [113, 82], [70, 112], [100, 124], [146, 62], [128, 92], [146, 122], [118, 146], [160, 98]];
+    $("#germs").innerHTML = GP.map(([x, y]) => `<g transform="translate(${x} ${y})"><g class="germ"><path d="M-12 0h-3M12 0h3M0 -12v-3M0 12v3M-8.5 -8.5l-2 -2M8.5 8.5l2 2M8.5 -8.5l2 -2M-8.5 8.5l-2 2" stroke="var(--care)" stroke-width="2.4" stroke-linecap="round"/><circle class="b" r="8" fill="var(--care)"/><circle cx="-3" cy="-2" r="1.6" fill="var(--face-ink)"/><circle cx="3" cy="-2" r="1.6" fill="var(--face-ink)"/></g></g>`).join("");
+    const FP = [[80, 90, 7], [98, 74, 5], [110, 104, 8], [88, 130, 6], [124, 70, 6], [140, 108, 7], [132, 136, 5], [104, 150, 6], [150, 84, 5], [70, 136, 5], [118, 120, 4], [92, 100, 4]];
+    $("#foam").innerHTML = FP.map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="var(--surface)" stroke="var(--brand)" stroke-width="1.5" opacity="0"/>`).join("");
+    $(".hands-g", wash) || null;
+    const steps = ["Molhe as mãos e aplique sabão (ou álcool em gel)", "Esfregue palma com palma", "Esfregue o dorso das mãos", "Esfregue entre os dedos", "Esfregue os polegares", "Esfregue as pontas dos dedos e unhas", "Enxágue e seque (ou deixe o álcool secar)"];
+    const dots = $("#handDots"); steps.forEach(() => dots.appendChild(document.createElement("i")));
+    const germs = $$("#germs .germ"), foam = $$("#foam circle");
+    let tm = null;
+    function reset() { clearInterval(tm); tm = null; wash.classList.remove("go"); germs.forEach(g => g.classList.remove("gone")); foam.forEach(f => f.setAttribute("opacity", 0)); }
+    $("#handGo").addEventListener("click", () => {
+      reset(); wash.classList.add("go");
+      const total = 20; let t = 0; const arc = $("#handArc"), len = 402;
+      const tick = () => {
+        const pr = t / total;
+        const st = Math.min(steps.length - 1, Math.floor(pr * steps.length));
+        $("#handStep").textContent = steps[st];
+        $$("i", dots).forEach((d, i) => d.classList.toggle("on", i <= st));
+        $("#handNum").textContent = Math.max(0, total - t);
+        arc.style.strokeDashoffset = len - len * pr;
+        germs.forEach((g, i) => g.classList.toggle("gone", pr > (i + 1) / (germs.length + 2)));
+        foam.forEach((f, i) => f.setAttribute("opacity", pr > 0.05 + i * 0.03 && pr < 0.86 ? 0.9 : 0));
+        if (t >= total) {
+          clearInterval(tm); tm = null; wash.classList.remove("go");
+          $("#handStep").textContent = "Pronto! Os germes foram embora. Faça isso antes e depois de tocar seu familiar.";
+          award(10, "wash");
+        }
+        t++;
+      };
+      tick(); tm = setInterval(tick, 1000);
+    });
+    stepHooks.push(() => { if (tm) { reset(); $("#handStep").textContent = "Toque em “Lavar as mãos” e acompanhe."; $("#handNum").textContent = 20; $("#handArc").style.strokeDashoffset = 402; } });
+
+    /* Pode ou chame a equipe */
+    const PC = [
+      { f: { face: "worried", cup: 1, hair: "curly", skin: "var(--skin4)", shirt: "var(--rehab)" }, s: "Seu pai pede um copo de água. Você pode dar?", a: "equipe", w: "O AVC pode causar disfagia, a dificuldade para engolir. A água pode ir para o pulmão. Pergunte sempre à equipe antes." },
+      { ic: "i-hand", s: "Higienizar as mãos antes de segurar a mão da sua mãe.", a: "pode", w: "Isso mesmo! A higiene das mãos protege contra infecções." },
+      { f: { face: "worried", hair: "bald", old: 1, shirt: "var(--brand-soft)" }, s: "Ele quer ir ao banheiro e você pensa em levantá-lo sozinho.", a: "equipe", w: "Levantar, transferir ou caminhar sem a equipe pode causar quedas. Chame a enfermagem." },
+      { ic: "i-alert", s: "A bomba de soro começou a apitar.", a: "equipe", w: "Não mexa em soro, bombas, sondas, oxigênio ou monitores. Avise a enfermagem." },
+      { f: { face: "smile", hair: "bald", old: 1, shirt: "var(--brand-soft)" }, s: "Conversar com calma, mesmo que ele não consiga responder.", a: "pode", w: "Ótimo! Diga quem você é, fale devagar e dê tempo. Ele pode entender mesmo sem conseguir falar." },
+      { f: { face: "droop", anim: 1, hair: "bald", old: 1, shirt: "var(--brand-soft)" }, s: "Você percebe que a fala dele piorou de repente.", a: "equipe", w: "Piora na fala, na força, na consciência ou na respiração deve ser avisada à enfermagem na hora." },
+      { ic: "i-cup", s: "Levar um docinho de casa para animar a visita.", a: "equipe", w: "Nada de alimentos, balas ou bebidas sem liberação expressa da equipe." },
+      { ic: "i-moon", s: "Respeitar o horário de descanso e a privacidade dos outros pacientes.", a: "pode", w: "Exatamente. O repouso faz parte da recuperação." }
+    ];
+    const box = $("#pc"); let i = 0, hits = 0;
+    function show() {
+      const d = PC[i];
+      const art = d.f ? `<div class="det-art">${figSvg(d.f)}</div>` : `<div class="det-art ic"><svg class="i"><use href="#${d.ic}"/></svg></div>`;
+      box.innerHTML = `<div class="det-top"><span>Situação ${i + 1} de ${PC.length}</span><span>${hits} acertos</span></div>
+        <div class="det-card">${art}<p>${d.s}</p></div>
+        <div class="det-ans"><button class="btn btn-care" data-v="pode"><svg class="i"><use href="#i-check"/></svg> Pode fazer</button><button class="btn btn-alert" data-v="equipe"><svg class="i"><use href="#i-users"/></svg> Chame a equipe</button></div>
+        <div class="feedback" hidden></div><div><button class="btn btn-main" data-nx hidden></button></div>`;
+      $$("[data-v]", box).forEach(b => b.onclick = () => {
+        const ok = b.dataset.v === d.a; if (ok) hits++;
+        $$("[data-v]", box).forEach(x => x.disabled = true);
+        $(".det-top span:last-child", box).textContent = hits + " acertos";
+        const f = $(".feedback", box); f.hidden = false; f.className = "feedback " + (ok ? "good" : "bad");
+        f.innerHTML = "<b>" + (ok ? "Acertou!" : d.a === "pode" ? "Neste caso, pode fazer." : "Melhor chamar a equipe.") + "</b>";
+        f.appendChild(document.createTextNode(d.w));
+        const nx = $("[data-nx]", box); nx.hidden = false;
+        nx.innerHTML = i < PC.length - 1 ? 'Próxima <svg class="i"><use href="#i-right"/></svg>' : "Ver resultado";
+        nx.onclick = () => { i++; i < PC.length ? show() : end(); };
+      });
+    }
+    function end() {
+      box.innerHTML = `<div class="det-end"><span class="medal big c-brand"><svg class="i"><use href="#i-users"/></svg></span><h3>Você acertou ${hits} de ${PC.length}</h3>
+        <p class="muted">${hits >= 7 ? "Excelente! Você sabe ajudar com segurança." : "Bom começo! Lembre: na dúvida, chame a equipe."}</p><button class="btn btn-ghost" data-go>Jogar de novo</button></div>`;
+      $("[data-go]", box).onclick = () => { i = 0; hits = 0; show(); };
+      award(hits * 4, "pc");
+    }
+    show();
+
+    /* Como conversar */
+    const TALK = [
+      { m: "Você chegou para a visita.", f: "neutral", o: [["Chego perto, olho para ele e digo: “Oi, pai! Sou eu, sua filha. Vim te visitar.”", 1, "Dizer quem você é ajuda ele a se situar, mesmo que não consiga responder."], ["Entro em silêncio e começo a arrumar as coisas dele.", 0, "Ele pode se assustar. Cumprimente e diga quem você é."]] },
+      { m: "Você fez uma pergunta e ele demora para responder.", f: "neutral", o: [["Respondo por ele, para ajudar.", 0, "Dê tempo. Responder por ele tira a chance de ele tentar falar."], ["Espero com calma, olhando para ele.", 1, "Isso! O AVC pode deixar a resposta mais lenta. Paciência ajuda."]] },
+      { m: "Ele está com dificuldade para falar.", f: "worried", o: [["Faço perguntas curtas, uma de cada vez, que ele possa responder com sim ou não.", 1, "Perguntas simples facilitam. Gestos e apontar também ajudam."], ["Falo bem alto e rápido para ele entender.", 0, "Falar alto não ajuda a entender. Fale devagar, com frases curtas."]] },
+      { m: "Ele está dormindo no horário de descanso.", f: "sleep", o: [["Acordo para conversar, afinal vim de longe.", 0, "O repouso faz parte da recuperação. Respeite o descanso e a privacidade."], ["Deixo descansar e, se tiver dúvidas, converso com a equipe.", 1, "Muito bem! Respeitar o repouso ajuda na recuperação."]] }
+    ];
+    const tb = $("#talk"); let ti = 0, tr = 0;
+    const pfig = face => figSvg({ face, hair: "bald", old: 1, skin: "var(--skin2)", shirt: "var(--brand-soft)" });
+    function tshow() {
+      const d = TALK[ti];
+      tb.innerHTML = `<div class="det-top"><span>Momento ${ti + 1} de ${TALK.length}</span><span>${tr} acertos</span></div>
+        <div class="talk-scene"><div class="who">${pfig(d.f)}</div><p>${d.m}</p></div>
+        <div class="talk-opts">${d.o.map((o, k) => `<button data-k="${k}"><span class="bub"><svg class="i"><use href="#i-speech"/></svg></span><span></span></button>`).join("")}</div>
+        <div class="feedback" hidden></div><div><button class="btn btn-main" data-nx hidden></button></div>`;
+      $$(".talk-opts button", tb).forEach((b, k) => {
+        $("span:last-child", b).textContent = d.o[k][0];
+        b.onclick = () => {
+          const [, ok, why] = d.o[k]; if (ok) tr++;
+          $$(".talk-opts button", tb).forEach((x, j) => { x.disabled = true; if (d.o[j][1]) x.classList.add("right"); });
+          if (!ok) b.classList.add("wrong");
+          $(".who", tb).innerHTML = pfig(ok ? "smile" : "worried");
+          $(".det-top span:last-child", tb).textContent = tr + " acertos";
+          const f = $(".feedback", tb); f.hidden = false; f.className = "feedback " + (ok ? "good" : "bad");
+          f.innerHTML = "<b>" + (ok ? "Boa escolha!" : "Pode ser melhor.") + "</b>"; f.appendChild(document.createTextNode(why));
+          const nx = $("[data-nx]", tb); nx.hidden = false;
+          nx.innerHTML = ti < TALK.length - 1 ? 'Próximo momento <svg class="i"><use href="#i-right"/></svg>' : "Ver resultado";
+          nx.onclick = () => { ti++; ti < TALK.length ? tshow() : tend(); };
+        };
+      });
+    }
+    function tend() {
+      tb.innerHTML = `<div class="det-end"><div style="width:120px">${pfig("smile")}</div><h3>Você acertou ${tr} de ${TALK.length}</h3>
+        <p class="muted">Conversar com carinho e paciência faz parte do cuidado.</p><button class="btn btn-ghost" data-go>Jogar de novo</button></div>`;
+      $("[data-go]", tb).onclick = () => { ti = 0; tr = 0; tshow(); };
+      award(tr * 4, "talk");
+    }
+    tshow();
+
+    /* Escudo de proteção */
+    const SH = [
+      ["i-cup", "Engasgo e aspiração", "A equipe avalia se ele consegue engolir com segurança antes de liberar comida e água. Família: não ofereça nada sem liberação."],
+      ["i-lungs", "Pneumonia", "Pode acontecer quando saliva ou alimento vão para o pulmão. Família: siga as orientações de alimentação e posição da equipe."],
+      ["i-walk", "Quedas", "Fraqueza e desequilíbrio aumentam o risco. Família: não levante nem caminhe com ele sem a equipe."],
+      ["i-clock", "Lesão por pressão", "Ferida na pele por ficar muito tempo na mesma posição. A equipe muda a posição. Família: avise se notar pele vermelha ou machucada."],
+      ["i-heart", "Trombose", "Coágulo nas pernas por pouco movimento. A equipe decide a prevenção. Família: avise se a perna inchar ou doer."],
+      ["i-drop", "Desidratação e desnutrição", "Quando ele come ou bebe pouco. A equipe garante alimentação e líquidos do jeito seguro, às vezes por sonda."],
+      ["i-hand", "Infecções", "Higiene das mãos de todos, inclusive das visitas, e cuidado com sondas e acessos venosos."]
+    ];
+    const sh = $("#shield"); const turned = new Set();
+    SH.forEach(([ic, t, d], k) => {
+      const b = document.createElement("button"); b.className = "flip"; b.setAttribute("aria-label", t);
+      b.innerHTML = `<span class="flip-in"><span class="face front"><span class="ic"><svg class="i"><use href="#${ic}"/></svg></span><span class="w"></span><small>toque para ver</small></span><span class="face back"><h4></h4><p></p></span></span>`;
+      $(".w", b).textContent = t; $("h4", b).textContent = t; $("p", b).textContent = d;
+      b.onclick = () => { b.classList.toggle("on"); turned.add(k); if (turned.size === SH.length) award(10, "shield"); };
+      sh.appendChild(b);
+    });
+  }
 
   $$("[data-fig]").forEach(el => { try { el.innerHTML = figSvg(JSON.parse(el.dataset.fig)); } catch (e) {} });
   $$("[data-scene]").forEach(el => {
@@ -1943,6 +2174,7 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
   })();
 
 
+  initTema2();
   route();
   drawProgress();
 })();
