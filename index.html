@@ -482,6 +482,7 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
 .fig { display: block; width: 100%; }
 .fig svg { display: block; width: 100%; height: auto; max-width: 140px; margin: 0 auto; }
 .samu .face.front .fig svg { max-width: 92px; }
+.samu .face.front img.gif { width: 100%; max-width: 112px; height: auto; border-radius: 12px; background: #fff; }
 .samu .flip, .samu .flip-in { min-height: 230px; }
 .mouth-a { animation: mouthA 3s ease-in-out infinite; }
 .mouth-b { animation: mouthB 3s ease-in-out infinite; }
@@ -743,12 +744,12 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
     <div class="step">
       <span class="eyebrow">Tema 1 de 5 · Conhecendo o AVC</span>
       <h1>Você saberia reconhecer um AVC?</h1>
-      <div class="art" data-photo="t1-abertura" data-scene="table" role="img" aria-label="Ilustração: um senhor à mesa com a boca torta e a filha preocupada ao lado"></div>
+      <div class="art" data-photo="t1-abertura" data-scene="table" role="img" aria-label="Ilustração animada: o avô conversando à mesa com a filha e, de repente, a boca entorta"></div>
       <div class="question"><span class="q">?</span><p data-read>Se alguém da sua família estivesse tendo um AVC agora, você perceberia?</p></div>
       <div class="chips" id="t1Poll">
         <button class="chip" aria-pressed="false" data-r="Ótimo! Vamos conferir se você acerta tudo nos joguinhos.">Sim, com certeza</button>
         <button class="chip" aria-pressed="false" data-r="Muita gente fica na dúvida. Até o fim deste tema você vai saber.">Acho que sim</button>
-        <button class="chip" aria-pressed="false" data-r="Sem problema! É para isso que estamos aqui. Vamos juntos.">Não sei</button>
+        <button class="chip" aria-pressed="false" data-r="Sem problema! É para isso que estamos aqui. Vamos aprender juntos.">Não sei</button>
       </div>
       <div class="neno-say" id="t1PollOut" hidden><svg class="neno" viewBox="0 0 64 64" aria-hidden="true"><use href="#neno"/></svg><p></p></div>
     </div>
@@ -792,26 +793,26 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
           <button class="pbtn" data-act="play" aria-label="Tocar ou pausar"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="pp" d="M8 5l12 7-12 7z" fill="currentColor"/></svg></button>
           <input type="range" min="0" max="1000" value="0" id="pRange" aria-label="Posição da animação">
           <span class="ptime">0:00</span>
-          <button class="tbtn" data-act="narr" aria-pressed="false" title="Narração em voz alta"><svg class="i"><use href="#i-sound"/></svg></button>
+          <button class="tbtn" data-act="narr" aria-pressed="false" title="Som da narração"><svg class="i"><use href="#i-sound"/></svg></button>
         </div>
       </div>
     </div>
 
     <!-- 3. SAMU -->
     <div class="step">
-      <span class="eyebrow">Recurso para lembrar</span>
-      <h2>Lembre do SAMU para reconhecer o AVC</h2>
+      <span class="eyebrow">Uma dica para lembrar</span>
+      <h2>S.A.M.U: quatro sinais de alerta para o AVC</h2>
       <p data-read>Sorriso, Abraço, Mensagem e Urgência. Toque em cada cartão para ver o que observar.</p>
       <div class="samu">
         <button class="flip" aria-label="S de Sorriso">
           <span class="flip-in">
-            <span class="face front"><span class="letter">S</span><span class="fig" data-fig='{"face":"droop","hair":"bald","old":1,"anim":1,"skin":"var(--skin2)"}'></span><span class="w">Sorriso</span></span>
+            <span class="face front"><span class="letter">S</span><img class="gif" src="img/sorriso.gif" alt="O avô sorri e, de repente, a boca fica torta"><span class="w">Sorriso</span></span>
             <span class="face back"><h4>Peça para sorrir</h4><p>A boca fica torta? Um lado do rosto caiu? <b>Assimetria facial</b> é sinal de alerta.</p></span>
           </span>
         </button>
         <button class="flip" aria-label="A de Abraço">
           <span class="flip-in">
-            <span class="face front"><span class="letter">A</span><span class="fig" data-fig='{"arms":"drop","hair":"bun","old":1,"skin":"var(--skin3)","shirt":"var(--care)","face":"worried"}'></span><span class="w">Abraço</span></span>
+            <span class="face front"><span class="letter">A</span><img class="gif" src="img/abraco.gif" alt="O avô abre os braços e um deles cai"><span class="w">Abraço</span></span>
             <span class="face back"><h4>Peça para abrir os braços</h4><p>Um braço cai ou não sobe? <b>Fraqueza ou perda de força</b>, principalmente de um lado do corpo.</p></span>
           </span>
         </button>
@@ -830,7 +831,7 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
       </div>
       <div class="callout info">
         <svg class="i"><use href="#i-eye"/></svg>
-        <div data-read><strong>Outros sinais de alerta</strong><p>Perda súbita da visão, desequilíbrio ou tontura forte com dificuldade para andar, e dor de cabeça súbita e muito forte, diferente da habitual.</p></div>
+        <div data-read><strong>Outros sinais de alerta</strong><p>Perda repentina da visão, desequilíbrio ou tontura forte com dificuldade para andar, e dor de cabeça súbita e muito forte, diferente da habitual.</p></div>
       </div>
     </div>
 
@@ -849,14 +850,9 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
       <p data-read>Para cada atitude, escolha se a família deve fazer ou não fazer.</p>
       <ul class="sort" id="sort"></ul>
       <p class="sort-res" id="sortRes" hidden></p>
-      <div class="card timer-tool">
-        <span class="eyebrow">Ferramenta</span>
-        <h3>Anotar: “quando foi vista bem pela última vez?”</h3>
-        <p class="muted">Essa informação ajuda a equipe a decidir o tratamento.</p>
-        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-          <button class="btn btn-alert" id="markTime"><svg class="i"><use href="#i-clock"/></svg> Registrar horário agora</button>
-          <span class="timer-out" id="timeOut" aria-live="polite">--:--</span>
-        </div>
+      <div class="callout alert">
+        <svg class="i"><use href="#i-clock"/></svg>
+        <div data-read><strong>Dica importante</strong><p>Anote a hora em que a pessoa foi vista bem pela última vez e conte à equipe do SAMU. Essa informação ajuda a decidir o tratamento.</p></div>
       </div>
     </div>
 
@@ -1347,11 +1343,6 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
     $("#area").setAttribute("cx", isq ? 190 : 152); $("#area").setAttribute("cy", isq ? 76 : 112);
   }));
 
-  $("#markTime").addEventListener("click", () => {
-    const d = new Date();
-    $("#timeOut").textContent = d.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }) + " · " + d.toLocaleDateString("pt-BR");
-    toast("Horário registrado. Informe à equipe do SAMU.");
-  });
 
   function chipGroup(sel, attr, out) {
     $$(sel).forEach(c => c.addEventListener("click", () => {
@@ -1554,7 +1545,7 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
 
   /* Fotos: coloque aqui o caminho de uma foto para substituir a ilustração daquela tela.
      Ex.: inicio: "fotos/familia.jpg". Use apenas fotos autorizadas, sem identificar pacientes. */
-  const PHOTOS = { inicio: "img/capa.webp", "t1-abertura": "" };
+  const PHOTOS = { inicio: "img/capa.webp", "t1-abertura": "img/t1-abertura.gif" };
 
   const INK = "var(--face-ink)";
   function figSvg(o, attrs) {
@@ -1961,26 +1952,36 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
     award(5, "poll1");
   }));
 
-  /* ---------- Animação "vídeo" ---------- */
+  /* ---------- Animação "vídeo" com narração em áudio ---------- */
   (function () {
     const root = $("#player"); if (!root) return;
     const path = $("#vPath"), L = path.getTotalLength(), parts = $("#vParts");
     const N = 16; const dots = [];
     for (let i = 0; i < N; i++) { const c = document.createElementNS("http://www.w3.org/2000/svg", "circle"); c.setAttribute("r", "3.6"); c.setAttribute("fill", "var(--alert)"); parts.appendChild(c); dots.push(c); }
-    const D = 20;
-    const CAP = {
-      isq: [[0, "O sangue leva oxigênio ao cérebro o tempo todo."], [4, "Um coágulo se forma e viaja pelo vaso sanguíneo..."], [8, "...e entope o vaso. A região do cérebro fica sem oxigênio."], [12, "Os sinais aparecem de repente: rosto torto, braço fraco, fala enrolada."], [16, "Ligue 192 já! No hospital, existem tratamentos que só funcionam nas primeiras horas."]],
-      hem: [[0, "O sangue leva oxigênio ao cérebro o tempo todo."], [4, "A pressão alta força a parede do vaso por muito tempo e ela enfraquece."], [8, "O vaso se rompe e o sangue vaza dentro do cérebro."], [12, "Os sinais aparecem de repente: rosto torto, braço fraco, fala enrolada."], [16, "Também é emergência: ligue 192 imediatamente."]]
+    /* Tempos (em segundos) alinhados às pausas da narração de cada áudio.
+       a = começa a mudança (coágulo viaja / parede enfraquece); b = vaso entope / se rompe;
+       s = aparecem os sinais; c = aparece o 192. Legendas: [início, texto]. */
+    const EP = {
+      isq: {
+        src: "audio/isquemico.mp3", D: 30.75, a: 7.0, b: 13.0, s: 19.6, c: 26.7,
+        cap: [[0, "O sangue leva oxigênio ao cérebro o tempo todo."], [3.8, "No AVC isquêmico, um vaso que leva sangue ao cérebro fica entupido."], [7.0, "Um coágulo se forma e viaja pelo vaso sanguíneo..."], [13.0, "...e entope o vaso. A região do cérebro fica sem oxigênio."], [19.6, "Os sinais aparecem de repente: rosto torto, braço fraco, fala enrolada."], [26.7, "Ligue 192 já! Tempo é cérebro."]]
+      },
+      hem: {
+        src: "audio/hemorragico.mp3", D: 30.6, a: 6.9, b: 13.4, s: 19.5, c: 26.7,
+        cap: [[0, "O sangue leva oxigênio ao cérebro o tempo todo."], [3.7, "No AVC hemorrágico, um vaso sanguíneo se rompe."], [6.9, "A pressão alta força a parede do vaso por muito tempo e ela enfraquece."], [13.4, "O vaso se rompe e o sangue vaza dentro do cérebro."], [19.5, "Os sinais aparecem de repente: rosto torto, braço fraco, fala enrolada."], [26.7, "Também é emergência: ligue 192 imediatamente."]]
+      }
     };
-    let ep = "isq", t = 0, playing = false, last = 0, capI = -1, narr = false;
+    const audio = new Audio(); audio.preload = "auto";
+    let ep = "isq", t = 0, playing = false, last = 0, capI = -1, muted = false;
     const clamp = v => Math.max(0, Math.min(1, v));
     const pAt = f => path.getPointAtLength(L * f);
     const CLOT = 0.72, RUP = 0.62, rp = pAt(RUP);
     $("#vBleed").setAttribute("transform", `translate(${rp.x} ${rp.y}) scale(0)`);
     $("#vBulge").setAttribute("cx", rp.x); $("#vBulge").setAttribute("cy", rp.y);
+    const fmt = s => Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0");
     function render() {
-      const isq = ep === "isq";
-      const blocked = isq && t >= 8, rupt = !isq && t >= 8;
+      const E = EP[ep], isq = ep === "isq";
+      const blocked = isq && t >= E.b, rupt = !isq && t >= E.b;
       dots.forEach((c, i) => {
         const f = (t * 0.2 + i / N) % 1;
         const hide = (blocked && f > CLOT) || (rupt && f > RUP);
@@ -1988,46 +1989,63 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
         if (!hide) { const p = pAt(f); c.setAttribute("cx", p.x); c.setAttribute("cy", p.y); }
       });
       const clot = $("#vClot");
-      if (isq && t >= 4) { const p = pAt(Math.min(CLOT, (t - 4) / 4 * CLOT)); clot.setAttribute("transform", `translate(${p.x} ${p.y})`); clot.setAttribute("opacity", 1); }
+      if (isq && t >= E.a) { const p = pAt(Math.min(CLOT, (t - E.a) / (E.b - E.a) * CLOT)); clot.setAttribute("transform", `translate(${p.x} ${p.y})`); clot.setAttribute("opacity", 1); }
       else clot.setAttribute("opacity", 0);
-      const bul = !isq && t >= 4 && t < 8 ? clamp((t - 4) / 3) * (8 + 2 * Math.sin(t * 8)) : 0;
+      const bul = !isq && t >= E.a && t < E.b ? clamp((t - E.a) / 3) * (8 + 2 * Math.sin(t * 8)) : 0;
       $("#vBulge").setAttribute("r", Math.max(0, bul));
-      const bs = !isq ? clamp((t - 8) / 3) : 0;
+      const bs = !isq ? clamp((t - E.b) / 3) : 0;
       $("#vBleed").setAttribute("transform", `translate(${rp.x} ${rp.y}) scale(${bs * 1.3})`); $("#vBleed").setAttribute("opacity", bs ? 1 : 0);
-      const gray = clamp((t - 8.5) / 3) * (isq ? 0.75 : 0.55);
+      const gray = clamp((t - E.b - 0.5) / 3) * (isq ? 0.75 : 0.55);
       $("#vGray").setAttribute("opacity", gray); $("#vGlow").setAttribute("opacity", 0.3 * (1 - gray));
-      $$("#vSigns > g").forEach((g, i) => g.setAttribute("opacity", clamp((t - 12 - i * 0.8) / 0.5)));
-      $("#vBadge").setAttribute("opacity", clamp((t - 16) / 0.6));
-      const caps = CAP[ep]; let ci = 0; caps.forEach((c, i) => { if (t >= c[0]) ci = i; });
-      if (ci !== capI) {
-        capI = ci; $(".caption", root).textContent = caps[ci][1];
-        if (narr && playing && synth) { try { synth.cancel(); const u = new SpeechSynthesisUtterance(caps[ci][1]); u.lang = "pt-BR"; u.rate = 1; synth.speak(u); } catch (e) {} }
-      }
-      $("#pRange").value = Math.round(t / D * 1000);
-      const s = Math.floor(t); $(".ptime", root).textContent = "0:" + String(s).padStart(2, "0") + " / 0:20";
+      $$("#vSigns > g").forEach((g, i) => g.setAttribute("opacity", clamp((t - E.s - i * 0.8) / 0.5)));
+      $("#vBadge").setAttribute("opacity", clamp((t - E.c) / 0.6));
+      let ci = 0; E.cap.forEach((c, i) => { if (t >= c[0]) ci = i; });
+      if (ci !== capI) { capI = ci; $(".caption", root).textContent = E.cap[ci][1]; }
+      $("#pRange").value = Math.round(t / E.D * 1000);
+      $(".ptime", root).textContent = fmt(t) + " / " + fmt(E.D);
     }
     const PLAY = "M8 5l12 7-12 7z", PAUSE = "M7 5h4v14H7zM13 5h4v14h-4z";
     function setPlaying(v) {
+      const E = EP[ep];
       playing = v; root.classList.toggle("playing", v);
       $(".pp", root).setAttribute("d", v ? PAUSE : PLAY);
-      if (v) { if (t >= D) t = 0; capI = -1; last = performance.now(); requestAnimationFrame(loop); }
+      if (v) {
+        if (t >= E.D - 0.05) t = 0;
+        capI = -1; stopSpeak();
+        try { audio.currentTime = t; } catch (e) {}
+        audio.muted = muted;
+        const pr = audio.play(); if (pr && pr.catch) pr.catch(() => {});
+        last = performance.now(); requestAnimationFrame(loop);
+      } else { try { audio.pause(); } catch (e) {} }
+    }
+    function finish() {
+      const E = EP[ep]; t = E.D; render(); setPlaying(false); award(10, "vid-" + ep);
+      $(".caption", root).textContent = ep === "isq" ? "Fim! Agora assista ao AVC hemorrágico." : "Fim! Lembre: tempo é cérebro. Ligue 192.";
     }
     function loop(now) {
       if (!playing) return;
-      t += (now - last) / 1000; last = now;
-      if (t >= D) { t = D; render(); setPlaying(false); award(10, "vid-" + ep); $(".caption", root).textContent = ep === "isq" ? "Fim! Agora assista ao AVC hemorrágico." : "Fim! Lembre: tempo é cérebro. Ligue 192."; return; }
+      const E = EP[ep];
+      /* o relógio é o próprio áudio; sem áudio, segue o relógio do aparelho */
+      if (!audio.paused && !audio.error && audio.readyState >= 2) t = audio.currentTime;
+      else t += (now - last) / 1000;
+      last = now;
+      if (t >= E.D) { finish(); return; }
       render(); requestAnimationFrame(loop);
     }
+    audio.addEventListener("ended", () => { if (playing) finish(); });
     $(".bigplay", root).onclick = () => setPlaying(true);
     $('[data-act="play"]', root).onclick = () => setPlaying(!playing);
-    $('[data-act="narr"]', root).onclick = function () { narr = !narr; this.setAttribute("aria-pressed", String(narr)); if (!narr) stopSpeak(); toast(narr ? "Narração ligada" : "Narração desligada"); };
-    $("#pRange").addEventListener("input", e => { t = e.target.value / 1000 * D; capI = -1; render(); });
+    const snd = $('[data-act="narr"]', root);
+    snd.setAttribute("aria-pressed", "true"); snd.title = "Som da narração";
+    snd.onclick = () => { muted = !muted; audio.muted = muted; snd.setAttribute("aria-pressed", String(!muted)); toast(muted ? "Som desligado" : "Som ligado"); };
+    $("#pRange").addEventListener("input", e => { t = e.target.value / 1000 * EP[ep].D; capI = -1; try { audio.currentTime = t; } catch (x) {} render(); });
+    function load(k) { ep = k; audio.src = EP[k].src; t = 0; capI = -1; }
     $$("[data-ep]", root).forEach(b => b.addEventListener("click", () => {
       $$("[data-ep]", root).forEach(x => x.setAttribute("aria-selected", String(x === b)));
-      ep = b.dataset.ep; t = 0; capI = -1; setPlaying(false); render();
+      setPlaying(false); load(b.dataset.ep); render();
       $(".caption", root).textContent = "Aperte o play para assistir.";
     }));
-    render(); $(".caption", root).textContent = "Aperte o play para assistir.";
+    load("isq"); render(); $(".caption", root).textContent = "Aperte o play para assistir.";
     stepHooks.push(() => setPlaying(false));
     window.addEventListener("hashchange", () => setPlaying(false));
   })();
