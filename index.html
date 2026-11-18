@@ -303,6 +303,8 @@ ul.clean.yes li svg.i { color: var(--care); }
 .hot.found .ring-h { stroke: var(--care); stroke-dasharray: none; fill: rgba(35,115,95,.12); }
 .hot .badge { opacity: 0; transition: opacity .3s; }
 .hot.found .badge { opacity: 1; }
+.hz .hot .ring-h { stroke-width: 8; }
+.hz .hot:hover .ring-h, .hz .hot:focus .ring-h { stroke-dasharray: 18 14; }
 .found-list { display: grid; gap: 6px; }
 .found-list li { font-size: .95rem; }
 
@@ -1112,39 +1114,14 @@ footer.foot { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 
     <h2>Encontre os 6 riscos de queda nesta casa</h2>
     <p class="muted">Toque nos lugares que podem causar acidentes. Achados: <b id="hzCount">0</b> de 6</p>
     <div class="scene">
-      <svg viewBox="0 0 400 260" role="img" aria-label="Desenho de uma sala e um banheiro com riscos escondidos">
-        <rect width="400" height="260" fill="var(--surface-2)"/>
-        <rect x="0" y="0" width="400" height="170" fill="var(--home-soft)"/>
-        <rect x="0" y="170" width="400" height="90" fill="var(--line)"/>
-        <!-- janela -->
-        <rect x="30" y="30" width="70" height="56" rx="4" fill="var(--brand-soft)" stroke="var(--muted)" stroke-width="3"/><path d="M65 30v56M30 58h70" stroke="var(--muted)" stroke-width="3"/>
-        <!-- porta banheiro -->
-        <rect x="300" y="50" width="80" height="120" fill="var(--surface)" stroke="var(--muted)" stroke-width="3"/>
-        <rect x="312" y="96" width="44" height="40" rx="8" fill="var(--brand-soft)" stroke="var(--muted)" stroke-width="2"/>
-        <text x="340" y="70" text-anchor="middle" font-size="11" font-family="Atkinson Hyperlegible, sans-serif" fill="var(--muted)">banheiro</text>
-        <!-- luminária apagada -->
-        <path d="M170 0v30" stroke="var(--muted)" stroke-width="2"/><path d="M155 30h30l-6 16h-18z" fill="var(--muted)" opacity=".7"/>
-        <!-- sofá -->
-        <rect x="120" y="120" width="120" height="50" rx="12" fill="var(--rehab-soft)" stroke="var(--rehab)" stroke-width="3"/>
-        <rect x="112" y="110" width="20" height="60" rx="8" fill="var(--rehab-soft)" stroke="var(--rehab)" stroke-width="3"/><rect x="228" y="110" width="20" height="60" rx="8" fill="var(--rehab-soft)" stroke="var(--rehab)" stroke-width="3"/>
-        <!-- tapete solto -->
-        <path d="M60 205l90-6 6 22-92 8z" fill="var(--alert)" opacity=".55"/><path d="M150 199c8 2 10 8 6 22" stroke="var(--alert)" stroke-width="3" fill="none"/>
-        <!-- caixa no caminho -->
-        <rect x="236" y="190" width="40" height="30" fill="var(--home)" opacity=".75"/><path d="M236 198h40" stroke="var(--surface)" stroke-width="2"/>
-        <!-- mesinha com remédios baixa -->
-        <rect x="20" y="146" width="60" height="8" fill="var(--muted)"/><path d="M26 154v16M74 154v16" stroke="var(--muted)" stroke-width="3"/>
-        <rect x="32" y="132" width="10" height="14" rx="2" fill="var(--care)"/><rect x="48" y="128" width="10" height="18" rx="2" fill="var(--alert)"/><circle cx="64" cy="142" r="3" fill="var(--sun)"/>
-        <!-- chinelo -->
-        <ellipse cx="200" cy="240" rx="18" ry="7" fill="var(--brand)" opacity=".7"/>
-        <!-- piso molhado sem barra -->
-        <path d="M318 182c6-4 14-4 20 0s14 4 20 0" stroke="var(--brand)" stroke-width="3" fill="none"/>
-
-        <g class="hot" tabindex="0" role="button" data-h="Tapete solto: retire tapetes soltos ou fixe-os bem no chão."><circle class="ring-h" cx="108" cy="212" r="34"/><g class="badge"><circle cx="134" cy="190" r="11" fill="var(--care)"/><path d="M129 190l4 4 6-7" stroke="var(--on-color)" stroke-width="2.5" fill="none"/></g></g>
-        <g class="hot" tabindex="0" role="button" data-h="Objeto no caminho: mantenha as passagens livres de caixas, fios e móveis."><circle class="ring-h" cx="256" cy="205" r="26"/><g class="badge"><circle cx="276" cy="186" r="11" fill="var(--care)"/><path d="M271 186l4 4 6-7" stroke="var(--on-color)" stroke-width="2.5" fill="none"/></g></g>
-        <g class="hot" tabindex="0" role="button" data-h="Luz apagada: mantenha boa iluminação, inclusive à noite no caminho do banheiro."><circle class="ring-h" cx="170" cy="36" r="24"/><g class="badge"><circle cx="190" cy="18" r="11" fill="var(--care)"/><path d="M185 18l4 4 6-7" stroke="var(--on-color)" stroke-width="2.5" fill="none"/></g></g>
-        <g class="hot" tabindex="0" role="button" data-h="Remédios ao alcance: organize os remédios com uma lista atualizada e longe de crianças."><circle class="ring-h" cx="50" cy="146" r="28"/><g class="badge"><circle cx="72" cy="124" r="11" fill="var(--care)"/><path d="M67 124l4 4 6-7" stroke="var(--on-color)" stroke-width="2.5" fill="none"/></g></g>
-        <g class="hot" tabindex="0" role="button" data-h="Banheiro sem barra de apoio e piso molhado: instale barras de apoio quando indicado e mantenha o chão seco."><circle class="ring-h" cx="340" cy="150" r="36"/><g class="badge"><circle cx="366" cy="122" r="11" fill="var(--care)"/><path d="M361 122l4 4 6-7" stroke="var(--on-color)" stroke-width="2.5" fill="none"/></g></g>
-        <g class="hot" tabindex="0" role="button" data-h="Chinelo solto: use calçados firmes, fechados atrás, e os dispositivos de apoio prescritos."><circle class="ring-h" cx="200" cy="238" r="22"/><g class="badge"><circle cx="220" cy="222" r="11" fill="var(--care)"/><path d="M215 222l4 4 6-7" stroke="var(--on-color)" stroke-width="2.5" fill="none"/></g></g>
+      <svg viewBox="0 0 1672 941" class="hz" role="img" aria-label="Sala e banheiro de uma casa com 6 riscos de queda escondidos">
+        <image href="img/t4-riscos.webp" x="0" y="0" width="1672" height="941"/>
+        <g class="hot" tabindex="0" role="button" aria-label="Possível risco" data-h="Tapete solto: retire tapetes soltos ou fixe-os bem no chão."><rect class="ring-h" x="670" y="712" width="560" height="185" rx="30"/><g class="badge"><circle cx="1220" cy="722" r="34" fill="var(--care)" stroke="#fff" stroke-width="6"/><path d="M1204 722 l11 11 l19 -21" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+        <g class="hot" tabindex="0" role="button" aria-label="Possível risco" data-h="Caixa e fio no caminho: mantenha as passagens livres de caixas, fios e móveis."><rect class="ring-h" x="760" y="440" width="400" height="260" rx="30"/><g class="badge"><circle cx="1150" cy="450" r="34" fill="var(--care)" stroke="#fff" stroke-width="6"/><path d="M1134 450 l11 11 l19 -21" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+        <g class="hot" tabindex="0" role="button" aria-label="Possível risco" data-h="Luz apagada no corredor: mantenha boa iluminação, inclusive à noite no caminho do banheiro."><rect class="ring-h" x="900" y="15" width="200" height="190" rx="30"/><g class="badge"><circle cx="1090" cy="25" r="34" fill="var(--care)" stroke="#fff" stroke-width="6"/><path d="M1074 25 l11 11 l19 -21" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+        <g class="hot" tabindex="0" role="button" aria-label="Possível risco" data-h="Remédios espalhados na mesinha: organize os remédios com uma lista atualizada e guarde longe de crianças."><rect class="ring-h" x="285" y="545" width="420" height="195" rx="30"/><g class="badge"><circle cx="695" cy="555" r="34" fill="var(--care)" stroke="#fff" stroke-width="6"/><path d="M679 555 l11 11 l19 -21" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+        <g class="hot" tabindex="0" role="button" aria-label="Possível risco" data-h="Banheiro sem barra de apoio e com piso molhado: instale barras de apoio quando indicado e mantenha o chão seco."><rect class="ring-h" x="1262" y="360" width="325" height="380" rx="30"/><g class="badge"><circle cx="1577" cy="370" r="34" fill="var(--care)" stroke="#fff" stroke-width="6"/><path d="M1561 370 l11 11 l19 -21" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+        <g class="hot" tabindex="0" role="button" aria-label="Possível risco" data-h="Chinelos soltos: use calçados firmes, fechados atrás, e os dispositivos de apoio prescritos."><rect class="ring-h" x="30" y="740" width="320" height="190" rx="30"/><g class="badge"><circle cx="340" cy="750" r="34" fill="var(--care)" stroke="#fff" stroke-width="6"/><path d="M324 750 l11 11 l19 -21" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g></g>
       </svg>
     </div>
     <ul class="clean yes found-list" id="hzList"></ul>
